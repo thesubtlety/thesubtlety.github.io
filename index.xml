@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>The Subtlety</title>
-    <link>https://www.thesubtlety.com/</link>
+    <link>https://thesubtlety.github.io/</link>
     <description>Recent content on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 23 Aug 2015 00:27:58 +0000</lastBuildDate>
-    <atom:link href="https://www.thesubtlety.com/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://thesubtlety.github.io/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>OpenDNS&#39;s AppSec Training Lab</title>
-      <link>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</link>
+      <link>https://thesubtlety.github.io/post/opendnss-appsec-training-lab/</link>
       <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</guid>
+      <guid>https://thesubtlety.github.io/post/opendnss-appsec-training-lab/</guid>
       <description>&lt;p&gt;I came across OpenDNS Security Ninjas AppSec &lt;a href=&#34;https://github.com/opendns/Security_Ninjas_AppSec_Training&#34;&gt;Training Lab&lt;/a&gt; not too long ago and found its simplicity rather enjoyable. It&amp;rsquo;s a simple web app written in PHP which illustrates each of the &lt;a href=&#34;https://www.owasp.org/index.php/Top_10_2013-Table_of_Contents&#34;&gt;OWASP Top 10&lt;/a&gt; categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.&lt;/p&gt;
 
 &lt;p&gt;Since the lab is geared towards beginners, I thought it might be helpful to provide brief explanations along with links to the relevant lines of source code. For each level/OWASP vulnerability, I simply added a &amp;ldquo;Why&amp;rdquo; section to each &amp;ldquo;Solution&amp;rdquo; area linking to the sink on Github along with a brief explanation.&lt;/p&gt;
@@ -25,14 +25,14 @@
     
     <item>
       <title>The OSCP | Penetration Testing With Kali Linux</title>
-      <link>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</link>
+      <link>https://thesubtlety.github.io/post/the-oscp-penetration-testing-with-kali-linux/</link>
       <pubDate>Sat, 20 Dec 2014 22:03:29 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</guid>
+      <guid>https://thesubtlety.github.io/post/the-oscp-penetration-testing-with-kali-linux/</guid>
       <description>
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/pwk-box-small-128x150.png&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/pwk-box-small-128x150.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -120,10 +120,10 @@ I think the only dissatisfaction I experienced was while working on a exploiting
     
     <item>
       <title>Building a Web App in Rails</title>
-      <link>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</link>
+      <link>https://thesubtlety.github.io/post/building-a-web-app-in-rails/</link>
       <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</guid>
+      <guid>https://thesubtlety.github.io/post/building-a-web-app-in-rails/</guid>
       <description>&lt;p&gt;A brilliant &lt;a href=&#34;http://blaedj.github.io/&#34;&gt;software engineering friend&lt;/a&gt; and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&amp;rsquo; productivity. A win win situation if there ever was one.&lt;/p&gt;
 
 &lt;p&gt;So we set about the process of building a web application in Ruby on Rails. And several weeks later, we had one completed. It&amp;rsquo;s nothing too fancy, but one that is being used in production and is adding business value. And it was an awesome learning experience. I just wanted to highlight some of what we encountered, how we went about the task, and a few lessons learned along the way.&lt;/p&gt;
@@ -185,10 +185,10 @@ Conclusion: PANIC!&lt;/code&gt;&lt;/p&gt;
     
     <item>
       <title>Renewing your StartCom SSL Cert</title>
-      <link>https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/</link>
+      <link>https://thesubtlety.github.io/post/renewing-your-startcom-ssl-cert/</link>
       <pubDate>Sat, 15 Mar 2014 00:57:49 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/</guid>
+      <guid>https://thesubtlety.github.io/post/renewing-your-startcom-ssl-cert/</guid>
       <description>&lt;p&gt;Since I&amp;rsquo;ve forgotten how to do this over the past year, here are the directions for posterity.&lt;/p&gt;
 
 &lt;ol&gt;
@@ -213,10 +213,10 @@ Conclusion: PANIC!&lt;/code&gt;&lt;/p&gt;
     
     <item>
       <title>Just the Basics</title>
-      <link>https://www.thesubtlety.com/post/just-the-basics/</link>
+      <link>https://thesubtlety.github.io/post/just-the-basics/</link>
       <pubDate>Mon, 17 Feb 2014 20:58:31 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/just-the-basics/</guid>
+      <guid>https://thesubtlety.github.io/post/just-the-basics/</guid>
       <description>&lt;p&gt;Things have been busy lately, but I&amp;rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&amp;rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;___  ___       _                      _         _  _   
@@ -261,7 +261,7 @@ host              port  proto  name   state    info
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/nmap_snorby.png&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/nmap_snorby.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -316,7 +316,7 @@ smb: \&amp;gt; ls
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/Selection_002.png&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/Selection_002.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -338,7 +338,7 @@ msf &amp;gt; set payload windows/meterpreter/reverse_tcp
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/Selection_003.png&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/Selection_003.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -352,16 +352,16 @@ msf &amp;gt; set payload windows/meterpreter/reverse_tcp
     
     <item>
       <title>BSidesDC Badge </title>
-      <link>https://www.thesubtlety.com/post/bsidesdc-badge/</link>
+      <link>https://thesubtlety.github.io/post/bsidesdc-badge/</link>
       <pubDate>Tue, 29 Oct 2013 01:19:19 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/bsidesdc-badge/</guid>
+      <guid>https://thesubtlety.github.io/post/bsidesdc-badge/</guid>
       <description>&lt;p&gt;I recently attended my first security conference: BSidesDC. This isn&amp;rsquo;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by &lt;a href=&#34;https://twitter.com/grecs&#34;&gt;@grecs&lt;/a&gt; was &lt;a href=&#34;https://www.novainfosec.com/2013/10/19/malware-analysis-slides-from-bsidesdc/&#34;&gt;Malware Analysis 101&lt;/a&gt;. Very well presented with lots of great getting started material.&lt;/p&gt;
 
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/bsides-150x150.jpg&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/bsides-150x150.jpg&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -424,14 +424,14 @@ bsidessecurity
     
     <item>
       <title>Security Onion Network Configuration and Install</title>
-      <link>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</link>
+      <link>https://thesubtlety.github.io/post/security-onion-network-configuration-and-install/</link>
       <pubDate>Sat, 19 Oct 2013 02:41:57 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/</guid>
+      <guid>https://thesubtlety.github.io/post/security-onion-network-configuration-and-install/</guid>
       <description>
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/theonion-wait-what-150x150.jpeg&#34; alt=&#34;With apologies to The Onion&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/theonion-wait-what-150x150.jpeg&#34; alt=&#34;With apologies to The Onion&#34; /&gt;
     
     
     &lt;figcaption&gt;
@@ -509,10 +509,10 @@ Note: I&#39;m actually using the host&#39;s bridged wired interface here as Secu
     
     <item>
       <title>Kippo on the Raspberry Pi</title>
-      <link>https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/</link>
+      <link>https://thesubtlety.github.io/post/kippo-on-the-raspberry-pi/</link>
       <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/</guid>
+      <guid>https://thesubtlety.github.io/post/kippo-on-the-raspberry-pi/</guid>
       <description>&lt;p&gt;I recently bought a Raspberry Pi and installed &lt;a href=&#34;http://archlinuxarm.org/platforms/armv6/raspberry-pi#qt-platform_tabs-ui-tabs2&#34;&gt;Arch Linux ARM&lt;/a&gt; on it. I came across a rather amusing blog post of someone using the &lt;a href=&#34;https://en.wikipedia.org/wiki/Honeypot_(computing&#34;&gt;honeypot&lt;/a&gt;) &lt;a href=&#34;https://code.google.com/p/kippo/&#34;&gt;Kippo&lt;/a&gt; and thought what fun. See &lt;a href=&#34;http://www.iwatchedyourhack.org/&#34;&gt;here&lt;/a&gt; to watch elite hackers and their mad skillz. That&amp;rsquo;s the great thing about Kippo - it records user sessions for playback.&lt;/p&gt;
 
 &lt;p&gt;Anyways, this post basically walks through what I did to get Kippo and &lt;a href=&#34;http://bruteforce.gr/kippo-graph&#34;&gt;kippo-graph&lt;/a&gt; up and running on my RPi. This isn&amp;rsquo;t a walk-you-through-every-step guide, so if you&amp;rsquo;re following along your mileage may vary. Of course, the &lt;a href=&#34;https://code.google.com/p/kippo/w/list&#34;&gt;Wiki pages&lt;/a&gt; over on Google Code are a good place to start. Or &lt;a href=&#34;http://bruteforce.gr/installing-kippo-ssh-honeypot-on-ubuntu.html&#34;&gt;here&lt;/a&gt;. Or &lt;a href=&#34;http://www.ctrl-alt-del.cc/2010/07/making-new-friends-with-kippo.html&#34;&gt;here&lt;/a&gt;. Everyone&amp;rsquo;s done this! But without further adieu&amp;hellip;&lt;/p&gt;
@@ -572,10 +572,10 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
     
     <item>
       <title>Career README.txt</title>
-      <link>https://www.thesubtlety.com/post/career-readme-txt/</link>
+      <link>https://thesubtlety.github.io/post/career-readme-txt/</link>
       <pubDate>Thu, 04 Apr 2013 00:50:49 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/career-readme-txt/</guid>
+      <guid>https://thesubtlety.github.io/post/career-readme-txt/</guid>
       <description>&lt;p&gt;I read this &lt;a href=&#34;http://www.kalzumeus.com/2011/10/28/dont-call-yourself-a-programmer&#34;&gt;article&lt;/a&gt; by Patrick McKenzie a while back, came across it again, and decided it&amp;rsquo;s worth reading weekly. I&amp;rsquo;ve pulled out some of his bolded points. But seriously, read the article in it&amp;rsquo;s entirety. Again. And again.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Don&amp;rsquo;t Call Yourself a Programmer, And Other Career Advice&lt;/strong&gt;&lt;/p&gt;
@@ -612,10 +612,10 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
     
     <item>
       <title>Rob Fuller on Getting a Job in InfoSec</title>
-      <link>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</link>
+      <link>https://thesubtlety.github.io/post/rob-fuller-on-getting-a-job-in-infosec/</link>
       <pubDate>Fri, 22 Feb 2013 01:12:37 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</guid>
+      <guid>https://thesubtlety.github.io/post/rob-fuller-on-getting-a-job-in-infosec/</guid>
       <description>&lt;p&gt;I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&amp;rsquo;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&amp;rsquo;s not InfoSec.&lt;/p&gt;
 
 &lt;p&gt;In my search for ways to break into InfoSec, I&amp;rsquo;ve come across numerous &lt;a href=&#34;https://www.schneier.com/blog/archives/2012/07/how_to_become_a_1.html&#34;&gt;posts&lt;/a&gt;, &lt;a href=&#34;http://pauldotcom.com/2009/05/getting-started-in-information.html&#34;&gt;advice&lt;/a&gt;, and &lt;a href=&#34;https://krebsonsecurity.com/category/how-to-break-into-security/&#34;&gt;tips&lt;/a&gt; to do just that. And this is great stuff - I&amp;rsquo;m working on the learning and the doing covered in those posts. But I really enjoyed the clear, common sense advice on building a  resume, the job search, interview techniques, brand building, and general career advice given by Rob Fuller. Watch the presentation &lt;a href=&#34;http://vimeo.com/4108726&#34;&gt;here&lt;/a&gt;. (About 50 minutes)&lt;/p&gt;
@@ -624,10 +624,10 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
     
     <item>
       <title>On the Dumbest Ideas in Computer Security</title>
-      <link>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</link>
+      <link>https://thesubtlety.github.io/post/on-the-dumbest-ideas-in-computer-security/</link>
       <pubDate>Sat, 15 Sep 2012 22:22:40 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</guid>
+      <guid>https://thesubtlety.github.io/post/on-the-dumbest-ideas-in-computer-security/</guid>
       <description>&lt;p&gt;The other day I came across an article by &lt;a href=&#34;http://en.wikipedia.org/wiki/Marcus_J._Ranum&#34;&gt;Marcus J Ranum&lt;/a&gt; on &lt;a href=&#34;http://www.ranum.com/security/computer_security/editorials/dumb/index.html&#34;&gt;the six dumbest ideas in computer security&lt;/a&gt; which were very simple yet struck me as profound. I&amp;rsquo;ll summarize them here for future reference.&lt;/p&gt;
 
 &lt;p&gt;1) Default Permit&lt;/p&gt;
@@ -666,10 +666,10 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
     
     <item>
       <title>Breaking into Security</title>
-      <link>https://www.thesubtlety.com/post/breaking-into-security/</link>
+      <link>https://thesubtlety.github.io/post/breaking-into-security/</link>
       <pubDate>Mon, 25 Jun 2012 18:21:26 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/breaking-into-security/</guid>
+      <guid>https://thesubtlety.github.io/post/breaking-into-security/</guid>
       <description>&lt;p&gt;This blogging thing is harder than it seems - the what to write, the time to write. I came across another interesting blog post from &lt;a href=&#34;http://m.krebsonsecurity.com/2012/06/how-to-break-into-security-ptacek-edition/&#34;&gt;Krebs on Security&lt;/a&gt;,  who interviewed Thomas Ptackek, founder of Matasano Security, on how to get into the field of computer security. As this is precisely my intent, I gave it a quick read through and thought to post a to-do for myself.&lt;/p&gt;
 
 &lt;ol&gt;
@@ -696,10 +696,10 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
     
     <item>
       <title>My Random Ramblings</title>
-      <link>https://www.thesubtlety.com/post/random-ramblings/</link>
+      <link>https://thesubtlety.github.io/post/random-ramblings/</link>
       <pubDate>Wed, 04 Jan 2012 21:12:53 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/random-ramblings/</guid>
+      <guid>https://thesubtlety.github.io/post/random-ramblings/</guid>
       <description>&lt;p&gt;Here, shall I attempt to document some random doings related to computers, security, linuxstuff, windowsstuff, and most likely miscellany.&lt;/p&gt;
 
 &lt;p&gt;Apparently typing all this out helps the mind become better at communicating, and who doesn&amp;rsquo;t want that?&lt;/p&gt;
@@ -710,10 +710,10 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
     
     <item>
       <title>About</title>
-      <link>https://www.thesubtlety.com/about/</link>
+      <link>https://thesubtlety.github.io/about/</link>
       <pubDate>Sun, 01 Jan 2012 00:00:00 -0500</pubDate>
       
-      <guid>https://www.thesubtlety.com/about/</guid>
+      <guid>https://thesubtlety.github.io/about/</guid>
       <description>&lt;p&gt;I’m just this guy, y’know? All things infosec interest me.&lt;/p&gt;
 
 &lt;p&gt;&lt;a href=&#34;https://github.com/thesubtlety&#34;&gt;https://github.com/thesubtlety&lt;/a&gt;&lt;/p&gt;

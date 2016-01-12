@@ -2,23 +2,23 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Pen Testing on The Subtlety</title>
-    <link>https://www.thesubtlety.com/categories/pen-testing/</link>
+    <link>https://thesubtlety.github.io/categories/pen-testing/</link>
     <description>Recent content in Pen Testing on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 20 Dec 2014 22:03:29 +0000</lastBuildDate>
-    <atom:link href="https://www.thesubtlety.com/categories/pen-testing/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://thesubtlety.github.io/categories/pen-testing/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>The OSCP | Penetration Testing With Kali Linux</title>
-      <link>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</link>
+      <link>https://thesubtlety.github.io/post/the-oscp-penetration-testing-with-kali-linux/</link>
       <pubDate>Sat, 20 Dec 2014 22:03:29 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</guid>
+      <guid>https://thesubtlety.github.io/post/the-oscp-penetration-testing-with-kali-linux/</guid>
       <description>
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/pwk-box-small-128x150.png&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/pwk-box-small-128x150.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -106,10 +106,10 @@ I think the only dissatisfaction I experienced was while working on a exploiting
     
     <item>
       <title>Just the Basics</title>
-      <link>https://www.thesubtlety.com/post/just-the-basics/</link>
+      <link>https://thesubtlety.github.io/post/just-the-basics/</link>
       <pubDate>Mon, 17 Feb 2014 20:58:31 +0000</pubDate>
       
-      <guid>https://www.thesubtlety.com/post/just-the-basics/</guid>
+      <guid>https://thesubtlety.github.io/post/just-the-basics/</guid>
       <description>&lt;p&gt;Things have been busy lately, but I&amp;rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&amp;rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.&lt;/p&gt;
 
 &lt;pre&gt;&lt;code&gt;___  ___       _                      _         _  _   
@@ -154,7 +154,7 @@ host              port  proto  name   state    info
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/nmap_snorby.png&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/nmap_snorby.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -209,7 +209,7 @@ smb: \&amp;gt; ls
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/Selection_002.png&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/Selection_002.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -231,7 +231,7 @@ msf &amp;gt; set payload windows/meterpreter/reverse_tcp
 
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://www.thesubtlety.com/img/Selection_003.png&#34; /&gt;
+        &lt;img src=&#34;https://thesubtlety.github.io/img/Selection_003.png&#34; /&gt;
     
     
 &lt;/figure&gt;
