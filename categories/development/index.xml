@@ -2,19 +2,19 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Development on The Subtlety</title>
-    <link>https://thesubtlety.github.io/categories/development/</link>
+    <link>https://www.thesubtlety.com/categories/development/</link>
     <description>Recent content in Development on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 23 Aug 2015 00:27:58 +0000</lastBuildDate>
-    <atom:link href="https://thesubtlety.github.io/categories/development/index.xml" rel="self" type="application/rss+xml" />
+    <atom:link href="https://www.thesubtlety.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
       <title>OpenDNS&#39;s AppSec Training Lab</title>
-      <link>https://thesubtlety.github.io/post/opendnss-appsec-training-lab/</link>
+      <link>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</link>
       <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
       
-      <guid>https://thesubtlety.github.io/post/opendnss-appsec-training-lab/</guid>
+      <guid>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</guid>
       <description>&lt;p&gt;I came across OpenDNS Security Ninjas AppSec &lt;a href=&#34;https://github.com/opendns/Security_Ninjas_AppSec_Training&#34;&gt;Training Lab&lt;/a&gt; not too long ago and found its simplicity rather enjoyable. It&amp;rsquo;s a simple web app written in PHP which illustrates each of the &lt;a href=&#34;https://www.owasp.org/index.php/Top_10_2013-Table_of_Contents&#34;&gt;OWASP Top 10&lt;/a&gt; categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.&lt;/p&gt;
 
 &lt;p&gt;Since the lab is geared towards beginners, I thought it might be helpful to provide brief explanations along with links to the relevant lines of source code. For each level/OWASP vulnerability, I simply added a &amp;ldquo;Why&amp;rdquo; section to each &amp;ldquo;Solution&amp;rdquo; area linking to the sink on Github along with a brief explanation.&lt;/p&gt;
@@ -25,14 +25,14 @@
     
     <item>
       <title>The OSCP | Penetration Testing With Kali Linux</title>
-      <link>https://thesubtlety.github.io/post/the-oscp-penetration-testing-with-kali-linux/</link>
+      <link>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</link>
       <pubDate>Sat, 20 Dec 2014 22:03:29 +0000</pubDate>
       
-      <guid>https://thesubtlety.github.io/post/the-oscp-penetration-testing-with-kali-linux/</guid>
+      <guid>https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/</guid>
       <description>
 &lt;figure &gt;
     
-        &lt;img src=&#34;https://thesubtlety.github.io/img/pwk-box-small-128x150.png&#34; /&gt;
+        &lt;img src=&#34;https://www.thesubtlety.com/img/pwk-box-small-128x150.png&#34; /&gt;
     
     
 &lt;/figure&gt;
@@ -120,10 +120,10 @@ I think the only dissatisfaction I experienced was while working on a exploiting
     
     <item>
       <title>Building a Web App in Rails</title>
-      <link>https://thesubtlety.github.io/post/building-a-web-app-in-rails/</link>
+      <link>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</link>
       <pubDate>Fri, 11 Apr 2014 01:57:03 +0000</pubDate>
       
-      <guid>https://thesubtlety.github.io/post/building-a-web-app-in-rails/</guid>
+      <guid>https://www.thesubtlety.com/post/building-a-web-app-in-rails/</guid>
       <description>&lt;p&gt;A brilliant &lt;a href=&#34;http://blaedj.github.io/&#34;&gt;software engineering friend&lt;/a&gt; and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&amp;rsquo; productivity. A win win situation if there ever was one.&lt;/p&gt;
 
 &lt;p&gt;So we set about the process of building a web application in Ruby on Rails. And several weeks later, we had one completed. It&amp;rsquo;s nothing too fancy, but one that is being used in production and is adding business value. And it was an awesome learning experience. I just wanted to highlight some of what we encountered, how we went about the task, and a few lessons learned along the way.&lt;/p&gt;
