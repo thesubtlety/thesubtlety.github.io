@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Development on The Subtlety</title>
-    <link>https://www.thesubtlety.com/categories/development/</link>
-    <description>Recent content in Development on The Subtlety</description>
+    <title>The Subtlety</title>
+    <link>https://www.thesubtlety.com/categories/development/index.xml</link>
+    <description>Recent content on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sun, 23 Aug 2015 00:27:58 +0000</lastBuildDate>
     <atom:link href="https://www.thesubtlety.com/categories/development/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -68,7 +67,8 @@ focused my attention on the lab. It is at this point, when the course turns from
 
 &lt;ul&gt;
 &lt;li&gt;I used Keepnote on my host machine to track everything. It&amp;rsquo;s certainly not without its frustrations, but it does the job. Don&amp;rsquo;t forget to back everything up!&lt;/li&gt;
-&lt;li&gt;Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&amp;rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&amp;rsquo;t include some small issue is frustrating.&lt;/li&gt;
+&lt;li&gt;Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&amp;rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&amp;rsquo;t include some small issue is frustrating.
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;br/&gt;
@@ -83,7 +83,8 @@ been crashed by a previous student and Metasploit would have gotten me in immedi
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.greyhathacker.net/?p=738&#34;&gt;http://www.greyhathacker.net/?p=738&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.fuzzysecurity.com/tutorials/16.html&#34;&gt;http://www.fuzzysecurity.com/tutorials/16.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&#34;&gt;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&#34;&gt;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 

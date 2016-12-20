@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Pen Testing on The Subtlety</title>
-    <link>https://www.thesubtlety.com/categories/pen-testing/</link>
-    <description>Recent content in Pen Testing on The Subtlety</description>
+    <title>The Subtlety</title>
+    <link>https://www.thesubtlety.com/categories/pen-testing/index.xml</link>
+    <description>Recent content on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 20 Dec 2014 22:03:29 +0000</lastBuildDate>
     <atom:link href="https://www.thesubtlety.com/categories/pen-testing/index.xml" rel="self" type="application/rss+xml" />
     
     <item>
@@ -54,7 +53,8 @@ focused my attention on the lab. It is at this point, when the course turns from
 
 &lt;ul&gt;
 &lt;li&gt;I used Keepnote on my host machine to track everything. It&amp;rsquo;s certainly not without its frustrations, but it does the job. Don&amp;rsquo;t forget to back everything up!&lt;/li&gt;
-&lt;li&gt;Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&amp;rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&amp;rsquo;t include some small issue is frustrating.&lt;/li&gt;
+&lt;li&gt;Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&amp;rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&amp;rsquo;t include some small issue is frustrating.
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;br/&gt;
@@ -69,7 +69,8 @@ been crashed by a previous student and Metasploit would have gotten me in immedi
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.greyhathacker.net/?p=738&#34;&gt;http://www.greyhathacker.net/?p=738&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.fuzzysecurity.com/tutorials/16.html&#34;&gt;http://www.fuzzysecurity.com/tutorials/16.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&#34;&gt;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&#34;&gt;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -162,7 +163,7 @@ host              port  proto  name   state    info
 
 &lt;p&gt;Tip toeing around Snort rules and timers is an interesting game. Fyodor&amp;rsquo;s Nmap &lt;a href=&#34;http://nmap.org/book/&#34;&gt;book&lt;/a&gt; has quite a bit of information around this and makes for interesting reading. Another thing to note is the default User Agent for Nmap scripts is fairly conspicuous as seen below. According to &lt;a href=&#34;http://www.kroosec.com/2012/02/making-nmap-scripting-engine-stealthier.html&#34;&gt;this guy&lt;/a&gt;, that can be easily changed in the nse lua settings.&lt;/p&gt;
 
-&lt;p&gt;Another option for host and vulnerability discovery is via &lt;a href=&#34;https://en.wikipedia.org/wiki/Nessus_(software&#34;&gt;Nessus&lt;/a&gt;). Nmap and it&amp;rsquo;s version detection can get us a long way, but Nessus will give us a laundry list of poor configurations, out of date services, relevant CVEs, and fixes. The new HTML5 UI is quite nice to use; simply run a scan on your desired targets and export as as a nessus file (xml format) for Metasploit to import.&lt;/p&gt;
+&lt;p&gt;Another option for host and vulnerability discovery is via &lt;a href=&#34;https://en.wikipedia.org/wiki/Nessus_(software)&#34;&gt;Nessus&lt;/a&gt;. Nmap and it&amp;rsquo;s version detection can get us a long way, but Nessus will give us a laundry list of poor configurations, out of date services, relevant CVEs, and fixes. The new HTML5 UI is quite nice to use; simply run a scan on your desired targets and export as as a nessus file (xml format) for Metasploit to import.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Anyways&lt;/strong&gt;&lt;/p&gt;
 

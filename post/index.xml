@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on The Subtlety</title>
-    <link>https://www.thesubtlety.com/post/</link>
-    <description>Recent content in Posts on The Subtlety</description>
+    <title>Post-rsses on The Subtlety</title>
+    <link>https://www.thesubtlety.com/post/index.xml</link>
+    <description>Recent content in Post-rsses on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 23 Aug 2015 00:27:58 +0000</lastBuildDate>
@@ -68,7 +68,8 @@ focused my attention on the lab. It is at this point, when the course turns from
 
 &lt;ul&gt;
 &lt;li&gt;I used Keepnote on my host machine to track everything. It&amp;rsquo;s certainly not without its frustrations, but it does the job. Don&amp;rsquo;t forget to back everything up!&lt;/li&gt;
-&lt;li&gt;Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&amp;rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&amp;rsquo;t include some small issue is frustrating.&lt;/li&gt;
+&lt;li&gt;Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&amp;rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&amp;rsquo;t include some small issue is frustrating.
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
 &lt;p&gt;&lt;br/&gt;
@@ -83,7 +84,8 @@ been crashed by a previous student and Metasploit would have gotten me in immedi
 &lt;ul&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.greyhathacker.net/?p=738&#34;&gt;http://www.greyhathacker.net/?p=738&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&#34;http://www.fuzzysecurity.com/tutorials/16.html&#34;&gt;http://www.fuzzysecurity.com/tutorials/16.html&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&#34;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&#34;&gt;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&lt;/a&gt;&lt;br /&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&#34;&gt;http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/&lt;/a&gt;&lt;br /&gt;
+&lt;br /&gt;&lt;/li&gt;
 &lt;/ul&gt;&lt;/li&gt;
 &lt;/ul&gt;
 
@@ -269,7 +271,7 @@ host              port  proto  name   state    info
 
 &lt;p&gt;Tip toeing around Snort rules and timers is an interesting game. Fyodor&amp;rsquo;s Nmap &lt;a href=&#34;http://nmap.org/book/&#34;&gt;book&lt;/a&gt; has quite a bit of information around this and makes for interesting reading. Another thing to note is the default User Agent for Nmap scripts is fairly conspicuous as seen below. According to &lt;a href=&#34;http://www.kroosec.com/2012/02/making-nmap-scripting-engine-stealthier.html&#34;&gt;this guy&lt;/a&gt;, that can be easily changed in the nse lua settings.&lt;/p&gt;
 
-&lt;p&gt;Another option for host and vulnerability discovery is via &lt;a href=&#34;https://en.wikipedia.org/wiki/Nessus_(software&#34;&gt;Nessus&lt;/a&gt;). Nmap and it&amp;rsquo;s version detection can get us a long way, but Nessus will give us a laundry list of poor configurations, out of date services, relevant CVEs, and fixes. The new HTML5 UI is quite nice to use; simply run a scan on your desired targets and export as as a nessus file (xml format) for Metasploit to import.&lt;/p&gt;
+&lt;p&gt;Another option for host and vulnerability discovery is via &lt;a href=&#34;https://en.wikipedia.org/wiki/Nessus_(software)&#34;&gt;Nessus&lt;/a&gt;. Nmap and it&amp;rsquo;s version detection can get us a long way, but Nessus will give us a laundry list of poor configurations, out of date services, relevant CVEs, and fixes. The new HTML5 UI is quite nice to use; simply run a scan on your desired targets and export as as a nessus file (xml format) for Metasploit to import.&lt;/p&gt;
 
 &lt;p&gt;&lt;strong&gt;Anyways&lt;/strong&gt;&lt;/p&gt;
 
@@ -513,7 +515,7 @@ Note: I&#39;m actually using the host&#39;s bridged wired interface here as Secu
       <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
       
       <guid>https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/</guid>
-      <description>&lt;p&gt;I recently bought a Raspberry Pi and installed &lt;a href=&#34;http://archlinuxarm.org/platforms/armv6/raspberry-pi#qt-platform_tabs-ui-tabs2&#34;&gt;Arch Linux ARM&lt;/a&gt; on it. I came across a rather amusing blog post of someone using the &lt;a href=&#34;https://en.wikipedia.org/wiki/Honeypot_(computing&#34;&gt;honeypot&lt;/a&gt;) &lt;a href=&#34;https://code.google.com/p/kippo/&#34;&gt;Kippo&lt;/a&gt; and thought what fun. See &lt;a href=&#34;http://www.iwatchedyourhack.org/&#34;&gt;here&lt;/a&gt; to watch elite hackers and their mad skillz. That&amp;rsquo;s the great thing about Kippo - it records user sessions for playback.&lt;/p&gt;
+      <description>&lt;p&gt;I recently bought a Raspberry Pi and installed &lt;a href=&#34;http://archlinuxarm.org/platforms/armv6/raspberry-pi#qt-platform_tabs-ui-tabs2&#34;&gt;Arch Linux ARM&lt;/a&gt; on it. I came across a rather amusing blog post of someone using the &lt;a href=&#34;https://en.wikipedia.org/wiki/Honeypot_(computing)&#34;&gt;honeypot&lt;/a&gt; &lt;a href=&#34;https://code.google.com/p/kippo/&#34;&gt;Kippo&lt;/a&gt; and thought what fun. See &lt;a href=&#34;http://www.iwatchedyourhack.org/&#34;&gt;here&lt;/a&gt; to watch elite hackers and their mad skillz. That&amp;rsquo;s the great thing about Kippo - it records user sessions for playback.&lt;/p&gt;
 
 &lt;p&gt;Anyways, this post basically walks through what I did to get Kippo and &lt;a href=&#34;http://bruteforce.gr/kippo-graph&#34;&gt;kippo-graph&lt;/a&gt; up and running on my RPi. This isn&amp;rsquo;t a walk-you-through-every-step guide, so if you&amp;rsquo;re following along your mileage may vary. Of course, the &lt;a href=&#34;https://code.google.com/p/kippo/w/list&#34;&gt;Wiki pages&lt;/a&gt; over on Google Code are a good place to start. Or &lt;a href=&#34;http://bruteforce.gr/installing-kippo-ssh-honeypot-on-ubuntu.html&#34;&gt;here&lt;/a&gt;. Or &lt;a href=&#34;http://www.ctrl-alt-del.cc/2010/07/making-new-friends-with-kippo.html&#34;&gt;here&lt;/a&gt;. Everyone&amp;rsquo;s done this! But without further adieu&amp;hellip;&lt;/p&gt;
 
