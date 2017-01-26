@@ -6,8 +6,120 @@
     <description>Recent content in Post-rsses on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 19 Dec 2016 17:19:40 -0800</lastBuildDate>
+    <lastBuildDate>Wed, 25 Jan 2017 21:06:57 -0800</lastBuildDate>
     <atom:link href="https://www.thesubtlety.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Search Shodan and Censys With Shocens</title>
+      <link>https://www.thesubtlety.com/post/2017-01-25-query-shodan-and-censys-with-shocens/</link>
+      <pubDate>Wed, 25 Jan 2017 21:06:57 -0800</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/2017-01-25-query-shodan-and-censys-with-shocens/</guid>
+      <description>
+
+&lt;p&gt;Recon is close to &lt;a href=&#34;http://www.pentest-standard.org/index.php/Intelligence_Gathering&#34;&gt;step one&lt;/a&gt; in any pentest. When it comes to passively pulling data on infrastructure assets you have a number of options. &lt;a href=&#34;https://whois.arin.net/ui/advanced.jsp&#34;&gt;ARIN&lt;/a&gt; can help identify an organization&amp;rsquo;s registered net blocks, but that&amp;rsquo;s only part of the picture. With many organizations based in or using cloud services, those assets won&amp;rsquo;t necessarily be registered to your target.&lt;/p&gt;
+
+&lt;p&gt;And when AWS for example can tie &lt;a href=&#34;https://aws.amazon.com/directconnect/&#34;&gt;directly into a datacenter&lt;/a&gt;, these servers become quite valuable. As an aside to AWS, check out &lt;a href=&#34;https://media.ccc.de/v/33c3-7865-gone_in_60_milliseconds&#34;&gt;Gone in 60 Milliseconds&lt;/a&gt; by &lt;a href=&#34;https://github.com/Miserlou&#34;&gt;Rich Jones&lt;/a&gt; - awesome talk. Now if a developer stands up a server with HTTPS using a corporate certificate it&amp;rsquo;s likely going to be picked up and indexed by someone, Shodan, or Censys - so let&amp;rsquo;s make use of that.&lt;/p&gt;
+
+&lt;h2 id=&#34;shocens&#34;&gt;Shocens&lt;/h2&gt;
+
+&lt;p&gt;I&amp;rsquo;ll cover Shodan and Censys in a bit more detail below, but suffice it to say I needed a tool that queried these search engines for specific organizations and let me do something useful with the data. Built in tools for Shodan are great for macro searches but I found myself wanting more when targeting a specific organization that had more than a few pages of data but didn&amp;rsquo;t consist of hundreds of thousands of results. The Python APIs and CLI tools available just weren&amp;rsquo;t quite what I was looking for.&lt;/p&gt;
+
+&lt;p&gt;This being my small motivation along with a desire to do some more Ruby development, I wrote &lt;strong&gt;Shocens&lt;/strong&gt; - a little tool to&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;make basic queries of both Shodan and Censys&lt;/li&gt;
+&lt;li&gt;parse the results with options to diff against past scans&lt;/li&gt;
+&lt;li&gt;and output to csv and txt&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;There is still a lot of potential to parse additional data from both search engines and cross query to fill in the blanks where one search engine has data while the other does not. It&amp;rsquo;s less than perfect, and you&amp;rsquo;ll obviously find the native search engines provide more power for complex queries. But it was fun to write, and still provides me a bit of value.&lt;/p&gt;
+
+&lt;p&gt;More details on Shocens usage are available on Github - &lt;a href=&#34;https://github.com/thesubtlety/shocens&#34;&gt;https://github.com/thesubtlety/shocens&lt;/a&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-&amp;gt; % ruby shocens.rb -q &#39;parsed.extensions=&amp;quot;shodan&amp;quot;&#39; -l 100
+[+] Beginning Shodan search for org:google
+[+] 687497 results in org:&amp;quot;google&amp;quot;
+[+] Limiting results to 1 pages...
+
+[+] Parsing page 1 of 1
+
+Host:		104.131.0.69: ports 80
+Server:		nginx/1.4.6 (Ubuntu)
+Powered By:	
+Title:		Shodan Internet Census
+Cert Names:	
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Following is a brief overview of both Shodan and Censys along with various useful search filters.&lt;/p&gt;
+
+&lt;h2 id=&#34;shodan&#34;&gt;Shodan&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://www.shodan.io/&#34;&gt;Shodan&lt;/a&gt; is &amp;ldquo;the world&amp;rsquo;s first search engine for Internet-connected devices&amp;rdquo;. There are quite a few resources out there on what Shodan is and how to use it so I won&amp;rsquo;t go into great detail. The slogan sums it up quite well. If there is a device reachable on the internet and you know what to look for, Shodan will help you find it.&lt;/p&gt;
+
+&lt;h4 id=&#34;search-filters&#34;&gt;Search Filters&lt;/h4&gt;
+
+&lt;p&gt;Where the real beauty of Shodan comes in is with filters&lt;/p&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;code&gt;net:10425.89.0/24&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;org:Microsoft&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;title:tagged-scraped-content&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;html:search-the-page&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;product:banner-id&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;version:v1.2.3&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;city:Seattle&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;country:USA&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;geo:12.3456,78.9087&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;hostname:.edu&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;os:AIX&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;port:80&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;&lt;code&gt;before/after:01/01/1970&lt;/code&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Depending on what you&amp;rsquo;re looking to accomplish a combination of &lt;code&gt;net&lt;/code&gt;, &lt;code&gt;html&lt;/code&gt;, and &lt;code&gt;org&lt;/code&gt; have served me well for targeted recon. See the &lt;a href=&#34;https://developer.shodan.io/api/banner-specification&#34;&gt;banner-specs&lt;/a&gt; for more possible filters. And John Matherly himself wrote the &lt;a href=&#34;https://leanpub.com/shodan&#34;&gt;Complete Guide to Shodan&lt;/a&gt; starting at one dollar which is probably worth checking out.&lt;/p&gt;
+
+&lt;h4 id=&#34;apis-and-credits&#34;&gt;APIs and Credits&lt;/h4&gt;
+
+&lt;p&gt;It&amp;rsquo;s worth noting you&amp;rsquo;ll need an account to do anything useful with Shodan (beyond a simple query with one page of results). Using filters, seeing results beyond one page, and using the API requires a paid account. It&amp;rsquo;s only around ~$45USD, there are frequent deals on paid membership for full API access, maybe free for .edu, and totally worth it. This will give you around 10,000 results per month. Register &lt;a href=&#34;https://account.shodan.io/register&#34;&gt;here&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;resources&#34;&gt;Resources&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://pen-testing.sans.org/blog/2015/12/08/effective-shodan-searches/&#34;&gt;Effective Shodan Searches&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://danielmiessler.com/study/shodan/&#34;&gt;A Shodan Tutorial&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.exploit-db.com/docs/33859.pdf&#34;&gt;Searching Shodan for Fun and Profit&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;h2 id=&#34;censys&#34;&gt;Censys&lt;/h2&gt;
+
+&lt;p&gt;&lt;a href=&#34;https://censys.io/&#34;&gt;Censys.io&lt;/a&gt; is &amp;ldquo;a search engine that allows computer scientists to ask questions about the devices and networks that compose the Internet&amp;rdquo;. Same thing as Shodan - it lets you identify what&amp;rsquo;s out there. They pull data daily and use Zmap to get their &lt;a href=&#34;https://scans.io/&#34;&gt;data&lt;/a&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;search-filters-1&#34;&gt;Search Filters&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;Supports everything Shodan does and then some&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Actually, just go check out their website. The documentation is quite good. The &lt;a href=&#34;https://censys.io/overview&#34;&gt;Overview page&lt;/a&gt;, Examples tab has basic query examples, but you can really filter on just about anything. The following page covers a few: &lt;a href=&#34;https://www.censys.io/ipv4/72.14.246.220/table&#34;&gt;https://www.censys.io/ipv4/72.14.246.220/table&lt;/a&gt;&lt;/p&gt;
+
+&lt;p&gt;Again, depending on what you&amp;rsquo;re looking for, I&amp;rsquo;ve had good luck using CIDR blocks: &lt;code&gt;127.0.0.1/24&lt;/code&gt;, parsing
+certificates: &lt;code&gt;parsed.extensions=domain.tld&lt;/code&gt;, and ASes: &lt;code&gt;autonomous_system:description: &#39;Org Name&#39;&lt;/code&gt;.&lt;/p&gt;
+
+&lt;h4 id=&#34;apis-and-rate-limits&#34;&gt;APIs and Rate Limits&lt;/h4&gt;
+
+&lt;p&gt;Again, you&amp;rsquo;ll need an account. Censys usage is free, though and you can register &lt;a href=&#34;https://censys.io/register&#34;&gt;here&lt;/a&gt;. You aren&amp;rsquo;t limited by specific searches per month per se as with Shodan, but rather you get a limited number of requests per five minute bucket.&lt;/p&gt;
+
+&lt;h4 id=&#34;resources-1&#34;&gt;Resources&lt;/h4&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://censys.io/about&#34;&gt;About Censys&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://jhalderm.com/pub/papers/censys-ccs15.pdf&#34;&gt;A Search Engine Backed by Internet-Wide Scanning&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+
+&lt;p&gt;Thanks for reading and happy searching!&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Persistent C2 with dnscat2</title>
