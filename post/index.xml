@@ -6,8 +6,74 @@
     <description>Recent content in Post-rsses on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 25 Jan 2017 21:06:57 -0800</lastBuildDate>
+    <lastBuildDate>Sat, 11 Feb 2017 13:05:48 -0800</lastBuildDate>
     <atom:link href="https://www.thesubtlety.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>The OSCE | Cracking the Perimeter Review</title>
+      <link>https://www.thesubtlety.com/post/2017-02-11-osce-review/</link>
+      <pubDate>Sat, 11 Feb 2017 13:05:48 -0800</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/2017-02-11-osce-review/</guid>
+      <description>
+
+&lt;p&gt;&lt;img src=&#34;../img/ctp-boxes-small.png#floatright&#34; alt=&#34;ctp&#34; /&gt;
+I recently took the &lt;a href=&#34;https://www.offensive-security.com/information-security-training/cracking-the-perimeter/&#34;&gt;CTP course&lt;/a&gt; by Offensive Security and passed the OSCE exam. Now there are a few dozen &lt;a href=&#34;https://www.google.com/search?q=osce+exam+review&#34;&gt;reviews&lt;/a&gt; on this thing, but I&amp;rsquo;ll add my own take here anyway.&lt;/p&gt;
+
+&lt;h3 id=&#34;pre-course&#34;&gt;Pre Course&lt;/h3&gt;
+
+&lt;p&gt;You can&amp;rsquo;t just register for the CTP - you need to solve a small challenge first: &lt;a href=&#34;http://fc4.me/&#34;&gt;http://fc4.me/&lt;/a&gt;. When I initially thought about taking this course, part of this challenge was beyond me. But to quote &lt;a href=&#34;https://blog.g0tmi1k.com/2013/08/cracking-perimeter-ctp-offensive/&#34;&gt;g0tmi1k&lt;/a&gt;:&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&amp;ldquo;There isn&amp;rsquo;t any shame in not being able to complete this. It simply means you&amp;rsquo;re not ready&amp;hellip; yet! If you look up the solution online, you&amp;rsquo;re just cheating yourself and wasting both time and money. It&amp;rsquo;s been put there for a reason. Offsec is trying to protect you from yourself (in their own frustrating but necessary way!).&amp;rdquo;&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;And so I began my prep for the course. Corelan&amp;rsquo;s &lt;a href=&#34;https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/&#34;&gt;exploit dev tutorials&lt;/a&gt;, Fuzzysec&amp;rsquo;s &lt;a href=&#34;https://www.fuzzysecurity.com/tutorials.html&#34;&gt;tutorials&lt;/a&gt;, and Stephen Bradshaw&amp;rsquo;s &lt;a href=&#34;http://www.thegreycorner.com/2010/12/introducing-vulnserver.html&#34;&gt;Vulnserver&lt;/a&gt; helped immensely. Having gone through, played with, and poked at that material, I was able to solve the initial challenge and set a course start date.&lt;/p&gt;
+
+&lt;h3 id=&#34;course&#34;&gt;Course&lt;/h3&gt;
+
+&lt;p&gt;The CTP syllabus is available &lt;a href=&#34;https://www.offensive-security.com/documentation/cracking-the-perimiter-syllabus.pdf&#34;&gt;here&lt;/a&gt; and gives a high level overview of what is covered. If you&amp;rsquo;ve taken the OSCP, it doesn&amp;rsquo;t cover nearly as much ground, and is much more focused on the following topics.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Web Application Angle&lt;/strong&gt; - The two modules covered here are a bit more complex that what you&amp;rsquo;d find in the OSCP but nothing too ground breaking. XSS, CSRF, LFI are covered but the scenarios are more real world than trivial examples I&amp;rsquo;ve seen elsewhere. Still valuable.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Backdooring and AV Bypass&lt;/strong&gt; - I hadn&amp;rsquo;t done this before and thought these modules were pretty fun. I fully realized that AV today is &amp;hellip; less than perfect and is really only catching the known bad. There are a billion ways to bypass even heuristics, especially if you can write just the smallest amount of code.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;0 Day Angle&lt;/strong&gt; - These modules cover fuzzing and the infamous HP Openview NNM exploit. NNM is usually what people talk about when they bring up the course. Muts actually covers this crazy exploit at Defcon 16 in this &lt;a href=&#34;https://www.youtube.com/watch?v=gHISpAZiAm0&#34;&gt;video&lt;/a&gt;. This module makes up a larger portion of the course work and was pretty enjoyable. I must say having read &lt;em&gt;Hacking: The Art of Exploitation&lt;/em&gt; and having some of those code samples available was also helpful to me here.&lt;/p&gt;
+
+&lt;p&gt;&lt;strong&gt;Networking Angle&lt;/strong&gt; - Spoofing SNMP and GRE tunnels. I barely recall this module. Although though seeing how devastating (and relatively straight forward) a MiTM attack can be at the infrastructure level was certainly eye opening.&lt;/p&gt;
+
+&lt;p&gt;I learned a ton in this course. Definitely realized that the amount I don&amp;rsquo;t know about exploit development is pretty staggering. This is supposed to be an intermediate course but looking at the amount of research out there, some of this feels pretty entry level as the heap and ROP aren&amp;rsquo;t even mentioned. That said, the scope of the CTP is a bit wider than just exploit development, so maybe that&amp;rsquo;s a bit unfair, and I still found the course challenging. Several reviews do mention the dated material and that may be true, but I felt what was taught was entirely foundational. A person must walk before they run and the CTP course does an excellent job doing just that.&lt;/p&gt;
+
+&lt;p&gt;Of course even excellent courses can be improved, and one thing that gave a bit of dissatisfaction was the lack of Extra Mile exercises going through the course like the OSCP course did. It seemed you could complete a module easily enough following the directions, have an basic starting point of where to research more, and then it was off to the next chapter. And perhaps this is by design, but I think I learned more while practicing for the exam than during the course itself. The course material gave me starting points, skeletons to work from, ideas to use, and from there I was able to fill in the blanks through additional research and practice.&lt;/p&gt;
+
+&lt;h3 id=&#34;exam&#34;&gt;Exam&lt;/h3&gt;
+
+&lt;p&gt;The 48 hour exam was not easy. The number of times I thought I was completely screwed, unprepared, and guaranteed failure was more than a few. And it was still somehow enjoyable! In general I found myself realizing I needed to think laterally, to take a step back and look at the big picture. The feeling of accomplishment after hours working through various potential paths and finally succeeding is hard to beat. I felt the OSCE exam had the perfect level of challenge and frustration without that feeling of impossibility. While everything on the exam is covered in the the course in principle, OffSec will never let you simply follow the directions to success. They teach principles and techniques and let you apply them creatively.&lt;/p&gt;
+
+&lt;p&gt;I spent around sixteen hours on the exam the first day with quick breaks for coffee and lunch and forced myself to go to sleep before 1 am. I got around seven hours of sleep and then did another sixteen hours the next day before successfully completing all the challenges for full points. I strongly recommend getting a good night&amp;rsquo;s rest the first night and come back the next day planning on working late if need be.&lt;/p&gt;
+
+&lt;p&gt;All in all, the CTP course was informative and valuable and the exam enjoyably challenging. Highly recommended.&lt;/p&gt;
+
+&lt;h3 id=&#34;helpful-resources&#34;&gt;Helpful Resources&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/jhaddix/tbhm&#34;&gt;Web - Jason Haddix Bug Hunting Guide&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://packetstorm.foofus.com/papers/virus/BypassAVDynamics.pdf&#34;&gt;AV Bypass Techniques&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://pentest.blog/art-of-anti-detection-2-pe-backdoor-manufacturing/&#34;&gt;AV Bypass and PE Backdoors&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://packetstormsecurity.com/papers/virus/Taking_Back_Netcat.pdf&#34;&gt;AV Bypass - Taking Back Netcat&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/secfigo/Awesome-Fuzzing&#34;&gt;Fuzzing - Awesome-Fuzzing on Github&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://resources.infosecinstitute.com/fuzzing-vulnserver-discovering-vulnerable-commands-part-1/&#34;&gt;Fuzzing - Vulnserver Intro&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.thegreycorner.com/2010/12/introducing-vulnserver.html&#34;&gt;Fuzzing and Exploit Dev - Vulnserver&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/&#34;&gt;Exploit Dev - Corelan Tutorials&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://raw.githubusercontent.com/corelan/wallpapers/master/corelan_wallpaper_dark_1920-1080.png&#34;&gt;Exploit Dev - Corelan Wallpaper&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.fuzzysecurity.com/tutorials.html&#34;&gt;Exploit Dev - FuzzySec Windows Exploit Development Tutorial Series&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/enddo/awesome-windows-exploitation&#34;&gt;Exploit Dev - Awesome Windows Explation on Github&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.vividmachines.com/shellcode/shellcode.html&#34;&gt;Exploit Dev - How To Shellcode&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://www.gosecure.it/blog/art/452/sec/create-a-custom-shellcode-using-system-function/&#34;&gt;Exploit Dev - Shellcode with System()&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;https://github.com/JohnTroony/HTAOE/blob/master/printable_helper.c&#34;&gt;Exploit Dev - ASCII Sub Generator&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Search Shodan and Censys With Shocens</title>
@@ -945,20 +1011,6 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
 &lt;p&gt;This is exciting and encouraging! And because I&amp;rsquo;m already started on a couple of these things, I&amp;rsquo;m well on my way. Thanks Brian Krebs and Thomas Ptacek!&lt;/p&gt;
 
 &lt;p&gt;By the way, the &lt;a href=&#34;http://www.matasano.com/careers/&#34;&gt;careers page&lt;/a&gt; of Matasano security is awesome as far as what to expect when interviewing for a pen testing job.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>My Random Ramblings</title>
-      <link>https://www.thesubtlety.com/post/random-ramblings/</link>
-      <pubDate>Wed, 04 Jan 2012 21:12:53 +0000</pubDate>
-      
-      <guid>https://www.thesubtlety.com/post/random-ramblings/</guid>
-      <description>&lt;p&gt;Here, shall I attempt to document some random doings related to computers, security, linuxstuff, windowsstuff, and most likely miscellany.&lt;/p&gt;
-
-&lt;p&gt;Apparently typing all this out helps the mind become better at communicating, and who doesn&amp;rsquo;t want that?&lt;/p&gt;
-
-&lt;p&gt;So whether you or another read these ramblings, or I myself re-read them later on in my ever so awe-inspiring, galvanic, exhilarating life, let this be a place for learning and perusing.&lt;/p&gt;
 </description>
     </item>
     
