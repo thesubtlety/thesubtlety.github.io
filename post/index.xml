@@ -6,8 +6,61 @@
     <description>Recent content in Post-rsses on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 11 Feb 2017 13:05:48 -0800</lastBuildDate>
+    <lastBuildDate>Mon, 13 Mar 2017 23:17:52 -0700</lastBuildDate>
     <atom:link href="https://www.thesubtlety.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Informacast Singlewire Insecure JMX Config to RCE</title>
+      <link>https://www.thesubtlety.com/post/2017-03-13-informacast-singlewire-insecure-jmx/</link>
+      <pubDate>Mon, 13 Mar 2017 23:17:52 -0700</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/2017-03-13-informacast-singlewire-insecure-jmx/</guid>
+      <description>
+
+&lt;p&gt;I recently came across a good reminder to double check listening ephemeral ports. The organization in question was using the &lt;a href=&#34;https://www.singlewire.com/informacast-desktop-notifier.html&#34;&gt;Informacast Singlewire Desktop Notifier&lt;/a&gt; v2.0 application. It allows organizations &amp;ldquo;to display a pop-up window on top of other running applications to inform users of important information&amp;rdquo; or to send desktop alerts to users in geographic regions.&lt;/p&gt;
+
+&lt;p&gt;After some enumeration, it looked like it was exposing a &lt;a href=&#34;https://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html&#34;&gt;JMX Remote management&lt;/a&gt; port of we&amp;rsquo;ll say port 42424. Nmap won&amp;rsquo;t identify the service version in a normal scan, but if you request &lt;code&gt;--version-all&lt;/code&gt;, you should see the port listed as rmiregistry.&lt;/p&gt;
+
+&lt;p&gt;&lt;code&gt;#nmap -p 42424 -sV --version-all 172.16.42.42&lt;/code&gt;&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;PORT 	  STATE     SERVICE 	VERSION
+42424/tcp open	    rmiregistry	Java RMI
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;You can connect to the service legitimately with &lt;code&gt;jconsole&lt;/code&gt; available in Kali to verify the service as well. This will get you Java debug info, the hostname, username, and the ability to invoke various functions with &lt;code&gt;jconsole ip.add.re.ss:42424&lt;/code&gt;. Nmap also has the &lt;code&gt;rmi-dumpregistry&lt;/code&gt; script to gather more information.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://www.thesubtlety.com/img/s1.png&#34; alt=&#34;jconsole&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;As we&amp;rsquo;ll later discover, the application was running with some suspect options:&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;-Dcom.sun.management.jmxremote.port=42424 
+-Dcom.sun.management.jmxremote.authenticate=false 
+-Dcom.sun.management.jmxremote.ssl=false 
+com.berbee.ippaging.desktop.SpelDesktopAgent
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;Unfortunately for this organization, the fine folks at Optiv (Braden Thomas) had done a bit of &lt;a href=&#34;https://www.optiv.com/blog/exploiting-jmx-rmi&#34;&gt;research&lt;/a&gt; extending an insecure &lt;a href=&#34;https://www.rapid7.com/db/modules/exploit/multi/misc/java_rmi_server&#34;&gt;Java RMI configuration&lt;/a&gt; exploit which led to the creation of the &lt;a href=&#34;https://www.exploit-db.com/exploits/36101/&#34;&gt;Java JMX Insecure Configuration&lt;/a&gt; Metasploit module to abuse this insecure configuration. With authentication disabled and an application using poor secure coding practices, this exploit respectfully offers up a user shell.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code&gt;#msfconsole
+&amp;gt;use exploit/multi/misc/java_jmx_server
+..set RHOST and LPORT
+&amp;gt;exploit
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://www.thesubtlety.com/img/s2.png&#34; alt=&#34;jconsole&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;And since this was deployed to the entire Windows fleet, all machines had this nice little backdoor installed. Fortunately this product version is end of life&amp;rsquo;d but there is no mention of the issue in any Informacast documentation. The word I heard back from the vendor was to &amp;ldquo;update to the latest version&amp;rdquo; which apparently has no Java dependencies.&lt;/p&gt;
+
+&lt;p&gt;&lt;a href=&#34;http://bytesdarkly.com/2016/01/know-your-tools-cve-2015-2342-ioc-and-metasploit/&#34;&gt;Bytes Darkly&lt;/a&gt; has some IOCs written up on the Metasploit payload which are worth checking out as well.&lt;/p&gt;
+
+&lt;h2 id=&#34;resources&#34;&gt;Resources&lt;/h2&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&#34;https://www.optiv.com/blog/exploiting-jmx-rmi&#34;&gt;https://www.optiv.com/blog/exploiting-jmx-rmi&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&#34;http://bytesdarkly.com/2016/01/know-your-tools-cve-2015-2342-ioc-and-metasploit/&#34;&gt;http://bytesdarkly.com/2016/01/know-your-tools-cve-2015-2342-ioc-and-metasploit/&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>The OSCE | Cracking the Perimeter Review</title>
@@ -981,36 +1034,6 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
 &lt;p&gt;Here we have &amp;ldquo;early adopters&amp;rdquo; and &amp;ldquo;pause and thinkers.&amp;rdquo; Ranum says &amp;ldquo;pause and thinkers&amp;rdquo; build more successful, secure, mission-critical systems. He illustrates this with &amp;ldquo;one senior IT executive&amp;rsquo;s roll out plan for a wireless corporate network was &amp;lsquo;wait two years and hire the guy who did a successful wireless deployment for a company larger than us.&amp;rsquo; The technology will be more mature and cheaper by then.&amp;rdquo;&lt;/p&gt;
 
 &lt;p&gt;So: to myself or another reader who has stumbled along this far, I highly recommend (re)reading Ranums entire article. And maybe check out his website, which is full of interesting links. I think a takeaway here is to identify the root cause and fix that, rather than continue turd polishing everything in sight; that is surely a losing battle.&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Breaking into Security</title>
-      <link>https://www.thesubtlety.com/post/breaking-into-security/</link>
-      <pubDate>Mon, 25 Jun 2012 18:21:26 +0000</pubDate>
-      
-      <guid>https://www.thesubtlety.com/post/breaking-into-security/</guid>
-      <description>&lt;p&gt;This blogging thing is harder than it seems - the what to write, the time to write. I came across another interesting blog post from &lt;a href=&#34;http://m.krebsonsecurity.com/2012/06/how-to-break-into-security-ptacek-edition/&#34;&gt;Krebs on Security&lt;/a&gt;,  who interviewed Thomas Ptackek, founder of Matasano Security, on how to get into the field of computer security. As this is precisely my intent, I gave it a quick read through and thought to post a to-do for myself.&lt;/p&gt;
-
-&lt;ol&gt;
-&lt;li&gt;&lt;p&gt;Learn how to program. Plugging away with Ruby. Get dabbling in Python and C.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Set up a home lab for experimenting&lt;em&gt;. Done.&lt;/em&gt;&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Install an old version of Wordpress on a VM.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Use WebScarab or Burp Suite on your ancient Wordpress site.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;The best jobs in the field are in application security.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Position yourself near custom software development or get a role in QA.&lt;/p&gt;&lt;/li&gt;
-
-&lt;li&gt;&lt;p&gt;Find opportunities to practice in your job.&lt;/p&gt;&lt;/li&gt;
-&lt;/ol&gt;
-
-&lt;p&gt;This is exciting and encouraging! And because I&amp;rsquo;m already started on a couple of these things, I&amp;rsquo;m well on my way. Thanks Brian Krebs and Thomas Ptacek!&lt;/p&gt;
-
-&lt;p&gt;By the way, the &lt;a href=&#34;http://www.matasano.com/careers/&#34;&gt;careers page&lt;/a&gt; of Matasano security is awesome as far as what to expect when interviewing for a pen testing job.&lt;/p&gt;
 </description>
     </item>
     
