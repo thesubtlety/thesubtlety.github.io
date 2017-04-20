@@ -6,8 +6,63 @@
     <description>Recent content in Post-rsses on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 13 Mar 2017 23:17:52 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 19 Apr 2017 18:19:01 -0700</lastBuildDate>
     <atom:link href="https://www.thesubtlety.com/post/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Using subTee&#39;s katz to Reflectively Load an exe</title>
+      <link>https://www.thesubtlety.com/post/2017-04-19-using-katz-to-reflectively-load-exe/</link>
+      <pubDate>Wed, 19 Apr 2017 18:19:01 -0700</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/2017-04-19-using-katz-to-reflectively-load-exe/</guid>
+      <description>
+
+&lt;p&gt;I haven&amp;rsquo;t seen this specifically outlined anywhere so I figured I&amp;rsquo;d write a short post to go over using subTee&amp;rsquo;s &lt;a href=&#34;https://github.com/subTee/Utils&#34;&gt;Katz2.0&lt;/a&gt; program to create a custom binary that loads mimikatz (or whatever executable you&amp;rsquo;d like) into memory. Casey Smith (&lt;a href=&#34;https://github.com/subTee&#34;&gt;subTee&lt;/a&gt;) and company have created some incredible tools that have made my life easier, so hats off to them.&lt;/p&gt;
+
+&lt;h3 id=&#34;reflective-injection&#34;&gt;Reflective Injection&lt;/h3&gt;
+
+&lt;p&gt;The following steps will create a custom binary with an encrypted and encoded mimikatz binary string which will load mimikatz into memory through &lt;a href=&#34;https://clymb3r.wordpress.com/2013/04/06/reflective-dll-injection-with-powershell/&#34;&gt;reflective PE injection&lt;/a&gt;.&lt;/p&gt;
+
+&lt;ol&gt;
+&lt;li&gt;Compile &lt;a href=&#34;https://github.com/gentilkiwi/mimikatz&#34;&gt;Mimikatz&lt;/a&gt; for release - remember it&amp;rsquo;s architecture specific so you&amp;rsquo;ll probably want to compile both or download the binaries&lt;/li&gt;
+&lt;li&gt;Download subTee&amp;rsquo;s &lt;a href=&#34;https://github.com/subTee/Utils&#34;&gt;Katz2.0&lt;/a&gt;. &lt;a href=&#34;https://github.com/thesubtlety/Utils/blob/master/katz2.0.cs&#34;&gt;My fork&lt;/a&gt; simply makes the encryption method easier to access and outputs the base64. The following is based on that.&lt;/li&gt;
+&lt;li&gt;Open in Visual Studio
+
+&lt;ol&gt;
+&lt;li&gt;Find/Replace &amp;ldquo;password&amp;rdquo; with something more subtle like &amp;ldquo;WaitForSingleObject&amp;rdquo;&lt;/li&gt;
+&lt;li&gt;Find &amp;ldquo;SALT&amp;rdquo; and replace those bytes with &lt;code&gt;0xde 0xad 0xbe 0xef&lt;/code&gt; and so on.&lt;/li&gt;
+&lt;li&gt;Compile Katz2.0&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;And run the resulting binary pointing to your mimikatz executable
+
+&lt;ol&gt;
+&lt;li&gt;&lt;code&gt;c:\&amp;gt;katz.exe encrypt c:\path\to\mimikatz64.exe | clip&lt;/code&gt;&lt;/li&gt;
+&lt;/ol&gt;&lt;/li&gt;
+&lt;li&gt;If you &lt;code&gt;clip&lt;/code&gt;d from before this will be in your clipboard, otherwise copy the output string from newly created &lt;code&gt;file.b64&lt;/code&gt;&lt;/li&gt;
+&lt;li&gt;Paste that string into the &lt;code&gt;filex64&lt;/code&gt; variable (at the bottom of Katz2.0.cs)&lt;/li&gt;
+&lt;li&gt;And now rebuild Katz2.0 again&lt;/li&gt;
+&lt;li&gt;Note that you could/should repeat this process for the x86 mimikatz binary&lt;/li&gt;
+&lt;/ol&gt;
+
+&lt;p&gt;Now when you run the katz2.0 binary without any arguments, mimikatz should be loaded into memory and run without issue. This will get by most AV out there although some programs may flag some mimikatz functionality (e.g. dumping &lt;code&gt;sekurlsa::logonpasswords&lt;/code&gt;).&lt;/p&gt;
+
+&lt;h3 id=&#34;similar-projects&#34;&gt;Similar projects&lt;/h3&gt;
+
+&lt;ul&gt;
+&lt;li&gt;&lt;p&gt;&lt;a href=&#34;https://github.com/Cn33liz/p0wnedShell&#34;&gt;p0wnedShell&lt;/a&gt; is pretty sweet, and does a similar thing although it&amp;rsquo;s considerably larger including more tools&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Customize mimikatz to reflectively load the DLL into memory - great post &lt;a href=&#34;https://clymb3r.wordpress.com/2013/04/09/modifying-mimikatz-to-be-loaded-using-invoke-reflectivedllinjection-ps1/&#34;&gt;here&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Similar work by subTee lets you execute shellcode using JScript &lt;a href=&#34;https://subt0x10.blogspot.com/2017/04/using-dotnettojscript-working-example.html&#34;&gt;here&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;For more fully featured obfuscation, &lt;a href=&#34;https://cobbr.io/ObfuscatedEmpire.html&#34;&gt;ObfuscatedEmpire&lt;/a&gt; is an awesome integration of Invoke-Obfuscation and Empire. Highly recommend checking it out.&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Similar but using &lt;code&gt;Invoke-Mimikatz&lt;/code&gt; - simply make a few string modifications to slip by AV - &lt;a href=&#34;http://www.blackhillsinfosec.com/?p=5555&#34;&gt;BHIS&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+
+&lt;li&gt;&lt;p&gt;Powershell without powershell.exe - &lt;a href=&#34;http://www.blackhillsinfosec.com/?p=5257&#34;&gt;Also by BHIS&lt;/a&gt;&lt;/p&gt;&lt;/li&gt;
+&lt;/ul&gt;
+</description>
+    </item>
     
     <item>
       <title>Informacast Singlewire Insecure JMX Config to RCE</title>
@@ -992,48 +1047,6 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
       <description>&lt;p&gt;I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&amp;rsquo;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&amp;rsquo;s not InfoSec.&lt;/p&gt;
 
 &lt;p&gt;In my search for ways to break into InfoSec, I&amp;rsquo;ve come across numerous &lt;a href=&#34;https://www.schneier.com/blog/archives/2012/07/how_to_become_a_1.html&#34;&gt;posts&lt;/a&gt;, &lt;a href=&#34;http://pauldotcom.com/2009/05/getting-started-in-information.html&#34;&gt;advice&lt;/a&gt;, and &lt;a href=&#34;https://krebsonsecurity.com/category/how-to-break-into-security/&#34;&gt;tips&lt;/a&gt; to do just that. And this is great stuff - I&amp;rsquo;m working on the learning and the doing covered in those posts. But I really enjoyed the clear, common sense advice on building a  resume, the job search, interview techniques, brand building, and general career advice given by Rob Fuller. Watch the presentation &lt;a href=&#34;http://vimeo.com/4108726&#34;&gt;here&lt;/a&gt;. (About 50 minutes)&lt;/p&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>On the Dumbest Ideas in Computer Security</title>
-      <link>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</link>
-      <pubDate>Sat, 15 Sep 2012 22:22:40 +0000</pubDate>
-      
-      <guid>https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/</guid>
-      <description>&lt;p&gt;The other day I came across an article by &lt;a href=&#34;http://en.wikipedia.org/wiki/Marcus_J._Ranum&#34;&gt;Marcus J Ranum&lt;/a&gt; on &lt;a href=&#34;http://www.ranum.com/security/computer_security/editorials/dumb/index.html&#34;&gt;the six dumbest ideas in computer security&lt;/a&gt; which were very simple yet struck me as profound. I&amp;rsquo;ll summarize them here for future reference.&lt;/p&gt;
-
-&lt;p&gt;1) Default Permit&lt;/p&gt;
-
-&lt;p&gt;Back when computer networks were still in their infancy, there were few avenues for attack. With those avenues turned off, all else was allowed. Hence &amp;ldquo;default permit.&amp;rdquo; Another area is code execution: anything clicked is permitted to run, unless stopped by antivirus or the likes. The proper solution here is default deny, but this, according to Ranum, takes dedication, thought, and understanding, and so is seldom done. And it allows one to sleep better at night.&lt;/p&gt;
-
-&lt;p&gt;2) Enumerating Badness&lt;/p&gt;
-
-&lt;p&gt;This is a subset of Default Permit, but is interesting as well. As mentioned previously, there were only a few avenues for attack, so if you blocked those vectors, you should be good, right? No, this is &amp;ldquo;enumerating badness.&amp;rdquo; This is a dumb idea because of the incredible amount of badness that exists. Antivirus tries to track the thousands and thousands of viruses, etc and stop them, rather than a solution that tracks the (very few) legitimate applications that regularly run and deny all else. Why is this not a consumer solution in today&amp;rsquo;s world?&lt;/p&gt;
-
-&lt;p&gt;Another great concept is that of &lt;a href=&#34;http://www.ranum.com/security/computer_security/papers/ai/index.html&#34;&gt;&amp;ldquo;Artificial Ignorance&amp;rdquo;&lt;/a&gt;, where you get rid of uninteresting log entries, and keep all else, which, if they are not uninteresting, must be interesting.&lt;/p&gt;
-
-&lt;p&gt;3) Penetrate and Patch&lt;/p&gt;
-
-&lt;p&gt;In regards to one&amp;rsquo;s online resource, you attack it as an attacker would, find a flaw, fix it, and continue searching. There is a brilliant term for this as Ranum says: &amp;ldquo;turd polishing.&amp;rdquo; This process does nothing to make your code better in the long run, but management likes the improved, shiny appearance in the short term. It does not improve the design, rather &amp;ldquo;toughens by trial and error.&amp;rdquo; This seems obvious when one thinks about it, but it is so prevalent that one hardly realizes how dumb it is. Vulnerability researchers publish holes, and holes are patched.&lt;/p&gt;
-
-&lt;p&gt;But if vendors wrote code &amp;ldquo;designed to be secure and reliable, then vulnerability discovery would be tedious.&amp;rdquo; Think Internet Explorer: vulnerabilities have been found for over ten years. Ranum says pen-testing is pointless and pointless is dumb, because one will either find numerous bugs, or nothing comprehensible. Secure by design!&lt;/p&gt;
-
-&lt;p&gt;4) Hacking is Cool&lt;/p&gt;
-
-&lt;p&gt;Ranum say here that &amp;ldquo;hacking is a social problem.&amp;rdquo; With internet anonymity, timid people can become criminals, and media portrays them as &amp;ldquo;whiz kids&amp;rdquo;. Ultimately, teaching oneself exploits means investing time learning tools and techniques that become useless when everyone has patched that particular hole. Ones professional skill-set &amp;ldquo;becomes dependent on penetrate and patch&amp;rdquo; and you have arms race again.&lt;/p&gt;
-
-&lt;p&gt;While I see what Ranum is saying here, I believe knowing how these exploits work, and how holes are exploited is still useful to know. I do entirely agree with this statement, though: &amp;ldquo;it would be more sensible to design security systems that are hack-proof than to learn how to identify security systems that are dumb.&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;5) Educating Users&lt;/p&gt;
-
-&lt;p&gt;This is interesting as well, because it, too, seems so prevalent and accepted today. Education is good, right? If &amp;ldquo;educating users was going to work, it would have worked by now.&amp;rdquo; People are easily socially engineered. Ranum likens it to penetrate and patch, and having to &amp;ldquo;patch&amp;rdquo; users every week. He asks &amp;ldquo;why do we need to educate users at all?&amp;rdquo; This is like Default Permit again - &amp;ldquo;Why are users getting executable attachments at all?&amp;rdquo; The root issue is not dumb users, but rather the security architecture that is broken.&lt;/p&gt;
-
-&lt;p&gt;6) Action is Better than Inaction&lt;/p&gt;
-
-&lt;p&gt;Here we have &amp;ldquo;early adopters&amp;rdquo; and &amp;ldquo;pause and thinkers.&amp;rdquo; Ranum says &amp;ldquo;pause and thinkers&amp;rdquo; build more successful, secure, mission-critical systems. He illustrates this with &amp;ldquo;one senior IT executive&amp;rsquo;s roll out plan for a wireless corporate network was &amp;lsquo;wait two years and hire the guy who did a successful wireless deployment for a company larger than us.&amp;rsquo; The technology will be more mature and cheaper by then.&amp;rdquo;&lt;/p&gt;
-
-&lt;p&gt;So: to myself or another reader who has stumbled along this far, I highly recommend (re)reading Ranums entire article. And maybe check out his website, which is full of interesting links. I think a takeaway here is to identify the root cause and fix that, rather than continue turd polishing everything in sight; that is surely a losing battle.&lt;/p&gt;
 </description>
     </item>
     
