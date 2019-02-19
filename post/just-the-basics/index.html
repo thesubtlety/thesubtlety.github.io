@@ -1,24 +1,22 @@
-	<!DOCTYPE html>
-<html xmlns="https://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en-us" lang="en-us">
 <head>
-  <link href="https://gmpg.org/xfn/11" rel="profile">
+  <link href="//gmpg.org/xfn/11" rel="profile">
   <meta http-equiv="content-type" content="text/html; charset=utf-8">
-  <meta name="generator" content="Hugo 0.17" />
+  <meta name="generator" content="Hugo 0.54.0" />
 
   
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <title> Just the Basics &middot; The Subtlety </title>
+  <title>Just the Basics &middot; The Subtlety</title>
 
   
-  <link rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
-  <link rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
-  <link rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans:400,400italic,700|Abril+Fatface">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/print.css" media="print">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/poole.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/syntax.css">
+  <link type="text/css" rel="stylesheet" href="https://www.thesubtlety.com/css/hyde.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Abril+Fatface|PT+Sans:400,400i,700">
 
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/default.min.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/highlight.min.js"></script>
-  <script>hljs.initHighlightingOnLoad();</script>
 
   
   <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://www.thesubtlety.com/apple-touch-icon-144-precomposed.png">
@@ -26,10 +24,12 @@
 
   
   <link href="" rel="alternate" type="application/rss+xml" title="The Subtlety" />
+
+  
 </head>
 
-	<body class="">
-		<div class="sidebar">
+  <body class=" ">
+  <aside class="sidebar">
   <div class="container sidebar-sticky">
     <div class="sidebar-about">
       <a href="https://www.thesubtlety.com/"><h1>The Subtlety</h1></a>
@@ -38,38 +38,22 @@
       </p>
     </div>
 
-    <ul class="sidebar-nav">
-      <li><a href="https://www.thesubtlety.com/">Home</a> </li>
-      
+    <nav>
+      <ul class="sidebar-nav">
+        <li><a href="https://www.thesubtlety.com/">Home</a> </li>
+        
+      </ul>
+    </nav>
 
-      <li><a href="https://www.thesubtlety.com/about/">About</a> </li>
-      
-    </ul>
-
-    
-      <script type="text/javascript">
-        var _gaq = _gaq || [];
-        _gaq.push(['_setAccount', 'UA-29425132-1']);
-        _gaq.push(['_trackPageview']);
-
-        (function() {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-        })();
-      </script>
-    
-
-    <p>&copy; 2017. All rights reserved. </p>
+    <p>&copy; 2019. All rights reserved. </p>
   </div>
-</div>
+</aside>
 
-
-		<div class="content container">
-			<div class="post">
-			 	<h1>Just the Basics</h1>
-			  <span class="post-date">Mon, Feb 17, 2014</span>
-			      <p>Things have been busy lately, but I&rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.</p>
+    <main class="content container">
+    <div class="post">
+  <h1>Just the Basics</h1>
+  <time datetime=2014-02-17T20:58:31Z class="post-date">Mon, Feb 17, 2014</time>
+  <p>Things have been busy lately, but I&rsquo;ve been doing some reading, learning, and playing around in a small VM lab, and thought to briefly document what I&rsquo;ve done. There is unfortunately nothing groundbreaking here, and nothing too interesting beyond a demonstration.</p>
 
 <pre><code>___  ___       _                      _         _  _   
 |  \/  |      | |                    | |       (_)| |  
@@ -110,12 +94,8 @@ host              port  proto  name   state    info
 
 <p>Nmap can be a fairly noisy tool as far as traffic generated though, as Sguil/Snorby results show. Snort alerts on fifty or so &lsquo;potential scans&rsquo; and the Nmap scripting engine has very recognizable traffic. If we run nmap without the -A agressive option, we reduce the amount of alerts considerably (from nearly 50 to about 7 or so events generated without the nmap scripts). </p>
 
-
-<figure >
-    
-        <img src="https://www.thesubtlety.com/img/nmap_snorby.png" />
-    
-    
+<figure>
+    <img src="https://www.thesubtlety.com/img/nmap_snorby.png"/> 
 </figure>
 
 
@@ -165,12 +145,8 @@ smb: \&gt; ls
 
 <p>Manually, you simply connect via <code>smbclient //192.168.100.192/tmp' anonymously, and enter 'symlink ../../../../../../../../../ rootfs</code> which traverses back to root and links that to your newly created directory. This gives read access to /etc/passwd remotely. Fortunately, permissions are somewhat limited as the user is anonymous. Otherwise, Metasploit can take care of this for us with the Samba Link Traversal <a href="https://github.com/rapid7/metasploit-framework/blob/master/modules/auxiliary/admin/smb/samba_symlink_traversal.rb">module</a>.</p>
 
-
-<figure >
-    
-        <img src="https://www.thesubtlety.com/img/Selection_002.png" />
-    
-    
+<figure>
+    <img src="https://www.thesubtlety.com/img/Selection_002.png"/> 
 </figure>
 
 
@@ -187,12 +163,8 @@ msf &gt; set payload windows/meterpreter/reverse_tcp
 
 <p>Snort catches this with the high severity events<strong> &rsquo;</strong>ET SHELLCODE Possible call with a No Offset TCP Shellcode event&rsquo; and an &lsquo;ET POLICY PE EXE or DLL Windows file download&rsquo;.</p>
 
-
-<figure >
-    
-        <img src="https://www.thesubtlety.com/img/Selection_003.png" />
-    
-    
+<figure>
+    <img src="https://www.thesubtlety.com/img/Selection_003.png"/> 
 </figure>
 
 
@@ -200,10 +172,11 @@ msf &gt; set payload windows/meterpreter/reverse_tcp
 
 <p>Next time I&rsquo;ll try to post something a little more novel that what you&rsquo;ve (maybe) just read. This all feels somewhat script-kiddyish without a solid understanding of exploit development, but a person&rsquo;s got to start somewhere. There is virtually an unfathomable amount of knowledge and things to learn out there. Metasploitable in itself has a ton more to play with, not to mention Multillidae, DVWA, WebGoat, and others. I&rsquo;d best get cracking.</p>
 
-			</div>
+</div>
 
-			
-		</div>
 
+    </main>
+
+    
   </body>
 </html>

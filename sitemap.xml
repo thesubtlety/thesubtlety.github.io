@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes" ?>
-<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
-    <loc>https://www.thesubtlety.com/</loc>
-    <lastmod>2017-06-21T23:07:11-07:00</lastmod>
+    <loc>https://www.thesubtlety.com/post/patching-boto3-useragent/</loc>
+    <lastmod>2019-02-16T16:32:17-08:00</lastmod>
   </url>
   
   <url>
@@ -104,6 +105,204 @@
   <url>
     <loc>https://www.thesubtlety.com/about/</loc>
     <lastmod>2012-01-01T00:00:00-05:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/basics/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/bsides/</loc>
+    <lastmod>2013-10-29T01:19:19+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/careers/</loc>
+    <lastmod>2013-04-04T00:50:49+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/</loc>
+    <lastmod>2013-04-04T00:50:49+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/develop/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/development/</loc>
+    <lastmod>2016-12-19T17:19:40-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/honeypot/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/honeypot/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/kippo/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/kippo/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/metasploit/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/misc/</loc>
+    <lastmod>2012-01-01T00:00:00-05:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/miscellany/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/opendns/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/owasp/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/pen-testing/</loc>
+    <lastmod>2014-12-20T22:03:29+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/pentesting/</loc>
+    <lastmod>2016-12-19T17:19:40-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/pentesting/</loc>
+    <lastmod>2016-12-19T17:19:40-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/post/</loc>
+    <lastmod>2019-02-16T16:32:17-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/projects/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/projects/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/python/</loc>
+    <lastmod>2013-10-29T01:19:19+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/rails/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/raspberry-pi/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/raspberry-pi/</loc>
+    <lastmod>2013-05-07T01:43:15+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/ruby/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/ruby-on-rails/</loc>
+    <lastmod>2014-04-11T01:57:03+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/categories/security-onion/</loc>
+    <lastmod>2013-10-19T02:41:57+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/sguil/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/snort/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/</loc>
+    <lastmod>2014-02-17T20:58:31+00:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/</loc>
+    <lastmod>2019-02-16T16:32:17-08:00</lastmod>
+    <priority>0</priority>
+  </url>
+  
+  <url>
+    <loc>https://www.thesubtlety.com/tags/training/</loc>
+    <lastmod>2015-08-23T00:27:58+00:00</lastmod>
+    <priority>0</priority>
   </url>
   
 </urlset>
