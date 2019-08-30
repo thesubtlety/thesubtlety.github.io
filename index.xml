@@ -6,10 +6,20 @@
     <description>Recent content on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Sat, 16 Feb 2019 16:32:17 -0800</lastBuildDate>
+    <lastBuildDate>Thu, 29 Aug 2019 16:40:37 -0700</lastBuildDate>
     
 	<atom:link href="https://www.thesubtlety.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Empire Python Implant on Windows</title>
+      <link>https://www.thesubtlety.com/post/empire-python-implant-on-windows/</link>
+      <pubDate>Thu, 29 Aug 2019 16:40:37 -0700</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/empire-python-implant-on-windows/</guid>
+      <description>A while back I was playing around with Empire (before it was shuttered, RIP) and bypassing a certain antivirus software. There were decent signatures for the basic powershell usage, but knowing Python was installed on the target Windows endpoints, I tried to run the Empire Python payload on Windows. It didn&amp;rsquo;t work. Turns out, it&amp;rsquo;s trivial to get things working again.
+If you generate a basic Python stager with stock Empire, we see an initial checkin to the server</description>
+    </item>
     
     <item>
       <title>Monkeying Around: Patching the boto3 User-Agent</title>

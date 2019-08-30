@@ -3,6 +3,11 @@
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   
   <url>
+    <loc>https://www.thesubtlety.com/post/empire-python-implant-on-windows/</loc>
+    <lastmod>2019-08-29T16:40:37-07:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://www.thesubtlety.com/post/patching-boto3-useragent/</loc>
     <lastmod>2019-02-16T16:32:17-08:00</lastmod>
   </url>
@@ -217,7 +222,7 @@
   
   <url>
     <loc>https://www.thesubtlety.com/post/</loc>
-    <lastmod>2019-02-16T16:32:17-08:00</lastmod>
+    <lastmod>2019-08-29T16:40:37-07:00</lastmod>
     <priority>0</priority>
   </url>
   
@@ -295,7 +300,7 @@
   
   <url>
     <loc>https://www.thesubtlety.com/</loc>
-    <lastmod>2019-02-16T16:32:17-08:00</lastmod>
+    <lastmod>2019-08-29T16:40:37-07:00</lastmod>
     <priority>0</priority>
   </url>
   
