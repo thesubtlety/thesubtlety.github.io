@@ -6,10 +6,20 @@
     <description>Recent content in Posts on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Thu, 29 Aug 2019 16:40:37 -0700</lastBuildDate>
+    <lastBuildDate>Mon, 23 Sep 2019 20:52:14 -0700</lastBuildDate>
     
 	<atom:link href="https://www.thesubtlety.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Brute Forcing 389-ds PBKDF2 Passwords</title>
+      <link>https://www.thesubtlety.com/post/a-389-ds-pbkdf2-password-checker/</link>
+      <pubDate>Mon, 23 Sep 2019 20:52:14 -0700</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/a-389-ds-pbkdf2-password-checker/</guid>
+      <description>Several times now I&amp;rsquo;ve run across password hashes created by 389-ds, RedHat&amp;rsquo;s open source LDAP Directory Server solution. During a red team past operation I discovered a backup LDIF file which included hashed user passwords (think NTDS.dit but not as catastrophic). A number of the hashes were in prepended with PBKDF2_SHA256.
+While hashcat and john the ripper have support for most algorithms, they are at the moment lacking support for 389-ds&amp;rsquo;s PBKDF2_SHA256 implementation.</description>
+    </item>
     
     <item>
       <title>Empire Python Implant on Windows</title>
