@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Kippo on The Subtlety</title>
@@ -17,7 +17,7 @@
       <pubDate>Tue, 07 May 2013 01:43:15 +0000</pubDate>
       
       <guid>https://www.thesubtlety.com/post/kippo-on-the-raspberry-pi/</guid>
-      <description>I recently bought a Raspberry Pi and installed Arch Linux ARM on it. I came across a rather amusing blog post of someone using the honeypot Kippo and thought what fun. See here to watch elite hackers and their mad skillz. That&amp;rsquo;s the great thing about Kippo - it records user sessions for playback.
+      <description>I recently bought a Raspberry Pi and installed Arch Linux ARM on it. I came across a rather amusing blog post of someone using the honeypot Kippo and thought what fun. See here to watch elite hackers and their mad skillz. That&#39;s the great thing about Kippo - it records user sessions for playback.
 Anyways, this post basically walks through what I did to get Kippo and kippo-graph up and running on my RPi.</description>
     </item>
     

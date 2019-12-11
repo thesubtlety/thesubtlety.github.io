@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Python on The Subtlety</title>
@@ -17,7 +17,7 @@
       <pubDate>Tue, 29 Oct 2013 01:19:19 +0000</pubDate>
       
       <guid>https://www.thesubtlety.com/post/bsidesdc-badge/</guid>
-      <description>I recently attended my first security conference: BSidesDC. This isn&amp;rsquo;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by @grecs was Malware Analysis 101. Very well presented with lots of great getting started material.
+      <description>I recently attended my first security conference: BSidesDC. This isn&#39;t a write up of that experience, although it was quite interesting and I learned a lot via some great sessions. One talk I really enjoyed by @grecs was Malware Analysis 101. Very well presented with lots of great getting started material.
   Anyways, the badges. Pretty cool badges; bottle openers in fact, with fourteen binary bytes all with leading zeroes around the circumference: ascii encoded binary.</description>
     </item>
     

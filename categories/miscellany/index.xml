@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Miscellany on The Subtlety</title>
@@ -17,7 +17,7 @@
       <pubDate>Sun, 23 Aug 2015 00:27:58 +0000</pubDate>
       
       <guid>https://www.thesubtlety.com/post/opendnss-appsec-training-lab/</guid>
-      <description>I came across OpenDNS Security Ninjas AppSec Training Lab not too long ago and found its simplicity rather enjoyable. It&amp;rsquo;s a simple web app written in PHP which illustrates each of the OWASP Top 10 categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.
+      <description>I came across OpenDNS Security Ninjas AppSec Training Lab not too long ago and found its simplicity rather enjoyable. It&#39;s a simple web app written in PHP which illustrates each of the OWASP Top 10 categories. As I was going through the exercises I found myself checking to see how the vulnerable code was written and how the issues could be remediated.
 Since the lab is geared towards beginners, I thought it might be helpful to provide brief explanations along with links to the relevant lines of source code.</description>
     </item>
     
@@ -27,9 +27,9 @@ Since the lab is geared towards beginners, I thought it might be helpful to prov
       <pubDate>Sat, 15 Mar 2014 00:57:49 +0000</pubDate>
       
       <guid>https://www.thesubtlety.com/post/renewing-your-startcom-ssl-cert/</guid>
-      <description>Since I&amp;rsquo;ve forgotten how to do this over the past year, here are the directions for posterity.
- Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.
- Generate a key and CSR on the server with the following two commands openssl genrsa -out .</description>
+      <description>Since I&#39;ve forgotten how to do this over the past year, here are the directions for posterity.
+  Startcom sends you a reminder after 50 weeks and opens a window for a renewal. Log in and validate your email and domain using the Validation Wizard. Note, you need to ensure your email is going to forward properly.
+  Generate a key and CSR on the server with the following two commands openssl genrsa -out .</description>
     </item>
     
     <item>
@@ -39,7 +39,7 @@ Since the lab is geared towards beginners, I thought it might be helpful to prov
       
       <guid>https://www.thesubtlety.com/post/random-ramblings/</guid>
       <description>Here, shall I attempt to document some random doings related to computers, security, linuxstuff, windowsstuff, and most likely miscellany.
-Apparently typing all this out helps the mind become better at communicating, and who doesn&amp;rsquo;t want that?
+Apparently typing all this out helps the mind become better at communicating, and who doesn&#39;t want that?
 So whether you or another read these ramblings, or I myself re-read them later on in my ever so awe-inspiring, galvanic, exhilarating life, let this be a place for learning and perusing.</description>
     </item>
     
