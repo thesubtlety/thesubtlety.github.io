@@ -6,10 +6,20 @@
     <description>Recent content in Posts on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 Dec 2019 18:07:57 -0800</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2020 16:30:56 -0800</lastBuildDate>
     
 	<atom:link href="https://www.thesubtlety.com/post/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to Write a Hashcat Module</title>
+      <link>https://www.thesubtlety.com/post/how-to-write-a-hashcat-module/</link>
+      <pubDate>Mon, 02 Mar 2020 16:30:56 -0800</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/how-to-write-a-hashcat-module/</guid>
+      <description>There&#39;s not a lot written about creating new Hashcat modules. This is a brief tour of how I went about adding a new module and something I wish I had available a week ago. Hopefully after reading this you have a better understanding of how the pieces work and will enable you to more easily add new Hashcat modules.
+For what it&#39;s worth, this is written from the perspective of someone who care barely read C.</description>
+    </item>
     
     <item>
       <title>How to Use the Shodan API at Scale</title>

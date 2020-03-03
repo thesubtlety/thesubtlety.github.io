@@ -6,10 +6,20 @@
     <description>Recent content on The Subtlety</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Tue, 10 Dec 2019 18:07:57 -0800</lastBuildDate>
+    <lastBuildDate>Mon, 02 Mar 2020 16:30:56 -0800</lastBuildDate>
     
 	<atom:link href="https://www.thesubtlety.com/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>How to Write a Hashcat Module</title>
+      <link>https://www.thesubtlety.com/post/how-to-write-a-hashcat-module/</link>
+      <pubDate>Mon, 02 Mar 2020 16:30:56 -0800</pubDate>
+      
+      <guid>https://www.thesubtlety.com/post/how-to-write-a-hashcat-module/</guid>
+      <description>There&#39;s not a lot written about creating new Hashcat modules. This is a brief tour of how I went about adding a new module and something I wish I had available a week ago. Hopefully after reading this you have a better understanding of how the pieces work and will enable you to more easily add new Hashcat modules.
+For what it&#39;s worth, this is written from the perspective of someone who care barely read C.</description>
+    </item>
     
     <item>
       <title>How to Use the Shodan API at Scale</title>
@@ -252,8 +262,8 @@ So whether you or another read these ramblings, or I myself re-read them later o
       <pubDate>Sun, 01 Jan 2012 00:00:00 -0500</pubDate>
       
       <guid>https://www.thesubtlety.com/about/</guid>
-      <description>Noah is an offensive security engineer with experience red teaming at several Fortune 500 companies in software and financial industries.
-With varied experience leading and managing operations including social engineering and covert physical entry into office buildings to stealthily gaining access to high value financial systems, to troubleshooting corporate networks, to securing web and mobile applications, Noah has a strong track record of applying creative thinking and determination to solve challenging technical problems.</description>
+      <description>I am a security professional with over seven years of experience and have held roles troubleshooting large networks and securing web and mobile applications. For the last three years I have been red teaming at several Fortune 500s across multiple industries.
+I have a strong track record of applying creative thinking and determination to solve technical challenges. I contribute to open source software including the Metasploit framework1 and enjoy sharing my technical learning experiences through this blog.</description>
     </item>
     
   </channel>
