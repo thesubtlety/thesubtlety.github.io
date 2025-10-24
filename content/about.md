@@ -1,7 +1,7 @@
 +++
 date = "2012-01-01T00:00:00-05:00"
 title = "About"
-categories = "misc"
+type = "page"
 +++
 
 Noah is an offensive security engineer with experience red teaming at several Fortune 500 companies in software and financial industries.
