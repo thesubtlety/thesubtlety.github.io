@@ -1,0 +1,29 @@
+baseurl = "https://www.thesubtlety.com/"
+languageCode = "en-us"
+title = "The Subtlety"
+theme = "hyde"
+canonifyurls = "true"
+googleAnalytics = "UA-29425132-1"
+
+[taxonomies]
+  category = "categories"
+  tag = "tags"
+
+[params]
+  description = "Indiscriminate Idiotropics on Infosec"
+  AuthorName = "Noah"
+  googleAnalytics = "UA-29425132-1"
+  copyright = "C 2025. All rights reserved."
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[Menus]
+  main = [
+      {Name = "Resources & Links", URL = "https://www.thesubtlety.com/resources/"},
+      {Name = "About", URL = "https://www.thesubtlety.com/about/"},
+      {Name = "Github", URL = "https://github.com/thesubtlety/"},
+      {Name = "X", URL = "https://twitter.com/thesubtlety"}
+  ]
