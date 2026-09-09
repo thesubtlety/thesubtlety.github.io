@@ -1,0 +1,63 @@
+{{ define "mainclass" }}home{{ end }}
+{{ define "main" }}
+{{- $tools := hugo.Data.tools.featured -}}
+{{- $now := hugo.Data.now -}}
+{{- $posts := where .Site.RegularPages "Section" "post" -}}
+
+<section class="intro prose">
+  {{ .Content }}
+</section>
+
+<section class="home-section prose" id="noticing">
+  <h2>Nothing new here</h2>
+  {{ hugo.Data.home.noticing | markdownify }}
+</section>
+
+<section class="home-section" id="tools">
+  <h2>Tools</h2>
+  <ul class="tools">
+    {{- range $tools }}{{ partial "tool.html" . }}{{ end }}
+  </ul>
+  <p class="more"><a href="{{ "/tools/" | relURL }}">All the tools →</a></p>
+</section>
+
+<section class="home-section" id="writing">
+  <h2>Writing</h2>
+  <ul class="post-list">
+    {{- with hugo.Data.book }}
+    <li class="post-item book">
+      <span class="post-date">{{ .when }}</span>
+      <span class="post-title"><a href="{{ .url }}"><em>{{ .title }}{{ with .subtitle }}: {{ . }}{{ end }}</em></a> — {{ .publisher }}</span>
+      <span class="post-summary">{{ .summary | markdownify }}</span>
+    </li>
+    {{- end }}
+    {{- $featured := where $posts "Params.featured" true }}{{ if lt (len $featured) 3 }}{{ $featured = $posts }}{{ end }}
+    {{- range first 6 $featured }}
+    <li class="post-item">
+      <span class="post-date">{{ .Date.Format "Jan 2006" }}</span>
+      <span class="post-title">
+        {{- $p := . }}{{ with .Params.external_url }}<a href="{{ . }}">{{ $p.Title }}</a>{{ else }}<a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>{{ end -}}
+        {{- with .Params.venue }} <span class="venue">at {{ . }}</span>{{ end -}}
+      </span>
+      {{- with .Params.blurb }}<span class="post-summary">{{ . | markdownify }}</span>{{ end }}
+    </li>
+    {{- end }}
+  </ul>
+  <p class="more"><a href="{{ "/post/" | relURL }}">More →</a></p>
+</section>
+
+<section class="home-section prose now" id="now">
+  <h2>Now{{ with $now.date }} <span class="now-date">{{ . }}</span>{{ end }}</h2>
+  {{ $now.text | markdownify }}
+</section>
+
+<section class="home-section prose" id="elsewhere">
+  <h2>Elsewhere</h2>
+  <p>
+    {{- $n := len .Site.Params.elsewhere -}}
+    {{- range $i, $e := .Site.Params.elsewhere -}}
+      <a href="{{ $e.url }}" rel="me">{{ $e.name }}</a>{{ with $e.note }} <span class="muted">({{ . }})</span>{{ end }}{{ if lt (add $i 1) $n }} · {{ end }}
+    {{- end -}}
+  </p>
+</section>
+{{ end }}

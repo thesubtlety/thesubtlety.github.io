@@ -1,0 +1,196 @@
+# Tools shown on the site. `repo` drives build-time star/commit stats from the GitHub API;
+# `stars` is a pinned fallback used when the API is unreachable. Update fallbacks occasionally.
+featured:
+  - name: geiger
+    repo: puck-security/geiger
+    url: https://github.com/puck-security/geiger
+    lang: Go
+    stars: 36
+    description: >-
+      Give it a credential, or a pile of them from a scanner report, and it tells you whether
+      each one is still live and what it can reach. Over a hundred credential types. Read-only
+      by construction, with a guard test that fails if anyone adds a write path. Detection tells
+      you a key is real; geiger tells you whether it's dangerous.
+    origin: Built with the Puck Security folks.
+  - name: tailsnitch
+    repo: adversis/tailsnitch
+    url: https://github.com/adversis/tailsnitch
+    lang: Go
+    stars: 1123
+    description: >-
+      Audits a Tailscale network for the ACLs and settings that quietly hand out more access
+      than anyone intended. Checks for 57 misconfigurations, and has a fix mode for when you
+      want it to just deal with them.
+    origin: Built at Adversis.
+  - name: sketchy
+    repo: adversis/sketchy
+    url: https://github.com/adversis/sketchy
+    lang: Go
+    stars: 72
+    description: >-
+      For people who `git clone` first and ask questions later. Scans a repo, package, or
+      install script for the signs it's about to ruin your day, before you run it.
+    origin: Built at Adversis.
+  - name: puck-scout
+    repo: puck-security/puck-scout
+    url: https://github.com/puck-security/puck-scout
+    lang: Go, Rust
+    stars: 23
+    description: >-
+      Lets an agent investigate endpoints over MCP, read-only, with a policy engine and an
+      audit log in front of every command. Ask a question about your fleet in plain English
+      and get a narrative answer with containment steps.
+    origin: Built with Puck Security.
+  - name: NextjsServerActionAnalyzer
+    repo: adversis/NextjsServerActionAnalyzer
+    url: https://github.com/adversis/NextjsServerActionAnalyzer
+    lang: Java
+    stars: 60
+    description: >-
+      A Burp extension that finds the server actions a Next.js app is exposing, whether or not
+      anyone meant to expose them.
+    origin: Built at Adversis.
+
+groups:
+  - title: Agents and credentials
+    items:
+      - name: geiger
+        repo: puck-security/geiger
+        url: https://github.com/puck-security/geiger
+        lang: Go
+        stars: 36
+        description: >-
+          Read-only blast-radius triage for leaked credentials. Pipe any credential-bearing
+          text at it; it recognizes over a hundred credential types, runs read-only recon with
+          each, and ranks what they actually reach. Dry-run by default, and a guard test keeps
+          every module read-only.
+        origin: Built with the Puck Security folks.
+      - name: puck-scout
+        repo: puck-security/puck-scout
+        url: https://github.com/puck-security/puck-scout
+        lang: Go, Rust
+        stars: 23
+        description: >-
+          Autonomous, read-only endpoint investigation via MCP. A Go MCP server validates every
+          command against a policy engine and writes an audit log before fanning out to Rust
+          agents that never write to disk.
+        origin: Built with Puck Security.
+      - name: screenscrub
+        repo: adversis/screenscrub
+        url: https://github.com/adversis/screenscrub
+        lang: Go
+        stars: 6
+        description: >-
+          Finds credentials in screenshots, saves them to your secret manager, and irreversibly
+          redacts them from the image. Local, offline, OCR-based, and it re-OCRs the result to
+          prove the secret is gone.
+        origin: Built at Adversis.
+      - name: cutout
+        repo: adversis/cutout
+        url: https://github.com/adversis/cutout
+        lang: Python, TypeScript
+        stars: 1
+        description: >-
+          A realistic ChatGPT-style assistant with a seeded inbox, built to demonstrate indirect
+          prompt injection live: poisoned documents hijack the model and the exfiltration shows
+          up in an attacker console beside it. For training rooms, not production.
+        origin: Built at Adversis.
+  - title: Networks and applications
+    items:
+      - name: tailsnitch
+        repo: adversis/tailsnitch
+        url: https://github.com/adversis/tailsnitch
+        lang: Go
+        stars: 1123
+        description: >-
+          A security auditor for Tailscale configurations. Scans a tailnet for 57
+          misconfigurations, overly permissive ACLs, and best-practice violations, with an
+          interactive fix mode.
+        origin: Built at Adversis.
+      - name: sketchy
+        repo: adversis/sketchy
+        url: https://github.com/adversis/sketchy
+        lang: Go
+        stars: 72
+        description: >-
+          A fast, cross-platform scanner for the obvious and not-so-obvious signs that a package,
+          repo, or install script is malicious. Patterns borrowed with thanks from GuardDog.
+        origin: Built at Adversis.
+      - name: NextjsServerActionAnalyzer
+        repo: adversis/NextjsServerActionAnalyzer
+        url: https://github.com/adversis/NextjsServerActionAnalyzer
+        lang: Java
+        stars: 60
+        description: >-
+          Burp Suite extension for analyzing Next.js Server Actions, the server-side functions
+          identified by hash IDs and `Next-Action` headers.
+        origin: Built at Adversis.
+      - name: nextjs-rsc-parser
+        repo: adversis/nextjs-rsc-parser
+        url: https://github.com/adversis/nextjs-rsc-parser
+        lang: Java
+        stars: 2
+        description: Burp plugin that parses React Server Component responses to extract interesting data.
+        origin: Built at Adversis.
+      - name: grpc-scan
+        repo: adversis/grpc-scan
+        url: https://github.com/adversis/grpc-scan
+        lang: Go
+        stars: 25
+        description: >-
+          Discovers gRPC services and methods on a server that doesn't support reflection and
+          for which you have no proto files. Then lets you call them.
+        origin: Built at Adversis.
+      - name: gql-extractor
+        repo: adversis/gql-extractor
+        url: https://github.com/adversis/gql-extractor
+        lang: JavaScript
+        stars: 5
+        description: Dynamically extracts GraphQL queries and mutations from loaded JavaScript.
+        origin: Built at Adversis.
+      - name: asar-scan
+        repo: adversis/asar-scan
+        url: https://github.com/adversis/asar-scan
+        lang: Go
+        stars: 3
+        description: Finds Electron apps, checks their ASAR integrity settings, and lists native `.node` modules.
+        origin: Built at Adversis.
+  - items:
+      - name: go-decrypt-jenkins
+        repo: thesubtlety/go-decrypt-jenkins
+        url: https://github.com/thesubtlety/go-decrypt-jenkins
+        lang: Go
+        stars: 82
+        description: Decrypts Jenkins credential stores offline. The companion write-up is in the archive.
+      - name: shocens
+        repo: thesubtlety/shocens
+        url: https://github.com/thesubtlety/shocens
+        lang: Python
+        stars: 40
+        description: Queries Shodan and Censys for an organization's exposed hosts in one pass.
+      - name: PandorasBox
+        repo: adversis/PandorasBox
+        url: https://github.com/adversis/PandorasBox
+        lang: Python
+        stars: 56
+        description: Audits a Box.com tenant for files and folders that were shared with the world by accident.
+        origin: Built at Adversis.
+      - name: offsec-golang-utilities
+        repo: thesubtlety/offsec-golang-utilities
+        url: https://github.com/thesubtlety/offsec-golang-utilities
+        lang: Go
+        stars: 9
+        description: Small Go utilities from engagements, mostly Windows API wrappers.
+      - name: 389-ds-password-check
+        repo: thesubtlety/389-ds-password-check
+        url: https://github.com/thesubtlety/389-ds-password-check
+        lang: Go
+        stars: 6
+        description: Brute-forces 389 Directory Server PBKDF2 hashes. Led to a Hashcat module.
+
+contributions:
+  title: Contributions and disclosures
+  text: |
+    Merged pull requests to [Sliver](https://github.com/BishopFox/sliver), [Metasploit](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/multi/gather/jenkins_gather.rb) (the Jenkins credential gather module), and [Hashcat](https://github.com/hashcat/hashcat).
+
+    A few CVEs, including a [command injection in Adobe Acrobat Reader](/post/adobe-acrobat-command-injection-cve-2021-28634/) (CVE-2021-28634) and an [Informacast JMX misconfiguration](/post/2017-03-13-informacast-singlewire-insecure-jmx/) that gave remote code execution.

@@ -1,29 +1,62 @@
-baseurl = "https://www.thesubtlety.com/"
-languageCode = "en-us"
+baseURL = "https://www.thesubtlety.com/"
+locale = "en-us"
 title = "The Subtlety"
-theme = "hyde"
-canonifyurls = "true"
-googleAnalytics = "UA-29425132-1"
+theme = "subtle"
+enableRobotsTXT = true
+timeZone = "America/Denver"
 
 [taxonomies]
   category = "categories"
   tag = "tags"
 
 [params]
-  description = "Indiscriminate Idiotropics on Infosec"
-  AuthorName = "Noah"
-  googleAnalytics = "UA-29425132-1"
-  copyright = "© 2025. All rights reserved."
+  author = "Noah Potti"
+  description = "Noah Potti on agent security, credentials, and what an attacker can actually reach."
+  [[params.elsewhere]]
+    name = "GitHub"
+    url = "https://github.com/thesubtlety"
+    note = "@thesubtlety, and @noahpotti"
+  [[params.elsewhere]]
+    name = "LinkedIn"
+    url = "https://www.linkedin.com/in/noahpotti"
+  [[params.elsewhere]]
+    name = "Adversis"
+    url = "https://www.adversis.io"
+  [[params.elsewhere]]
+    name = "Puck Security"
+    url = "https://puck.security"
+
+[menus]
+  [[menus.main]]
+    name = "Writing"
+    pageRef = "/post"
+    weight = 10
+  [[menus.main]]
+    name = "Tools"
+    pageRef = "/tools"
+    weight = 20
+  [[menus.main]]
+    name = "Resources"
+    pageRef = "/resources"
+    weight = 30
+  [[menus.main]]
+    name = "About"
+    pageRef = "/about"
+    weight = 40
 
 [markup]
-  [markup.goldmark]
-    [markup.goldmark.renderer]
-      unsafe = true
+  [markup.goldmark.renderer]
+    unsafe = true
+  [markup.highlight]
+    noClasses = false
+    lineNos = false
 
-[Menus]
-  main = [
-      {Name = "Resources & Links", URL = "https://www.thesubtlety.com/resources/"},
-      {Name = "About", URL = "https://www.thesubtlety.com/about/"},
-      {Name = "Github", URL = "https://github.com/thesubtlety/"},
-      {Name = "X", URL = "https://twitter.com/thesubtlety"}
-  ]
+[outputs]
+  home = ["HTML"]
+  section = ["HTML"]
+  taxonomy = ["HTML"]
+  term = ["HTML"]
+
+[caches]
+  [caches.getresource]
+    maxAge = "12h"

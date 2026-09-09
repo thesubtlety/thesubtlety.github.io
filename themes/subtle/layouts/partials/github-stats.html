@@ -1,0 +1,18 @@
+{{- /* Returns a dict {stars, pushed} for a "owner/repo" string. */ -}}
+{{- $repo := . -}}
+{{- $stars := 0 -}}
+{{- $pushed := "" -}}
+{{- $opts := dict "headers" (dict "User-Agent" "thesubtlety.com hugo build" "Accept" "application/vnd.github+json") -}}
+{{- with os.Getenv "HUGO_GITHUB_TOKEN" -}}
+  {{- $opts = merge $opts (dict "headers" (dict "Authorization" (printf "Bearer %s" .) "User-Agent" "thesubtlety.com hugo build")) -}}
+{{- end -}}
+{{- with try (resources.GetRemote (printf "https://api.github.com/repos/%s" $repo) $opts) -}}
+  {{- with .Err -}}
+    {{- warnf "github-stats: %s: %s" $repo . -}}
+  {{- else with .Value -}}
+    {{- $d := .Content | transform.Unmarshal -}}
+    {{- $stars = index $d "stargazers_count" | default 0 -}}
+    {{- $pushed = index $d "pushed_at" | default "" -}}
+  {{- end -}}
+{{- end -}}
+{{- return (dict "stars" $stars "pushed" $pushed) -}}

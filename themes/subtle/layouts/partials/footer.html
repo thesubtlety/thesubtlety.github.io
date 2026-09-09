@@ -1,0 +1,6 @@
+<footer class="site-footer">
+  <span>{{ .Site.Params.author }} · {{ now.Year }}</span>
+  <span class="footer-links">
+    {{- range .Site.Params.elsewhere }}<a href="{{ .url }}" rel="me">{{ .name }}</a>{{ end -}}
+  </span>
+</footer>

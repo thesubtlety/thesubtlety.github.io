@@ -1,0 +1,21 @@
+{{ define "main" }}
+<article class="prose">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+</article>
+{{- range hugo.Data.tools.groups }}
+<section class="tool-group">
+  {{ with .title }}<h2>{{ . }}</h2>{{ end }}
+  {{- with .intro }}<p class="prose">{{ . | markdownify }}</p>{{ end }}
+  <ul class="tools">
+    {{- range .items }}{{ partial "tool.html" . }}{{ end }}
+  </ul>
+</section>
+{{- end }}
+{{- with hugo.Data.tools.contributions }}
+<section class="tool-group prose">
+  {{ with .title }}<h2>{{ . }}</h2>{{ end }}
+  {{ .text | markdownify }}
+</section>
+{{- end }}
+{{ end }}

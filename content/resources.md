@@ -1,6 +1,7 @@
 +++
 title = "Resources"
-categories = "misc"
+type = "page"
+description = "A short list of enduring references on security, risk, red teaming, and adversarial thinking."
 +++
 
 # Security Reference Wiki

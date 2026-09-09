@@ -1,0 +1,8 @@
+noticing: |
+  Every bad compromise I've walked through had the same plot. No zero-day. Something, a token, a service account, a browser extension, an integration, could reach more than anyone remembered granting, and the attacker found that out first.
+
+  The distance between what a thing is supposed to touch and what it can touch is most of my job now. Agents make it more interesting: the thing holding the credential now reads untrusted text and decides what to do next.
+
+  The agent on the desktop is the new browser, minus thirty years of hardening lessons, and it ships with prompt injection unsolved. The parts I find myself poking at: whether grammar-constrained encoding and decoding can make an agent's output boring enough to trust, what intent-based access control looks like when the intent arrives as prose, and what happens once both sides automate. Red teams already drive fleets of agents. The defense worth building is the one that rolls out to the whole fleet at the first tripwire, before the second host is touched.
+
+  The other thing I keep noticing is that the industry can't measure much of anything, and that most of what it sells doesn't survive contact with the research. The short list of papers that convinced me is on the [resources page](/resources/).

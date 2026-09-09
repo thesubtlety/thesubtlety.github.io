@@ -1,0 +1,25 @@
+{{ define "main" }}
+<article class="prose post">
+  <header class="post-header">
+    <h1>{{ .Title }}</h1>
+    {{- if ne .Type "page" }}
+    <p class="post-meta">
+      <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time>
+      {{- with .Params.venue }} · {{ . }}{{ end -}}
+      {{- if gt .ReadingTime 2 }} · {{ .ReadingTime }} min{{ end -}}
+    </p>
+    {{- $age := sub now.Year .Date.Year -}}
+    {{- if and (ne .Type "page") (ge $age 5) }}
+    <p class="aside">This is from {{ .Date.Year }}. Tools, versions, and probably my opinions have moved on since.</p>
+    {{- end }}
+    {{- end }}
+  </header>
+  {{ .Content }}
+</article>
+{{- if ne .Type "page" }}
+<nav class="post-nav">
+  {{ with .NextInSection }}<a href="{{ .Params.external_url | default .RelPermalink }}">← {{ .Title }}</a>{{ end }}
+  {{ with .PrevInSection }}<a href="{{ .Params.external_url | default .RelPermalink }}">{{ .Title }} →</a>{{ end }}
+</nav>
+{{- end }}
+{{ end }}

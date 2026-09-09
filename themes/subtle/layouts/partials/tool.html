@@ -1,0 +1,16 @@
+{{- $t := . -}}
+{{- $stats := dict "stars" 0 "pushed" "" -}}
+{{- if $t.repo }}{{ $stats = partial "github-stats.html" $t.repo }}{{ end -}}
+{{- $stars := or $stats.stars $t.stars 0 -}}
+{{- $pushed := $stats.pushed -}}
+<li class="tool">
+  <div class="tool-head">
+    <a class="tool-name" href="{{ $t.url }}">{{ $t.name }}</a>
+    <span class="tool-meta">
+      {{- with $t.lang }}<span>{{ . }}</span>{{ end -}}
+      {{- with $pushed }}<span title="last commit">{{ time.Format "Jan 2006" . }}</span>{{ end -}}
+    </span>
+  </div>
+  <p class="tool-desc">{{ $t.description | markdownify }}</p>
+  {{- with $t.origin }}<p class="tool-origin">{{ . | markdownify }}</p>{{ end }}
+</li>

@@ -1,0 +1,4 @@
+name = "Subtle"
+license = "MIT"
+description = "A quiet, book-set theme for thesubtlety.com"
+min_version = "0.145.0"

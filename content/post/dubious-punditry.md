@@ -1,58 +1,56 @@
 ---
-title: "Dubious Punditry"
+title: "Dubious Punditry: Red Teams, Threat Actors, and Making It Up As We Go"
 date: 2021-12-02T19:50:21-07:00
-draft: true
+draft: false
 ---
 
-NB: This is all armchair punditry, the words of whose ilk are typically dubious. And I'm unqualified to say most all of this, but this is the internet. And here we are.
+**NB**: This is armchair punditry of the highest order, the words of whose ilk are typically dubious. But this is the internet, and here we are.
 
-https://apps.dtic.mil/sti/pdfs/ADA586960.pdf - Diamond Model of Intrusion Analysis
+**"Simulate Real Adversaries"**
 
-https://web.archive.org/web/20200422214919/http://sixdub.net/?p=762
-I would encourage red teams and blue teams alike to question the internal/external providers they use on how they are performing threat replication and whether they are truly replicating the multifaceted aspects involved with an adversary
+There's a persistent idea that red teams should simulate specific threat actors. Replicate their TTPs, mirror their toolchains, basically LARP as APT28 or whichever group is trendy this quarter. The [Diamond Model](https://apps.dtic.mil/sti/pdfs/ADA586960.pdf) gave us a nice framework for analyzing intrusions, and somewhere along the way everyone decided they needed to pretend to be a nation-state.
 
-Maybe the Red Team and Offensive Security industry has matured past this point in the past five years.
+This is limiting. Some organizations genuinely want to know if they're vulnerable to a specific group's documented tactics. Fair enough. Most don't. And even if they did, threat groups aren't static. Their tactics evolve. You're defending against last year's attacks.
 
-The thought that red teams should only simulate adversaries is limiting. Some organizations may want to know if they're vulnerable to a specific threat group using the same tactics they've used before, but arguably most don't. Not to mention a threat groups tactics evolve.
+[sixdub asked this back in the day](https://web.archive.org/web/20200422214919/http://sixdub.net/?p=762): are your providers actually "replicating the multifaceted aspects" of an adversary, or checking boxes? Maybe the industry has matured past this in the last five years. Maybe not. Your mileage may vary.
 
-https://medium.com/@thegrugq/cyber-ignore-the-penetration-testers-900e76a49500
-An APT is literally the instantiation of a nation state’s will. It is not a toolchain.
+**What These Groups Actually Are**
 
-A Red Team (either consultant or internal) is the instantiation of an organization's desire to answer business risk questions
-A cyber crime group is the intsantiation of an individual(s) to obtain funds, cause harm, or misjudgingly act out of curiosity
+Let's get real about what we're dealing with.
 
-Within each group there are varying degrees of resources, sophistication, and capabilities.
+An APT is, as [the grugq put it](https://medium.com/@thegrugq/cyber-ignore-the-penetration-testers-900e76a49500), "literally the instantiation of a nation state's will." Not a toolchain. Not a malware family. A nation's will, with resources to match.
 
-An organization hiring a red team will pay for what it can afford. The more they pay, the higher the degree of business risk assurance.
+A red team, consultant or internal, is the instantiation of an organization's desire to answer business risk questions. You get what you pay for. More money and time buys more assurance about your actual risks.
 
-Actor's resources, sophistication, and capabilities will vary regardless of the group they belong to. 
+A cybercrime group is the instantiation of some people wanting to get paid, cause harm, or occasionally satisfy a misguided curiosity about what happens when you click the Big Red Button.
 
-Elite groups are certainly using sophisticated techniques rarely practiced by those on the lawful side. Look at Turla.
+**But They're All Just People**
 
-Compromise occurs simply by people who are incentivised to achieve a goal against a victim. The means vary. 
+Here's the thing. These are all humans sitting at keyboards. Their resources vary. Their sophistication varies. Their capabilities vary, within each group as much as between them. Yes, elite groups use techniques the lawful side rarely practices. Look at Turla. But compromise happens because people are incentivized to achieve a goal against a victim. The means vary. The underlying mechanism is the same everywhere: abusing the shared technology stacks we all rely on.
 
-These are all just people. Their resources vary, their sophisitication varies, as well as their capabilities. But the means remain the same - typically abusing shared technology.
+**How Work Surfaces (Or Doesn't)**
 
-How their work and research is comes to light does vary.
+How we learn about any of this depends entirely on who did it.
 
-Red Teams have career incentives to publish their research and work. Leads to increased visibilty, earnings potential, visiblity for employer. Research often considered to have been discovered independently. multiple cases of this.
+Red teams have career incentives to publish. Research leads to visibility, which leads to better jobs and higher earnings, plus visibility for the employer. Side effect: the same vuln gets "independently discovered" by multiple teams. There are multiple cases of this.
 
-Criminal activity obviously isn't "published" other than if it's obtained somehow -  antivirus and edr products and honey pots, virustotal and malware analysis, or threat intel reports, maybe leaked.
+Cybercriminals don't publish quarterly reports. We see their work through AV and EDR telemetry, honeypots, VirusTotal uploads, malware analysis, threat intel reports, the occasional leak.
 
-APT groups aren't publishing but there have been high profile leaks from NSA toolkits via shadowbrokers and the CIA's Vault7 toolkits by Wikileaks. I have not seen public releases of other nation states which is curious. What about Russia, China, Israel?
+APT groups don't publish either, but we've had some spectacular leaks: Shadow Brokers dumping NSA toolkits, Vault7 revealing CIA capabilities. Curiously, no equivalent public release of Russian, Chinese, or Israeli toolkits. Make of that what you will.
 
-Observers see these releases and toolkits and speak about the overstep and dangers of dual use technology. Inevitably leading to conversations of censorship.
+**The Dual-Use Conversation We Keep Having**
 
-But these capabilities are inevitable. 
+Every time one of these toolkits leaks, observers clutch their pearls about overstep and the dangers of dual-use technology. Cue Wassenaar, arms control, policy, politics, and whether we should regulate vulnerability research. Inevitably it drifts toward censorship.
 
-Waasenar, arms control, policy, politics...
+But these capabilities are inevitable. You can't un-invent knowledge. The cat's out of the bag and it's never going back in.
 
+**So What's a Red Team Actually For?**
 
-this is just another definition idea...
-challenge assumptions
-test system/control
-test blue response
-find systemic risk to focus defense/budge
+Strip away the threat actor simulation theater and this is just another definition, but here's mine. A red team exists to:
 
+- Challenge assumptions
+- Test systems and controls
+- Test blue team response
+- Find systemic risk so you know where to focus defense spending
 
-
+You're not an APT, no matter how cool your custom C2 framework is. Stop pretending red teams are perfect threat actor simulators. Treat them as business risk assessment tools.
