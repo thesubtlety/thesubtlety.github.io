@@ -1,0 +1,5 @@
+{{- $kind := .Get "kind" | default "tint" -}}
+<aside class="wp-callout wp-callout--{{ $kind }}">
+{{- with .Get "label" }}<span class="wp-label">{{ . }}</span>{{ end -}}
+{{ .Page.RenderString (dict "display" "block") (trim .Inner "\n") }}
+</aside>

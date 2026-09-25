@@ -1,0 +1,117 @@
+/* Beyond the Security Organization — post-scoped styles. Loaded only by {{< wp-style >}}.
+   Built on the subtle theme's variables so light/dark mode both work. */
+:root {
+  --wp-t0: color-mix(in srgb, var(--accent) 6%, var(--bg));
+  --wp-t1: color-mix(in srgb, var(--accent) 12%, var(--bg));
+  --wp-t2: color-mix(in srgb, var(--accent) 22%, var(--bg));
+  --wp-acc: color-mix(in srgb, var(--accent) 34%, var(--bg));
+  --wp-hot: #dc8f2e;
+  --wp-on-hot: #16202a;
+  --wp-hi: #f2b544;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --wp-hot: #e2a458; --wp-on-hot: #14181d; --wp-hi: #8a560f; }
+}
+.wp-dek { font-size: 1.2rem; line-height: 1.4; color: var(--ink-soft); margin-top: -0.4rem; }
+.wp-note { font-style: italic; font-size: 0.88rem; color: var(--ink-soft); }
+.wp-question { font-size: 1.2rem; line-height: 1.4; font-weight: 500; }
+.wp-label { display: block; font-family: var(--mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.45rem; }
+.wp-prop { padding: 0.8rem 1rem; background: var(--wp-t0); border-radius: 6px; font-weight: 500; }
+
+/* Callouts */
+.wp-callout { margin: 1.75rem 0; padding: 1.1rem 1.35rem; background: var(--wp-t1); border-radius: 8px; }
+.wp-callout > :last-child { margin-bottom: 0; }
+.wp-callout--strong { background: var(--ink); color: var(--bg); font-size: 1.2rem; line-height: 1.4; padding: 1.4rem 1.6rem; }
+.wp-callout--strong strong { color: var(--wp-hi); }
+.wp-callout--abstract { background: none; border-radius: 0; border-top: 1px solid var(--rule); border-bottom: 1px solid var(--rule); padding: 1.2rem 0 0.4rem; font-size: 0.92rem; color: var(--ink-soft); }
+.wp-callout--outline { background: none; border: 1px solid var(--rule); }
+
+/* Figures: break slightly out of the measure on wide screens */
+.wp-fig { margin: 2rem 0; padding: 1rem 0.75rem 0.75rem; background: var(--wp-t0); border-radius: 8px; overflow-x: auto; }
+.wp-fig .wp-svg { display: block; width: 100%; height: auto; }
+.wp-fig figcaption { margin-top: 0.75rem; padding: 0 0.25rem; }
+@media (min-width: 1000px) { .wp-fig { margin-left: -4rem; margin-right: -4rem; padding: 1.25rem 1.5rem 1rem; } }
+@media (max-width: 600px) { .wp-fig .wp-svg { min-width: 540px; } }
+
+/* Lossy handoffs */
+.wp-handoff { display: grid; grid-template-columns: minmax(0, 1fr) 4.5rem minmax(0, 1fr); gap: 0.55rem 0.5rem; align-items: center; }
+.wp-handoff .wp-label { margin: 0; }
+.wp-h-from { background: var(--wp-acc); border-radius: 999px; padding: 0.4rem 1rem; font-weight: 500; }
+.wp-h-arrow { height: 2.1rem; background: var(--wp-t2); clip-path: polygon(0 0, 86% 36%, 100% 50%, 86% 64%, 0 100%); }
+.wp-h-to { justify-self: start; border: 1px solid var(--underline); background: var(--bg-raised); border-radius: 999px; padding: 0.1rem 0.7rem; font-size: 0.8rem; }
+
+/* Two-up cards */
+.wp-pair, .wp-owners { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.5rem 0; }
+.wp-pair > div, .wp-owners > div { padding: 1rem 1.2rem; border: 1px solid var(--rule); border-radius: 8px; }
+.wp-pair p, .wp-owners p { margin: 0; }
+.wp-owners p { font-size: 0.9rem; }
+.wp-owners strong { display: block; margin-bottom: 0.25rem; }
+.wp-pair .is-key, .wp-owners .is-key { background: var(--wp-t1); border-color: transparent; }
+
+/* Label / value rows */
+.wp-claims, .wp-defs { display: grid; border-top: 1px solid var(--rule); margin: 1.25rem 0 1.5rem; }
+.wp-claims { grid-template-columns: 9rem 1fr; }
+.wp-defs { grid-template-columns: 12rem 1fr; }
+.wp-claims > *, .wp-defs dt, .wp-defs dd { margin: 0; padding: 0.65rem 0; border-bottom: 1px solid var(--rule); }
+.wp-claims > .wp-label { padding-top: 0.95rem; }
+.wp-claims .is-key { font-weight: 600; }
+.wp-defs dt { font-weight: 600; padding-right: 1rem; }
+
+/* Linear queue */
+.wp-queue { display: flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.5rem 0.75rem 0; }
+.wp-queue span { flex: 1; text-align: center; padding: 0.45rem 0; border: 1px solid var(--underline); background: var(--bg-raised); border-radius: 999px; font-weight: 500; }
+.wp-queue i { font-style: normal; color: var(--ink-faint); }
+.wp-queue .is-stack { flex: 1.3; border-radius: 6px; box-shadow: 4px 4px 0 -1px var(--bg-raised), 4px 4px 0 0 var(--underline), 8px 8px 0 -1px var(--bg-raised), 8px 8px 0 0 var(--underline); }
+
+/* Seven-step strip */
+.wp-steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 0.3rem; counter-reset: s; position: relative; }
+.wp-steps::before { content: ""; position: absolute; left: 7%; right: 7%; top: 0.95rem; height: 3px; background: var(--wp-acc); border-radius: 3px; }
+.wp-steps li { position: relative; counter-increment: s; display: flex; flex-direction: column; align-items: center; gap: 0.4rem; text-align: center; font-size: 0.74rem; font-weight: 600; line-height: 1.25; margin: 0; }
+.wp-steps li::before { content: counter(s); width: 2rem; height: 2rem; border-radius: 50%; background: var(--bg-raised); border: 2px solid var(--ink); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; }
+.wp-steps li.is-key::before { background: var(--wp-hot); color: var(--wp-on-hot); }
+
+/* Problem charter */
+.wp-charter { border: 1.5px solid var(--ink); border-radius: 8px; overflow: hidden; margin: 1.5rem 0; }
+.wp-charter-head { display: flex; justify-content: space-between; align-items: center; padding: 0.75rem 1.2rem; background: var(--ink); color: var(--bg); font-weight: 600; }
+.wp-charter-head .wp-label { color: var(--wp-acc); margin: 0; }
+.wp-charter section { padding: 1rem 1.2rem; border-top: 1px solid var(--rule); }
+.wp-charter section:first-of-type { border-top: 0; }
+.wp-charter h4 { font-size: 1rem; font-weight: 600; margin: 0 0 0.35rem; }
+.wp-charter p { font-size: 0.92rem; margin: 0 0 0.5rem; }
+.wp-charter section > :last-child { margin-bottom: 0; }
+
+/* "From quietly becoming" */
+.wp-shift { display: grid; gap: 0.5rem; margin: 1rem 0; }
+.wp-shift p { margin: 0; }
+.wp-shift .is-key { background: var(--wp-t1); font-weight: 600; }
+.wp-shift-mid { font-size: 0.88rem; color: var(--ink-soft); padding-left: 1rem; }
+
+/* Lists */
+.wp-strike { list-style: none; padding: 0; display: flex; flex-wrap: wrap; gap: 0.45rem; margin: 0.5rem 0 1.25rem; }
+.wp-strike li { margin: 0; padding: 0.25rem 0.8rem; border: 1px solid var(--underline); border-radius: 999px; font-size: 0.85rem; text-decoration: line-through; text-decoration-color: var(--wp-hot); text-decoration-thickness: 2px; }
+.wp-numbered { list-style: none; counter-reset: n; padding: 0.4rem 1.2rem; background: var(--wp-t1); border-radius: 8px; margin: 1rem 0 1.25rem; }
+.wp-numbered li { counter-increment: n; display: grid; grid-template-columns: 1.8rem 1fr; padding: 0.55rem 0; border-bottom: 1px solid var(--rule); margin: 0; }
+.wp-numbered li:last-child { border-bottom: 0; }
+.wp-numbered li::before { content: counter(n); font-family: var(--mono); color: var(--accent); font-size: 0.8rem; padding-top: 0.15rem; }
+
+/* Appendix openers */
+.wp-appendix { margin: 5rem 0 2rem; padding-top: 1.5rem; border-top: 2px solid var(--ink); }
+.wp-appendix .wp-letter { font-size: 4.5rem; line-height: 1; font-weight: 500; margin: 0.1rem 0 0.6rem; }
+.wp-appendix h2 { font-size: 1.7rem; margin: 0 0 1.1rem; }
+.wp-appendix ul { list-style: none; padding: 0; margin: 0; border-top: 1px solid var(--rule); }
+.wp-appendix li { display: grid; grid-template-columns: 3rem 1fr; padding: 0.5rem 0; border-bottom: 1px solid var(--rule); margin: 0; font-size: 0.95rem; }
+.wp-appendix li span { font-family: var(--mono); font-size: 0.72rem; color: var(--accent); padding-top: 0.2rem; }
+
+/* Endnotes */
+.footnotes { font-size: 0.82rem; color: var(--ink-soft); }
+.footnotes hr { display: none; }
+.footnotes li { margin-bottom: 0.6em; }
+
+@media (max-width: 600px) {
+  .wp-pair, .wp-owners, .wp-claims, .wp-defs { grid-template-columns: 1fr; }
+  .wp-claims > .wp-label, .wp-defs dt { border-bottom: 0; padding-bottom: 0; }
+  .wp-steps { grid-template-columns: repeat(4, minmax(0, 1fr)); row-gap: 1rem; }
+  .wp-steps::before { display: none; }
+  .wp-handoff { grid-template-columns: minmax(0, 1fr) 2.5rem minmax(0, 1fr); }
+  .wp-queue { flex-wrap: wrap; }
+}

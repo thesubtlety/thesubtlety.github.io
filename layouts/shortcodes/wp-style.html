@@ -1,0 +1,4 @@
+{{- with resources.Get "css/whitepaper.css" -}}
+{{- $c := . | minify | fingerprint -}}
+<link rel="stylesheet" href="{{ $c.RelPermalink }}" integrity="{{ $c.Data.Integrity }}">
+{{- end -}}

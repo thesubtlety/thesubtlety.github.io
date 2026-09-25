@@ -1,0 +1,6 @@
+{{- $name := .Get "src" -}}
+{{- $r := .Page.Resources.Get (printf "figures/%s.svg" $name) -}}
+<figure class="wp-fig">
+{{- with $r }}{{ .Content | safeHTML }}{{ else }}{{ errorf "wp-fig: missing figures/%s.svg in %s" $name $.Page.File.Path }}{{ end -}}
+{{- with .Get "caption" }}<figcaption>{{ . | markdownify }}</figcaption>{{ end -}}
+</figure>
