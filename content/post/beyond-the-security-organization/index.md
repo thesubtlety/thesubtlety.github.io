@@ -72,6 +72,14 @@ NIST’s systems-security engineering work offers an important foundation for th
 
 The same principle applies organizationally. If security emerges from interactions between systems, a security organization that reasons mainly through separate functional queues will eventually struggle to understand the property it is responsible for.
 
+Modern security failures travel through chains of authority, dependency, and reachability that cross specialist boundaries. The operating model must preserve the security problem across those boundaries long enough to understand it, change the right layer, and retain what was learned.
+
+**No single specialist security function owns the complete path through which authority, evidence, and remediation travel.**
+
+{{< callout kind="strong" >}}
+The old security organization manages security activities. The emerging security organization manages a learning system.
+{{< /callout >}}
+
 ## 2. From Remediation to Learning
 
 A more useful operating question is:
@@ -81,6 +89,14 @@ A more useful operating question is:
 The resulting model is circular rather than linear.
 
 {{< wp-fig src="learning-loop" caption="Figure 1 · The security learning system" >}}
+
+<p class="wp-note">These loops operate at different timescales: operational control, adversarial assurance, and organizational learning.</p>
+
+{{< callout label="Tempo" >}}
+**The learning system operates at different speeds.** An operational control loop may need to detect and contain activity in seconds or minutes. An adversarial-assurance loop may operate over hours or weeks as researchers develop attacks, exercise systems, and convert successful techniques into reusable tests. The organizational learning loop operates over weeks or quarters as evidence changes architecture, platforms, products, and standards. A mature system connects all three. Some security properties are therefore temporal: a control that fires after an autonomous attacker has already achieved its objective may be technically correct and operationally ineffective.[^2]
+
+<div class="wp-timescales"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200" class="wp-svg" role="img" aria-label="Three nested loops: operational control, adversarial assurance, organizational learning" style="font-family: var(--serif);"><circle cx="100" cy="100" r="88" fill="none" style="stroke: var(--wp-acc); stroke-width: 7;"></circle><circle cx="100" cy="100" r="58" fill="none" style="stroke: var(--accent); stroke-width: 6;"></circle><circle cx="100" cy="100" r="28" fill="none" style="stroke: var(--wp-hot); stroke-width: 6;"></circle><g fill="none" style="stroke: var(--ink); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><path d="M -4 -5 L 3 0 L -4 5" transform="translate(100 12)"></path><path d="M -4 -5 L 3 0 L -4 5" transform="translate(100 42)"></path><path d="M -4 -5 L 3 0 L -4 5" transform="translate(100 72)"></path></g><circle cx="240" cy="50" r="7" style="fill: var(--wp-hot);"></circle><circle cx="240" cy="100" r="7" style="fill: var(--accent);"></circle><circle cx="240" cy="150" r="7" style="fill: var(--wp-acc);"></circle><g style="font-size: 16px; font-weight: 600; fill: var(--ink);"><text x="258" y="48">Operational control</text><text x="258" y="98">Adversarial assurance</text><text x="258" y="148">Organizational learning</text></g><g style="font-size: 13px; fill: var(--ink-soft);"><text x="258" y="66">detect and contain · seconds to minutes</text><text x="258" y="116">develop, exercise, repeat · hours to weeks</text><text x="258" y="166">architecture · platforms · product · weeks to quarters</text></g></svg></div>
+{{< /callout >}}
 
 A vulnerability is not necessarily closed when an endpoint is patched. An incident is not fully learned from when its action items are completed. A red-team exercise has not created maximum value when the report is delivered.
 
@@ -107,7 +123,7 @@ The required property is made explicit: a tenant-controlled identity cannot exer
 <div class="is-key"><span class="wp-label">Learned</span><p>The organization <strong>learned</strong> when it became structurally less able to produce the same failure class.</p></div>
 </div>
 
-This idea has established predecessors. MITRE’s threat-informed defense model, for example, describes a continuous cycle connecting threat intelligence, defensive measures, and testing and evaluation.[^2] Microsoft’s Secure Future Initiative goes further organizationally: Microsoft says lessons from incidents are fed into security standards and operationalized as paved paths for engineering at scale.[^3]
+This idea has established predecessors. MITRE’s threat-informed defense model, for example, describes a continuous cycle connecting threat intelligence, defensive measures, and testing and evaluation.[^3] Microsoft’s Secure Future Initiative goes further organizationally: Microsoft says lessons from incidents are fed into security standards and operationalized as paved paths for engineering at scale.[^4]
 
 The synthesis proposed here extends the loop through product, architecture, shared engineering systems, operations, and explicit closure.
 
@@ -129,15 +145,46 @@ A useful abstraction is the **product trust surface**:
 **A system, identity, person, or dependency belongs to the product trust surface when control or failure of it can plausibly change an important product security property without first requiring compromise of an unrelated independent security boundary.**
 {{< /callout >}}
 
+**The trust surface is better understood as a reachability graph than an inventory.** What matters is not merely whether a developer endpoint, identity provider, CI runner, support tool, or service account is “in scope,” but what authority can flow through it and which important security properties become reachable as a result.
+
 The practical test is causal. Can compromise of this thing directly enable someone to alter trusted product code or configuration, exercise privileged product authority, access or modify protected customer information, undermine a critical security control, or materially impair the ability to detect or recover from those actions?
 
-{{< wp-fig src="trust-surface" caption="Figure 2 · The product trust surface" >}}
+{{< wp-fig src="trust-surface" caption="Figure 2 · The product trust surface as authority and reachability" >}}
 
 A general corporate workstation might not meet this test. A developer workstation holding credentials capable of changing trusted source or production state does. A corporate identity provider may be organizationally “IT” while functioning as a central part of the production trust architecture. A support console may be a business SaaS tool and simultaneously a powerful customer-data control plane.
 
-Okta’s public Secure Identity Commitment illustrates the collapsing boundary. The company states that it treats internal technology, people, and processes according to the same cyber threat profile as its customer-facing environment and specifically calls out investment in production-adjacent systems.[^4]
+Agentic systems introduce another class of actor into the trust surface. The model is a component; the agent is an actor whose security significance comes from its delegated identity, accessible context, tools, credentials, network reach, and ability to take action.
 
-Okta also provides a signal in the opposite direction: its July 30, 2026 announcement of the Permiso acquisition said P0 Labs research, combined with Okta Threat Intelligence, would strengthen detections, hunting, and the Okta product roadmap. The acquisition closed on August 26.[^5]
+“Which model are we running?” is a materially different question from:
+
+<p class="wp-question">What can this agent perceive and do, on whose behalf, and under what constraints?</p>
+
+Google’s agentic-security work makes this distinction increasingly operational: defenders need to distinguish legitimate employee agents from malicious agents and account for autonomous movement through the environment.[^2]
+
+### Task authority
+
+Agents also change what a security property can be about.
+
+<div class="wp-pair">
+<div><span class="wp-label">Principal authority</span><ul class="wp-auth"><li><span>Client A</span><span class="y">✓</span></li><li><span>Client B</span><span class="y">✓</span></li></ul></div>
+<div class="is-key"><span class="wp-label">Task authority</span><ul class="wp-auth"><li><span>Client A</span><span class="y">✓</span></li><li><span>Client B</span><span class="n">✗</span></li><li><span>external send</span><span class="n">✗</span></li><li><span>writes</span><span class="n">✗</span></li></ul></div>
+</div>
+
+Authorization alone does not always define the relevant boundary. A person may legitimately have access to Client A and Client B while no legitimate task requires information from both clients to coexist in the same execution context. Agentic systems therefore introduce security properties around **task-scoped authority and context**, not merely access: what information this task may retrieve, combine, retain, disclose, or act upon.
+
+Stripe describes almost exactly this case for its internal Knowledge AI platform. A user can legitimately access two unrelated customer contexts independently, but the platform must prevent those contexts from appearing together in one analysis or session. The boundary moves from what the user’s token permits to what the particular task should see.[^5]
+
+{{< callout label="Two general properties" >}}
+**Delegated execution should be constrained by the authority required for the task, not by the full authority available to the delegating principal.**
+
+**Information that is independently accessible to a principal should not necessarily be combinable within the same task context.**
+{{< /callout >}}
+
+Neither property is specific to AI; agents make them urgent. They also give indirect prompt injection a more robust target: the invariant does not have to be that the model never follows hostile instructions. It can instead limit what a compromised context is able to expose or cause.
+
+Okta’s public Secure Identity Commitment illustrates the collapsing boundary. The company states that it treats internal technology, people, and processes according to the same cyber threat profile as its customer-facing environment and specifically calls out investment in production-adjacent systems.[^6]
+
+Okta also provides a signal in the opposite direction: its July 30, 2026 announcement of the Permiso acquisition said P0 Labs research, combined with Okta Threat Intelligence, would strengthen detections, hunting, and the Okta product roadmap. The acquisition closed on August 26.[^7]
 
 These examples do not establish that Okta operates the complete model proposed here. They demonstrate something narrower but important: the line between defending the company, understanding adversaries, and improving the product can be productive rather than rigid.
 
@@ -173,57 +220,95 @@ The metaphor of a **security nervous system** is useful here, but the implementa
 
 {{< wp-fig src="context-layer" caption="Figure 3 · A shared security context layer" >}}
 
-The objective is **composable context**: shared semantics, durable identifiers, relationships, evidence provenance, useful APIs, and progressively better ways to join information across security domains.
+The objective is **decision-ready context**: enough shared identity, ownership, dependency, authority, deployment, and evidence relationships to answer recurring questions about what can affect what, who can change it, and what an observed compromise actually puts at risk.
 
-There is visible precedent for parts of this. Adobe built Project Caspian after concluding that existing tooling could not capture, manage, and analyze security data at the scale and performance it needed.[^6] Its 2026 Security Workbench similarly brings vulnerability, compliance, ticket, and SLA information into a common logical model and shared view rather than forcing teams to reconcile separate tools.[^7]
+Shared context does not mean universal context. The system should make relevant information composable while preserving authorization, customer, purpose, and isolation boundaries. Better context should not create a larger blast radius.
 
-A current Netflix job posting offers another signal. Its Consumer Security Foundations organization describes building shared data, tools, infrastructure, common pipelines, a central source of truth, and a unified risk view for security teams, leadership, and product partners.[^8] Because this evidence comes from a job posting rather than durable architectural documentation, it should be treated as an indication of current organizational direction, not a definitive description of Netflix’s overall security model.
+{{< callout >}}
+**Make relationships computationally understandable without collapsing the boundaries those relationships describe.**
+{{< /callout >}}
+
+There is visible precedent for parts of this. Adobe built Project Caspian after concluding that existing tooling could not capture, manage, and analyze security data at the scale and performance it needed.[^8] Its 2026 Security Workbench similarly brings vulnerability, compliance, ticket, and SLA information into a common logical model and shared view rather than forcing teams to reconcile separate tools.[^9]
+
+A current Netflix job posting offers another signal. Its Consumer Security Foundations organization describes building shared data, tools, infrastructure, common pipelines, a central source of truth, and a unified risk view for security teams, leadership, and product partners.[^10] Because this evidence comes from a job posting rather than durable architectural documentation, it should be treated as an indication of current organizational direction, not a definitive description of Netflix’s overall security model.
+
+Stripe’s Knowledge AI platform is a smaller, concrete example. It separates a central execution layer, with shared sandboxing, orchestration, and access controls, from domain-owned agents and skills, and Stripe says those core primitives are deliberately shared with its product-facing agents because internal knowledge work handles similarly sensitive data. That is close to the structure proposed here: a central secure substrate with federated domain expertise. Stripe also describes work on a loop in which the agent reflects on its traces, proposes skill improvements, tests them, and submits the changes to the skill owner—a small learning system with human-owned closure.[^5]
 
 For a smaller organization, this capability does not require a separate “Foundations” department. The minimum viable version may be common service ownership data, a few durable identifiers, good APIs, and enough shared telemetry to answer recurring cross-system questions. The principle matters more than the org chart.
 
 ## 5. Engineering, Assurance, Operations, and Closure
 
-A learning system still depends on specialist capabilities. Their boundaries become clearer when defined by the questions for which each is accountable.
+A learning system still depends on specialist capabilities. Their boundaries become clearer when defined by the questions they are responsible for answering.
 
-**Architecture and intent** ask what must be true. **Engineering and prevention** make those properties true. **Operations and resilience** observe real system behavior and respond when properties fail. **Assurance and challenge** ask how the organization knows its claims are true. **Integration and closure** make sure consequential discoveries actually change reality. Security Foundations supplies shared context across all of them, while risk and governance provide constraints, business context, escalation, and legitimate risk acceptance.
+**Architecture and intent** ask what must be true. **Engineering and prevention** build the mechanisms intended to make those properties hold. **Operations and resilience** observe real system behavior, contain failures, and restore safe operation. **Assurance and challenge** ask what evidence justifies believing the organization’s security claims. **Security Foundations** makes the identities, systems, authority, dependencies, and evidence required for those activities legible across organizational boundaries. **Risk and governance** provide business context, constraints, escalation, and legitimate risk acceptance.
 
-These are not sequential stages. An incident may go directly to architecture because it disproves a design assumption. An assurance exercise may change a product because it reveals a missing customer control. Architecture may demand new telemetry because a critical property cannot currently be observed.
+Closure is different. It is not another specialist capability.
+
+{{< callout >}}
+**Closure is the accountability that prevents consequential discoveries from dissolving across specialties.**
+{{< /callout >}}
+
+These activities are not sequential stages. An incident may go directly to architecture because it disproves a design assumption. An assurance exercise may change a product because it reveals a missing customer control. Architecture may require new telemetry because an important property cannot currently be observed.
 
 Technical assurance deserves particular precision.
 
 <div class="wp-claims">
 <span class="wp-label">Activity</span><p>“Perform a penetration test” is an activity.</p>
 <span class="wp-label">Output</span><p>“Deliver a report” is an output.</p>
-<span class="wp-label">Assurance claim</span><p class="is-key">“Cross-tenant access remains prevented across supported access paths, with current adversarial evidence” is an assurance claim.</p>
+<span class="wp-label">Security claim with assurance evidence</span><p class="is-key">“Cross-tenant access remains prevented across supported access paths, with current adversarial evidence” is a claim about the system supported by assurance.</p>
 </div>
 
-Google’s 2025 security-assurance paper uses a related technical framing. It focuses on Red Teaming, Vulnerability Management, Detection & Response, and Threat Intelligence working together through remediation to build confidence that software is built securely and continues to operate securely.[^9]
+Google’s 2025 security-assurance model uses a related technical framing, connecting Red Teaming, Vulnerability Management, Detection & Response, and Threat Intelligence through remediation to build confidence that software is built securely and continues to operate securely.[^11]
 
-That is a useful assurance subsystem. The wider learning-system question is what happens after remediation: whether the discovery changes architecture, engineering platforms, related systems, product behavior, and future testing.
+That is a useful assurance subsystem. The wider learning-system question is what the organization does with the evidence: whether remediation changes only the observed instance or also the relevant architecture, engineering platform, related systems, product behavior, telemetry, and future testing.
 
-Assurance therefore needs sufficient separation of judgment to say, “this is still not fixed,” without becoming the permanent owner of the systems it challenges. Nor should technical assurance be confused with independent Internal Audit; the latter has different organizational independence and governance responsibilities.[^10]
+Assurance therefore needs enough independence of judgment to say, “this still does not hold,” without becoming the permanent owner of the systems it challenges. Technical assurance should also remain distinct from independent Internal Audit, which has different organizational-independence and governance responsibilities.[^12]
 
-### Four kinds of ownership
+**For consequential security claims, the team responsible for designing a control should not be its only source of validation.**
 
-The organization becomes easier to manage when “ownership” is decomposed.
+### Adversarial Engineering
+
+Adversarial Engineering is a particularly important source of assurance evidence because important security properties frequently cross conventional assessment boundaries.
+
+It sits at the boundary of assurance, research, and engineering. Its unit of analysis is the security property and the attack surface required to challenge it, rather than a predetermined application, network, or organizational scope. It may develop exploits, offensive agents, attack harnesses, or novel techniques; use them to challenge real systems; and convert successful attacks into reusable assurance capability.
+
+Its independence should primarily be **independence of judgment**, not separation from engineering work.
+
+Google’s proposed evolution of Red Teaming toward reusable offensive subagents illustrates this transition from periodic assessment toward adversarial capability that accumulates and improves through use.[^2]
+
+Threat intelligence should inform adversarial hypotheses, but it should not necessarily define the boundary of an exercise. The objective is not perfect imitation of a named threat actor. It is to challenge consequential security claims under realistic adversarial conditions and discover where the system’s assumptions fail.
+
+### Capability Is Not Ownership
+
+This distinction matters because capability and ownership are orthogonal.
+
+An adversarial team can produce evidence without owning remediation. A platform team can own a system without owning the cross-system security problem. Operations may own containment of an incident without owning the architectural condition that allowed it.
+
+The organization therefore becomes easier to reason about when “ownership” is decomposed into four kinds.
 
 <div class="wp-owners">
-<div><span class="wp-label">01</span><strong>Capability owner</strong><p>Maintains excellence in a discipline such as Red Team, Detection Engineering, Identity Security, or Security Foundations.</p></div>
-<div><span class="wp-label">02</span><strong>Domain owner</strong><p>Understands a product or technical area such as Identity, Developer Platform, Consumer Product, or AI deeply enough to apply specialist capability in context.</p></div>
-<div><span class="wp-label">03</span><strong>System owner</strong><p>The engineering or operational organization accountable for the actual service or platform.</p></div>
-<div class="is-key"><span class="wp-label">04</span><strong>Problem or closure owner</strong><p>Carries a consequential issue across those boundaries until the security outcome is resolved and revalidated.</p></div>
+<div><span class="wp-label">01</span><strong>Capability ownership</strong><p>Who makes a specialist discipline exist and remain excellent?</p><p>Examples include Adversarial Engineering, Detection Engineering, Identity Security, Security Foundations, or Incident Response.</p></div>
+<div><span class="wp-label">02</span><strong>Domain ownership</strong><p>Who understands a product or technical domain deeply enough to apply those capabilities in context?</p><p>Examples might include Identity, Developer Platform, Consumer Product, or AI. At scale this responsibility may sit with a domain security lead, embedded security engineer, or security partner.</p></div>
+<div><span class="wp-label">03</span><strong>System ownership</strong><p>Who can actually change and operate the service, platform, or product?</p><p>This normally remains with the responsible engineering or operational organization.</p></div>
+<div class="is-key"><span class="wp-label">04</span><strong>Problem ownership</strong><p>Who maintains continuity of a consequential security problem across those boundaries until the required outcome is reached and revalidated?</p></div>
 </div>
 
-The fourth is the least explicit in many organizations.
+This fourth form of ownership is often the least explicit.
 
-A developer compromise that moves through corporate identity, source control, CI credentials, artifact infrastructure, and cloud permissions has many system and capability owners. It still needs one person maintaining continuity of the security problem.
+A developer compromise that traverses endpoint security, corporate identity, source control, CI credentials, artifact infrastructure, and cloud permissions may involve many system owners and several security capabilities. It still needs someone preserving the original security problem while those teams act on their respective parts.
 
-That person may be a principal security engineer, domain security lead, or explicitly appointed problem owner. They do not need management authority over every participating team. They do need defined escalation rights and accountability for whether the problem reaches a real decision.
+That person might be a Principal Security Engineer, domain security lead, or explicitly appointed problem owner. They do not need managerial authority over every participating team. They do need clear closure criteria, visibility into dependencies, defined escalation rights, and accountability for whether the problem reaches a real decision.
+
+The problem owner does not decide how every system is implemented. System owners retain that authority. Nor does the problem owner unilaterally decide business priority or acceptable residual risk. When coordination fails, the role is responsible for carrying the unresolved decision to the engineering, product, security, or risk leader empowered to make it.
+
+This separation preserves both technical ownership and problem continuity.
 
 {{< wp-fig src="org-model" caption="Figure 4 · Central capability, federated context, horizontal closure" >}}
 
+The organizational rule is straightforward:
+
 {{< callout >}}
-The rule is simple: **centralize scarce expertise and shared infrastructure; federate domain context and delivery; matrix consequential cross-boundary problems; leave system ownership with engineering.**
+**Centralize scarce expertise and shared infrastructure; federate domain context and delivery; matrix consequential cross-boundary problems; leave system ownership with engineering.**
 {{< /callout >}}
 
 ## 6. How the Model Fails
@@ -255,6 +340,8 @@ A “security knowledge plane” can quickly turn into a multi-year graph, lake,
 Start with repeated questions the organization cannot answer: Which systems depend on this primitive? Who can change production? Where else does this attack path apply?
 
 Build only enough shared context to make those questions materially cheaper. New infrastructure should have identifiable consumers and decisions it improves.
+
+The opposite failure is equally dangerous: solving fragmentation by pooling more sensitive information than any task needs. A security knowledge layer should make relationships discoverable and context composable while preserving access, purpose, customer, and isolation boundaries.
 
 ### Security expands its remit without improving ownership
 
@@ -292,6 +379,8 @@ If every recurring issue still requires the same investigation, the same set of 
 
 A healthy learning system should gradually convert repeated human effort into shared context, secure defaults, platform capabilities, automated tests, detections, and clearer ownership.
 
+Learning should also eliminate work: retire controls that evidence shows add little value, stop repeating low-yield reviews, and explicitly deprioritize problems that do not justify further investment.
+
 The practical test is not whether every finding completes the full model.
 
 {{< callout kind="strong" >}}
@@ -306,11 +395,21 @@ Security reasoning is expensive. Software engineering is expensive. Integrating 
 
 Those constraints are weakening.
 
-Microsoft’s July 2026 SFI report describes a multi-agent assessment system that examines source code, identity configuration, network topology, and runtime state together to identify composite vulnerabilities that a single-layer review can miss. Microsoft reports that more than 90 percent of its findings were confirmed by security engineers.[^11]
+AI changes the economics on both sides. The same reduction in the cost of reasoning and software creation that increases defender leverage also lowers the cost of reconnaissance, vulnerability discovery, custom tooling, parallel attack execution, and lateral movement. Security assumptions that depended implicitly on attacker time, labor, or attention may therefore degrade quickly.[^2]
+
+Microsoft’s July 2026 SFI report describes a multi-agent assessment system that examines source code, identity configuration, network topology, and runtime state together to identify composite vulnerabilities that a single-layer review can miss. Microsoft reports that more than 90 percent of its findings were confirmed by security engineers.[^13]
 
 The interesting implication is not simply that AI can find vulnerabilities.
 
 It is that **the amount of the technical system that can be continuously reasoned about is increasing**.
+
+Agentic systems make the compositional problem especially visible. A model may be individually well evaluated while the system around it remains unsafe because of the identities, tools, data, and communication paths it can reach. Indirect prompt injection is consequential largely because untrusted context can influence an actor with authority. The relevant security properties therefore include not only model behavior and access control but task-scoped authority and context: what information this task may combine, which tools it may invoke, what actions it may take, and how quickly misuse can be contained.
+
+{{< callout >}}
+**Manage the model as a component. Assure the AI system as a composition.**
+{{< /callout >}}
+
+The Client A / Client B case in Section 3 is the simplest illustration: human-level role-based access does not automatically define safe agent authority.
 
 Security practitioners can also build the long tail of internal tooling more cheaply: one-off analyses, integrations, data enrichment, investigative workflows, test harnesses, dashboards, and narrow automation that historically would not have justified a traditional engineering project.
 
@@ -341,7 +440,7 @@ A connected learning system can turn cheaper reasoning into faster improvement. 
 
 The elements of this model are not inventions.
 
-Systems-security engineering supplies the idea of security as an emergent system property. Threat-informed defense connects adversary knowledge, defenses, and testing. Netflix’s paved-road work popularized the idea that security scales by embedding expertise into supported engineering paths rather than placing a gate in front of every developer.[^12] Google has articulated a modern technical-assurance model. Adobe and Netflix provide public signals of investment in shared security-data and foundations capabilities. Okta provides visible examples of internal security and research feeding product. Microsoft’s SFI explicitly connects incident lessons, engineering standards, paved paths, organizational accountability, and increasingly continuous validation.
+Systems-security engineering supplies the idea of security as an emergent system property. Threat-informed defense connects adversary knowledge, defenses, and testing. Netflix’s paved-road work popularized the idea that security scales by embedding expertise into supported engineering paths rather than placing a gate in front of every developer.[^14] Google has articulated a modern technical-assurance model. Adobe and Netflix provide public signals of investment in shared security-data and foundations capabilities. Okta provides visible examples of internal security and research feeding product. Microsoft’s SFI explicitly connects incident lessons, engineering standards, paved paths, organizational accountability, and increasingly continuous validation.
 
 The claim is not that these organizations have implemented the exact model proposed here.
 
@@ -351,13 +450,24 @@ The advantage of doing so is larger than reducing vulnerability counts. The comp
 
 That suggests a different class of measurement.
 
+Learning rate is an umbrella concept rather than a directly observable KPI. The useful question is whether several measures together reveal where learning succeeds, where it terminates, and whether repeated security work is becoming cheaper.
+
 {{< callout kind="outline" label="Candidate metric" >}}
 One candidate is **systemic rediscovery rate**: the proportion of material incidents or assurance findings attributable to a failure class for which the organization had previously claimed systemic closure.
 {{< /callout >}}
 
 The metric requires care. Better detection can temporarily increase it, classification is subjective, and “systemic closure” must have a meaningful definition. But it exposes an important distinction. If a company repeatedly discovers high-impact instances of a class it believed it had eliminated, the earlier effort likely achieved remediation without learning.
 
-Other useful questions follow naturally: how quickly can the organization identify every system affected by a newly understood condition? How often does a significant incident change a shared platform or architecture pattern? How much of a novel adversarial technique becomes repeatable assurance? How stale is the evidence supporting important security claims?
+Two further measures make learning rate more concrete:
+
+<dl class="wp-defs">
+<dt>Protective propagation latency</dt><dd>The time between validating a consequential failure mode and establishing relevant protection, constraint, detection, or assurance across the affected surface.</dd>
+<dt>Evidence freshness</dt><dd>How much relevant system change has occurred since the evidence supporting an important security claim was produced.</dd>
+</dl>
+
+<figure class="wp-fig"><ol class="wp-steps wp-steps--5"><li>Failure mode validated</li><li>Affected systems identified</li><li>Mitigation selected</li><li>Protection propagated</li><li>Coverage verified</li></ol><figcaption>Protective propagation latency is measured from the first step to the last.</figcaption></figure>
+
+Other useful signals include the time to identify every affected system, the proportion of significant adversarial techniques converted into repeatable assurance, and the amount of manual reconstruction that recurring questions still require. The objective is decision support, not measurement theater.
 
 Traditional metrics such as remediation time, detection time, coverage, and control adoption remain useful. Learning rate complements them by asking whether the security system is becoming structurally better as a result of the work it performs.
 
@@ -376,6 +486,8 @@ When reality disproves something we believed about our security, how reliably do
 That is the shift beyond the security organization.
 
 It is the transition from managing security work to managing security learning.
+
+<aside class="wp-author-note"><span class="wp-label">Author’s note on AI assistance</span><p class="wp-note">I used ChatGPT extensively as a drafting and editorial tool while developing this essay, including to structure arguments, pressure-test ideas, synthesize material I provided, and generate and revise prose. The underlying arguments, source selection, editorial direction, and final judgments are mine; I reviewed the cited material and take responsibility for the final text.</p></aside>
 
 <header class="wp-appendix">
 <span class="wp-label">Appendix</span>
@@ -499,8 +611,9 @@ A good Problem Charter fits on one page.
 <div class="wp-charter">
 <div class="wp-charter-head"><span>Security Problem Charter</span><span class="wp-label">One page</span></div>
 <section><span class="wp-label">Security property</span><h4>What must be true?</h4><p>Describe the behavior you need, separate from how it is built today.</p><p class="wp-prop">A compromised developer identity must not be sufficient to introduce unauthorized code into trusted production execution.</p></section>
+<section><span class="wp-label">Tempo</span><h4>How quickly must the property be enforced or restored relative to the attack?</h4><p>Determine whether prevention, detection, containment, or human decision-making must operate in seconds, minutes, hours, or longer. A valid control that operates slower than the relevant adversary may not satisfy the property.</p></section>
 <section><span class="wp-label">Evidence</span><h4>Why do we think it is not true now?</h4><p>Record the strongest evidence. Keep enough technical detail that the problem does not shrink into a generic fix-it ticket.</p></section>
-<section><span class="wp-label">Trust surface</span><h4>What can affect it?</h4><p>Map the systems, identities, people, and dependencies that matter, based on how the technology actually connects rather than who reports to whom.</p></section>
+<section><span class="wp-label">Trust surface</span><h4>What can affect it?</h4><p>Map the systems, identities, people, and dependencies that matter, based on how the technology actually connects rather than who reports to whom.</p><p>For agentic systems, include the delegated principal, agent identity, model, task or session context, retrieved information, tools, credentials, communication paths, and relevant information-separation boundaries.</p></section>
 <section><span class="wp-label">Owners and decision rights</span><h4>Who can change each part, and who decides when priorities conflict?</h4><p>System owners still own the implementation.</p><p>The problem owner keeps track of the overall security outcome.</p><p>If they disagree about priority or about how much risk is acceptable, there should be a clear path to escalate to the right engineering, product, or risk decision-maker.</p></section>
 <section><span class="wp-label">Local or systemic</span><h4>Is this one bug, or a sign of a wider pattern?</h4><p>Start with a hypothesis, not a conclusion.</p><p>Look for the same logic written in many places, shared building blocks, common design assumptions, or shared dependencies. If the evidence says the bug really is isolated, keep the fix small.</p></section>
 <section><span class="wp-label">Target layer</span><h4>Where should the lasting fix go?</h4><p>Options include the specific code, a library, a platform building block, the identity model, a deployment control, an architecture pattern, an operating procedure, a detection, or a customer-facing feature.</p><p>Choose based on impact, how often the problem recurs, and how much one change would prevent. Do not choose based on a preference for big transformations.</p></section>
@@ -569,7 +682,7 @@ When a serious problem spans several teams, one person should follow it all the 
 
 At moderate scale, this can simply be part of the job of a Principal Security Engineer, architect, or domain security lead. It does not need its own team.
 
-### 3. Share enough context to reason across boundaries
+### 3. Share enough context to reason across boundaries without collapsing them
 
 You do not need a security data lake.
 
@@ -585,6 +698,8 @@ You do need to be able to answer common questions like these:
 When the same question keeps forcing people to piece the answer together by hand, invest in shared identifiers, telemetry, APIs, and links between data sources.
 
 Build this context in response to real needs, not as an attempt to model the whole company.
+
+Shared context should be queryable and composable, not indiscriminately centralized. Preserve customer, purpose, privilege, and task boundaries while making the relationships required for security reasoning easier to discover.
 
 ### 4. Turn lessons into lasting system change
 
@@ -647,24 +762,28 @@ When the organization learns something important about the security of its techn
 
 [^1]: NIST, “NIST Releases Revised Guidance on Engineering Trustworthy Secure Systems,” November 16, 2022; SP 800-160 Vol. 1 Rev. 1. NIST describes security as an emergent system property and explicitly argues for bringing systems security engineering out of a traditional stovepipe.
 
-[^2]: MITRE Center for Threat-Informed Defense, “Our Mission” and “From Insight to Impact: INFORM Your Defense.” MITRE defines threat-informed defense as a continuous process across cyber threat intelligence, defensive measures, and testing and evaluation.
+[^2]: Google, “The Evolving Role of the Red Team in the Era of Agentic Security,” Google Blog, August 2026. Google argues that Red Teams should build their own attacking agents, developing capabilities as modular subagents with each exercise and connecting them through an orchestrator to run autonomous simulations of agentic attacks.
 
-[^3]: Charlie Bell, “Security Above All Else—Expanding Microsoft’s Secure Future Initiative,” Microsoft Security Blog, May 3, 2024. Microsoft states that lessons from security incidents are fed back into standards and operationalized as paved paths; it also describes Deputy CISO partnerships with engineering and recurring cross-organizational operating mechanisms.
+[^3]: MITRE Center for Threat-Informed Defense, “Our Mission” and “From Insight to Impact: INFORM Your Defense.” MITRE defines threat-informed defense as a continuous process across cyber threat intelligence, defensive measures, and testing and evaluation.
 
-[^4]: Okta, “Secure Identity Commitment.” Okta states that internal technology, people, and processes are treated with the same cyber threat profile as its customer-facing environment and calls out production-adjacent systems.
+[^4]: Charlie Bell, “Security Above All Else—Expanding Microsoft’s Secure Future Initiative,” Microsoft Security Blog, May 3, 2024. Microsoft states that lessons from security incidents are fed back into standards and operationalized as paved paths; it also describes Deputy CISO partnerships with engineering and recurring cross-organizational operating mechanisms.
 
-[^5]: Okta, “Okta Acquires Permiso Security,” announced July 30, 2026; acquisition closed August 26, 2026. Okta states that P0 Labs and Okta Threat Intelligence will strengthen detections, hunting capabilities, and the product roadmap.
+[^5]: Anna Mason, Sharadh Krishnamurthy, and Anupam Upadhyay, “Meet Stripe’s Knowledge AI Platform,” Stripe Dot Dev Blog, July 30, 2026. Stripe describes an invariant that data from two unrelated customer contexts must not be combined in a single analysis, even when a user can access each independently, and frames the boundary as what a task should be allowed to view rather than what an authorization token permits.
 
-[^6]: Jericho Cain et al., “Learnings from Project Caspian, Our Purpose-Built Security Data Platform,” Adobe Security Blog, November 1, 2023.
+[^6]: Okta, “Secure Identity Commitment.” Okta states that internal technology, people, and processes are treated with the same cyber threat profile as its customer-facing environment and calls out production-adjacent systems.
 
-[^7]: Adobe Security Team, “Building a Security Workbench for Unified Visibility and Prioritization,” April 27, 2026. Adobe describes a common model spanning vulnerability, compliance, ticket, and SLA data and a phased rollout across more than 50 teams.
+[^7]: Okta, “Okta Acquires Permiso Security,” announced July 30, 2026; acquisition closed August 26, 2026. Okta states that P0 Labs and Okta Threat Intelligence will strengthen detections, hunting capabilities, and the product roadmap.
 
-[^8]: Netflix, current Security Analytics Engineer / Consumer Security Foundations job posting, retrieved September 2026. The posting describes shared data, tooling, infrastructure, pipelines, a central source of truth, and a unified risk view used by security teams, leadership, and product partners. As a job posting, it is a directional organizational signal rather than permanent architectural documentation.
+[^8]: Jericho Cain et al., “Learnings from Project Caspian, Our Purpose-Built Security Data Platform,” Adobe Security Blog, November 1, 2023.
 
-[^9]: Tom Grzelak, Kara Olive, and Moni Pande, “Security Assurance in the Age of Generative AI,” Google, 2025.
+[^9]: Adobe Security Team, “Building a Security Workbench for Unified Visibility and Prioritization,” April 27, 2026. Adobe describes a common model spanning vulnerability, compliance, ticket, and SLA data and a phased rollout across more than 50 teams.
 
-[^10]: The Institute of Internal Auditors, Three Lines Model. The IIA distinguishes management and specialist support/challenge functions from Internal Audit’s independent third-line assurance role.
+[^10]: Netflix, current Security Analytics Engineer / Consumer Security Foundations job posting, retrieved September 2026. The posting describes shared data, tooling, infrastructure, pipelines, a central source of truth, and a unified risk view used by security teams, leadership, and product partners. As a job posting, it is a directional organizational signal rather than permanent architectural documentation.
 
-[^11]: Microsoft, “Securing Our Future: July 2026 Progress Report on Microsoft’s Secure Future Initiative,” July 10, 2026. The report describes cross-layer multi-agent assessment and reports that more than 90 percent of resulting findings were confirmed by Microsoft security engineers.
+[^11]: Tom Grzelak, Kara Olive, and Moni Pande, “Security Assurance in the Age of Generative AI,” Google, 2025.
 
-[^12]: Jason Chan, then VP Security at Netflix, discussed the “paved road” model publicly in 2019 as an approach in which supported security mechanisms are made easy enough that engineers naturally adopt them, reducing dependence on gates and repeated specialist intervention.
+[^12]: The Institute of Internal Auditors, Three Lines Model. The IIA distinguishes management and specialist support/challenge functions from Internal Audit’s independent third-line assurance role.
+
+[^13]: Microsoft, “Securing Our Future: July 2026 Progress Report on Microsoft’s Secure Future Initiative,” July 10, 2026. The report describes cross-layer multi-agent assessment and reports that more than 90 percent of resulting findings were confirmed by Microsoft security engineers.
+
+[^14]: Jason Chan, then VP Security at Netflix, discussed the “paved road” model publicly in 2019 as an approach in which supported security mechanisms are made easy enough that engineers naturally adopt them, reducing dependence on gates and repeated specialist intervention.
