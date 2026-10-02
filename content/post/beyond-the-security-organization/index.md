@@ -487,7 +487,7 @@ That is the shift beyond the security organization.
 
 It is the transition from managing security work to managing security learning.
 
-<aside class="wp-author-note"><span class="wp-label">Author’s note on AI assistance</span><p class="wp-note">I used ChatGPT extensively as a drafting and editorial tool while developing this essay, including to structure arguments, pressure-test ideas, synthesize material I provided, and generate and revise prose. The underlying arguments, source selection, editorial direction, and final judgments are mine; I reviewed the cited material and take responsibility for the final text.</p></aside>
+<aside class="wp-author-note"><span class="wp-label">Author’s note on AI assistance</span><p class="wp-note">An LLM helped structure, pressure-test, and revise this. The opinions, and any errors, are mine.</p></aside>
 
 <header class="wp-appendix">
 <span class="wp-label">Appendix</span>

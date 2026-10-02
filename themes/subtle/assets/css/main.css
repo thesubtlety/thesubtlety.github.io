@@ -181,3 +181,8 @@ th { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spac
 .prose li { margin-bottom: 0.3em; }
 .prose img { display: block; margin: 1rem auto; }
 .prose img[src$="#floatright"] { display: inline; margin: 0.2rem 0 0.75rem 1.25rem; }
+
+/* Author's note, e.g. on AI assistance. Same shape as the whitepaper's, available to any post. */
+.author-note { margin: 2.5rem 0 0; padding-top: 1rem; border-top: 1px solid var(--rule); }
+.author-note .note-label { display: block; font-family: var(--mono); font-size: 0.62rem; font-weight: 500; letter-spacing: 0.08em; text-transform: uppercase; color: var(--accent); margin: 0 0 0.45rem; }
+.author-note p { font-style: italic; font-size: 0.88rem; color: var(--ink-soft); margin: 0; }

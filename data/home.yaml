@@ -1,16 +1,10 @@
 noticing: |
-  Every serious compromise I’ve walked through has had roughly the same plot. Usually no zero-day. A token, service account, browser extension, integration, or forgotten permission could reach more than anyone remembered granting, and the attacker discovered that before the owner did.
+  Every serious compromise I’ve walked through has had roughly the same plot. Usually no zero-day. A token, service account, extension, or forgotten permission could reach more than anyone remembered granting, and the attacker found out first.
 
   The distance between what something is meant to touch and what it can touch is most of the job.
 
-  Agents make that more interesting. The thing holding the credential now also reads untrusted text and decides what to do next.
+  Agents make that more interesting. The thing holding the credential now also reads untrusted text and decides what to do next. The desktop agent is the new browser, except we’re skipping thirty years of hardening and shipping it with prompt injection unresolved.
 
-  The desktop agent is the new browser, except we appear to be skipping thirty years of hardening lessons and shipping it with prompt injection still unresolved.
+  Currently exploring problems like whether constrained encoding and decoding can make agent output boring enough to trust, what intent-based access control means when the intent arrives as prose, and what happens when both sides automate. Red teams already run fleets of agents. The defense worth building reaches the whole fleet at the first tripwire.
 
-  That leaves a few problems I keep coming back to: whether grammar-constrained encoding and decoding can make agent output boring enough to trust; what intent-based access control means when the intent arrives as prose; and what happens when both sides automate.
-
-  Red teams already operate fleets of agents. The defense worth building is the one that reaches the whole fleet when the first tripwire fires, before the second host gets touched.
-
-  The other recurring problem is measurement. The industry can measure less than it pretends to, and a surprising amount of what it sells becomes less convincing once you read the research.
-
-  The short list of papers that changed my mind is on the [resources page](/resources/).
+  The other recurring problem is measurement. The industry can measure less than it pretends to. The papers that changed my mind are on the [resources page](/resources/).
