@@ -1,10 +1,10 @@
 noticing: |
-  Every serious compromise I’ve walked through has had roughly the same plot. Usually no zero-day. A token, service account, extension, or forgotten permission could reach more than anyone remembered granting, and the attacker found out first.
+  Most of the serious compromises I have been a part of didn't need a zero-day. Something already in the environment, a token, a service account, a browser extension, a forgotten permission, had more access than anyone remembered giving it. We noticed before the attackers or defenders.
 
-  The distance between what something is meant to touch and what it can touch is most of the job.
+  So much of the work is finding the gap between what a system is supposed to be able to reach and do and what it can actually reach, and then closing it.
 
-  Agents make that more interesting. The thing holding the credential now also reads untrusted text and decides what to do next. The desktop agent is the new browser, except we’re skipping thirty years of hardening and shipping it with prompt injection unresolved.
+  Agents are making this more interesting. The software holding the credential now also reads untrusted text and decides what to do with it. The desktop agent is the new browser, except we're skipping thirty years of hardening and shipping it with prompt injection unresolved. Agents need broad latitude, but must be task-constrained.
 
-  Currently exploring problems like whether constrained encoding and decoding can make agent output boring enough to trust, what intent-based access control means when the intent arrives as prose, and what happens when both sides automate. Red teams already run fleets of agents. The defense worth building reaches the whole fleet at the first tripwire.
+  Questions I'm thinking about now: whether constraining an agent's output to a fixed grammar makes it safe to act on, how to grant access based on what a user asked for, and what happens once attackers and defenders both run fleets of agents.
 
-  The other recurring problem is measurement. The industry can measure less than it pretends to. The papers that changed my mind are on the [resources page](/resources/).
+  The other problem is measurement. Security has little reliable evidence about which controls work. Papers that convinced me of that are on the [resources page](/resources/).

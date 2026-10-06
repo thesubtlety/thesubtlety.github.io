@@ -220,6 +220,6 @@ groups:
 contributions:
   title: Contributions and disclosures
   text: |
-    Merged pull requests to [Sliver](https://github.com/BishopFox/sliver), [Metasploit](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/multi/gather/jenkins_gather.rb) (the Jenkins credential gather module), and [Hashcat](https://github.com/hashcat/hashcat).
+    Merged pull requests to [Sliver](https://github.com/BishopFox/sliver), [Metasploit](https://github.com/rapid7/metasploit-framework/blob/master/modules/post/multi/gather/jenkins_gather.rb) (the Jenkins credential gather module), and [Hashcat](https://github.com/hashcat/hashcat/pull/2320) (the Red Hat 389-DS LDAP PBKDF2 module).
 
     A few CVEs, including a [command injection in Adobe Acrobat Reader](/post/adobe-acrobat-command-injection-cve-2021-28634/) (CVE-2021-28634) and an [Informacast JMX misconfiguration](/post/2017-03-13-informacast-singlewire-insecure-jmx/) that gave remote code execution.
