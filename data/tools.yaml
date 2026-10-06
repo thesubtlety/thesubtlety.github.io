@@ -65,6 +65,15 @@ groups:
           each, and ranks what they actually reach. Dry-run by default, and a guard test keeps
           every module read-only.
         origin: Built with the Puck Security folks.
+      - name: agent-scrub
+        repo: thesubtlety/agent-scrub
+        url: https://github.com/thesubtlety/agent-scrub
+        lang: Swift
+        stars: 3
+        description: >-
+          Coding agents keep local transcripts, and those transcripts keep your API keys. Scans the
+          history files of Claude Code, Codex, Cursor, Copilot, and a half-dozen others for secrets
+          and redacts every copy in place. Nothing leaves the machine.
       - name: puck-scout
         repo: puck-security/puck-scout
         url: https://github.com/puck-security/puck-scout
@@ -95,6 +104,26 @@ groups:
           prompt injection live: poisoned documents hijack the model and the exfiltration shows
           up in an attacker console beside it. For training rooms, not production.
         origin: Built at Adversis.
+      - name: tah
+        repo: thesubtlety/tah
+        url: https://github.com/thesubtlety/tah
+        lang: Go
+        stars: 0
+        description: >-
+          Typed activity history: a per-host behavioral memory for incident response. Records what a
+          machine normally does as `subject → relation → object` edges and ranks what changed,
+          especially around sensitive files. A search-space reducer for a human already on the host,
+          not a detector. macOS first, SQLite, no kernel driver.
+      - name: llmunculus
+        repo: thesubtlety/llmunculus
+        url: https://github.com/thesubtlety/llmunculus
+        lang: C
+        stars: 0
+        description: >-
+          One portable executable with a tiny LLM and a C compiler inside. Give it a task in plain
+          English and it writes small programs, compiles and runs them to find out what it needs, and
+          answers. Runs on Linux, macOS, and Windows from a single file. A learning project, written
+          up milestone by milestone.
   - title: Networks and applications
     items:
       - name: tailsnitch

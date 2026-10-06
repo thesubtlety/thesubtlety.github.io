@@ -1,10 +1,10 @@
 ---
 title: The Subtlety
-description: "Noah Potti. A dozen years of paid break-ins; now the security architecture of systems that hand credentials to software."
+description: "Noah Potti. A dozen years in offensive security, red teaming, and adversarial engineering; now systemic improvements across identity, system boundaries, and the security of AI systems and agents."
 ---
 
-A dozen years of paid break-ins, and I’d like to say they were all challenging. Mostly, someone had left a credential somewhere sensible that could reach somewhere it shouldn’t, and we followed it. Compromise is usually a reachability problem. The exploit is the part that gets the conference talk.
+I’m Noah Potti. I’ve spent the last dozen years in offensive security, red teaming, and adversarial engineering. These days I work mostly on how to test and bring systemic improvements at scale across identity, system boundaries, and the security of AI systems and agents.
 
-I still find attack paths. The difference is that I’m now in the room while the system is designed, which is cheaper for everyone. The boundaries are the same ones: identity, tenants, and now the agents we hand credentials to on purpose.
+I’m a co-founder of [Adversis](https://www.adversis.io) and [Puck](https://puck.security). A lot of my work is simply around this: if this credential, identity, or endpoint is compromised, what can it actually reach and do?
 
-I co-founded [Adversis](https://www.adversis.io) and [Puck](https://puck.security). Puck answers, from here, what an attacker can actually reach. There is also [a book](https://nostarch.com/effective-red-team). No Starch is publishing it, so presumably there will be a robot on the cover.
+I also build [security tools](/tools/) and co-wrote [*The Effective Red Team*](https://nostarch.com/effective-red-team), forthcoming from No Starch Press.

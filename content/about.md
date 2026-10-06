@@ -1,18 +1,20 @@
 +++
 title = "About"
 type = "page"
-description = "Noah Potti: security architecture for systems that hand credentials to software. Co-founder at Adversis and Puck."
+description = "Noah Potti: security engineer and co-founder of Adversis and Puck. Offensive security, red teaming, adversarial engineering, and the security of AI systems and agents."
 +++
 
-I’ve spent fourteen years across adversarial engineering, cyber defense, product-security advisory, and software. The job has always had similar loops: find the attack hypotheses that matter, prove them against real systems, and push the fixes somewhere durable, usually detection, engineering, or the product itself.
+I’m Noah Potti, a security engineer and co-founder of [Adversis](https://www.adversis.io) and [Puck](https://puck.security), consulting and building.
 
-Since 2023, [Adversis](https://www.adversis.io): a security advisory practice I co-founded and run, which means finding the clients as well as doing the work. Fractional security advisory for several of them, including compliance, vendor risk, questionnaires, and customer audits, the work that turns security into something sales can use. Alongside that, assessing LLM systems holding PHI and regulated data. Also co-founded [Puck](https://puck.security), which answers what an attacker can actually reach from here.
+I’ve spent the last dozen years in offensive security, red teaming, and adversarial engineering. Most recently, I worked at Okta on proving out and extracting attacks across identity products and production infrastructure, and on purple-team exercises with detection engineering. I’ve also assessed AI systems handling sensitive and regulated data.
 
-Before that, at Okta: threat modeling the identity products and production cloud from the inside, and running purple team exercises with detection engineering so the detections were built against real attack paths, not the vendor's list. The systems I care about most are the ones that hand credentials to software: identity boundaries, tenant isolation, agents and the tools they call.
+Before that, I helped build and operate red teams at Capital One, Symantec, and Gen Digital, and consulted at Bishop Fox.
 
-Lots of Go and Python, typed by hand, which is apparently a period detail now. [tailsnitch](https://github.com/adversis/tailsnitch), [go-decrypt-jenkins](https://github.com/thesubtlety/go-decrypt-jenkins), [grpc-scan](https://github.com/adversis/grpc-scan), and a [Next.js server action analyzer](https://github.com/adversis/NextjsServerActionAnalyzer) are on GitHub, alongside merged contributions to Sliver, Metasploit, and Hashcat. A few CVEs, one in [Acrobat Reader](/post/adobe-acrobat-command-injection-cve-2021-28634/). The rest is on the [tools page](/tools/).
+My current work focuses on identity, tenant isolation, credentials, and AI agents, particularly understanding what an attacker can reach after the initial compromise.
 
-[*The Effective Red Team: Adversary Emulation Inside the Enterprise*](https://nostarch.com/effective-red-team), written with Trevin Edgeworth and Jordan Potti, is out from No Starch Press in January 2027. Before Adversis: built and operated red teams at Capital One, Symantec, and Gen Digital, consulted at Bishop Fox, and did adversary engineering at Okta.
+I used to build in Go and Python, and recently I just tell the LLM that looks good in whatever language fits the project. My open-source work includes [tailsnitch](https://github.com/adversis/tailsnitch), [agent-scrub](https://github.com/thesubtlety/agent-scrub), [go-decrypt-jenkins](https://github.com/thesubtlety/go-decrypt-jenkins), [grpc-scan](https://github.com/adversis/grpc-scan), and a [Next.js server-action analyzer](https://github.com/adversis/NextjsServerActionAnalyzer), along with contributions to Sliver, Metasploit, and Hashcat. I’ve also reported [at least one CVE](/post/adobe-acrobat-command-injection-cve-2021-28634/). The rest is on the [tools page](/tools/).
+
+I’m a co-author of [*The Effective Red Team: Adversary Emulation Inside the Enterprise*](https://nostarch.com/effective-red-team), published by No Starch Press, with Trevin Edgeworth and Jordan Potti.
 
 OSCE, OSCP, GXPN, and others.
 
@@ -20,4 +22,4 @@ OSCE, OSCP, GXPN, and others.
 
 Email noah at this domain. Haikus get read first.
 
-GitHub as [@thesubtlety](https://github.com/thesubtlety) and, more recently, [@noahpotti](https://github.com/noahpotti). Same person. Also on [LinkedIn](https://www.linkedin.com/in/noahpotti).
+GitHub: [@thesubtlety](https://github.com/thesubtlety) and [@noahpotti](https://github.com/noahpotti). Also on [LinkedIn](https://www.linkedin.com/in/noahpotti).
