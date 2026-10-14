@@ -6,50 +6,35 @@ featured:
     url: https://github.com/puck-security/geiger
     lang: Go
     stars: 36
-    description: >-
-      Give it a credential, or a pile of them from a scanner report, and it tells you whether
-      each one is still live and what it can reach. Over a hundred credential types. Read-only
-      by construction, with a guard test that fails if anyone adds a write path. Detection tells
-      you a key is real; geiger tells you whether it's dangerous.
+    description: Checks leaked credentials to see whether they still work and what they can access. Supports over 100 credential types and uses read-only checks.
     origin: Built with the Puck Security folks.
   - name: tailsnitch
     repo: adversis/tailsnitch
     url: https://github.com/adversis/tailsnitch
     lang: Go
     stars: 1123
-    description: >-
-      Audits a Tailscale network for the ACLs and settings that quietly hand out more access
-      than anyone intended. Checks for 57 misconfigurations, and has a fix mode for when you
-      want it to just deal with them.
+    description: Audits Tailscale ACLs and settings for 57 misconfigurations, with an interactive fix mode.
     origin: Built at Adversis.
   - name: sketchy
     repo: adversis/sketchy
     url: https://github.com/adversis/sketchy
     lang: Go
     stars: 72
-    description: >-
-      For people who `git clone` first and ask questions later. Scans a repo, package, or
-      install script for the signs it's about to ruin your day, before you run it.
+    description: Scans repositories, packages, and install scripts for signs of malicious code before you run them.
     origin: Built at Adversis.
   - name: puck-scout
     repo: puck-security/puck-scout
     url: https://github.com/puck-security/puck-scout
     lang: Go, Rust
     stars: 23
-    description: >-
-      Lets an agent investigate endpoints over MCP, read-only, with a policy engine and an
-      audit log in front of every command. Ask a question about your fleet in plain English
-      and get a narrative answer with containment steps.
+    description: Investigates endpoints using read-only MCP agents, with policy checks and audit logging for every command. Accepts questions in plain English.
     origin: Built with Puck Security.
-  - name: NextjsServerActionAnalyzer
-    repo: adversis/NextjsServerActionAnalyzer
-    url: https://github.com/adversis/NextjsServerActionAnalyzer
-    lang: Java
-    stars: 60
-    description: >-
-      A Burp extension that finds the server actions a Next.js app is exposing, whether or not
-      anyone meant to expose them.
-    origin: Built at Adversis.
+  - name: llmunculus
+    repo: thesubtlety/llmunculus
+    url: https://github.com/thesubtlety/llmunculus
+    lang: C
+    stars: 0
+    description: A single executable containing a small LLM and C compiler. Generates, compiles, and runs programs to answer plain-English questions. Runs on Linux, macOS, and Windows.
 
 groups:
   - title: Agents and credentials
@@ -59,71 +44,47 @@ groups:
         url: https://github.com/puck-security/geiger
         lang: Go
         stars: 36
-        description: >-
-          Read-only blast-radius triage for leaked credentials. Pipe any credential-bearing
-          text at it; it recognizes over a hundred credential types, runs read-only recon with
-          each, and ranks what they actually reach. Dry-run by default, and a guard test keeps
-          every module read-only.
+        description: Checks leaked credentials for validity and reachable resources, then ranks them by blast radius. Supports over 100 credential types, with read-only checks.
         origin: Built with the Puck Security folks.
       - name: agent-scrub
         repo: thesubtlety/agent-scrub
         url: https://github.com/thesubtlety/agent-scrub
         lang: Swift
         stars: 3
-        description: >-
-          Coding agents keep local transcripts, and those transcripts keep your API keys. Scans the
-          history files of Claude Code, Codex, Cursor, Copilot, and a half-dozen others for secrets
-          and redacts every copy in place. Nothing leaves the machine.
+        description: Scans local coding-agent history files for secrets and redacts them in place. Supports Claude Code, Codex, Cursor, Copilot, and others.
       - name: puck-scout
         repo: puck-security/puck-scout
         url: https://github.com/puck-security/puck-scout
         lang: Go, Rust
         stars: 23
-        description: >-
-          Autonomous, read-only endpoint investigation via MCP. A Go MCP server validates every
-          command against a policy engine and writes an audit log before fanning out to Rust
-          agents that never write to disk.
+        description: Investigates endpoints through read-only MCP agents using natural-language questions. Every command is checked against policy and logged.
         origin: Built with Puck Security.
       - name: screenscrub
         repo: adversis/screenscrub
         url: https://github.com/adversis/screenscrub
         lang: Go
         stars: 6
-        description: >-
-          Finds credentials in screenshots, saves them to your secret manager, and irreversibly
-          redacts them from the image. Local, offline, OCR-based, and it re-OCRs the result to
-          prove the secret is gone.
+        description: Finds secrets in screenshots, saves them to a secret manager, and permanently redacts them from the image. Runs offline and verifies the redaction with a second OCR pass.
         origin: Built at Adversis.
       - name: cutout
         repo: adversis/cutout
         url: https://github.com/adversis/cutout
         lang: Python, TypeScript
         stars: 1
-        description: >-
-          A realistic ChatGPT-style assistant with a seeded inbox, built to demonstrate indirect
-          prompt injection live: poisoned documents hijack the model and the exfiltration shows
-          up in an attacker console beside it. For training rooms, not production.
+        description: Demonstrates indirect prompt injection against a ChatGPT-style assistant with a seeded inbox. Poisoned documents redirect the assistant, with exfiltrated data visible in an attacker console.
         origin: Built at Adversis.
       - name: tah
         repo: thesubtlety/tah
         url: https://github.com/thesubtlety/tah
         lang: Go
         stars: 0
-        description: >-
-          Typed activity history: a per-host behavioral memory for incident response. Records what a
-          machine normally does as `subject → relation → object` edges and ranks what changed,
-          especially around sensitive files. A search-space reducer for a human already on the host,
-          not a detector. macOS first, SQLite, no kernel driver.
+        description: Records per-host activity and ranks changes, especially around sensitive files, to help investigate incidents. macOS-first, using SQLite without a kernel driver.
       - name: llmunculus
         repo: thesubtlety/llmunculus
         url: https://github.com/thesubtlety/llmunculus
         lang: C
         stars: 0
-        description: >-
-          One portable executable with a tiny LLM and a C compiler inside. Give it a task in plain
-          English and it writes small programs, compiles and runs them to find out what it needs, and
-          answers. Runs on Linux, macOS, and Windows from a single file. A learning project, written
-          up milestone by milestone.
+        description: A single executable containing a small LLM and C compiler. Generates, compiles, and runs programs to answer plain-English questions. Runs on Linux, macOS, and Windows.
   - title: Networks and applications
     items:
       - name: tailsnitch
@@ -131,19 +92,14 @@ groups:
         url: https://github.com/adversis/tailsnitch
         lang: Go
         stars: 1123
-        description: >-
-          A security auditor for Tailscale configurations. Scans a tailnet for 57
-          misconfigurations, overly permissive ACLs, and best-practice violations, with an
-          interactive fix mode.
+        description: Audits Tailscale configurations for 57 misconfigurations, including overly permissive ACLs. Includes an interactive fix mode.
         origin: Built at Adversis.
       - name: sketchy
         repo: adversis/sketchy
         url: https://github.com/adversis/sketchy
         lang: Go
         stars: 72
-        description: >-
-          A fast, cross-platform scanner for the obvious and not-so-obvious signs that a package,
-          repo, or install script is malicious. Patterns borrowed with thanks from GuardDog.
+        description: Scans repositories, packages, and install scripts for indicators of malicious code before execution.
         origin: Built at Adversis.
       - name: NextjsServerActionAnalyzer
         repo: adversis/NextjsServerActionAnalyzer
@@ -159,7 +115,7 @@ groups:
         url: https://github.com/adversis/nextjs-rsc-parser
         lang: Java
         stars: 2
-        description: Burp plugin that parses React Server Component responses to extract interesting data.
+        description: Burp Suite extension that parses React Server Component responses and extracts embedded data.
         origin: Built at Adversis.
       - name: grpc-scan
         repo: adversis/grpc-scan
@@ -184,6 +140,15 @@ groups:
         stars: 3
         description: Finds Electron apps, checks their ASAR integrity settings, and lists native `.node` modules.
         origin: Built at Adversis.
+  - title: Data
+    items:
+      - name: breach-tracker
+        repo: thesubtlety/breach-tracker
+        url: https://www.thesubtlety.com/breach-tracker/
+        lang: Python
+        stars: 0
+        pushed: 2026-10-13T00:00:00Z   # pinned: the repo rebuilds daily, which would otherwise make this card always look newest
+        description: A dataset updated daily with publicly reported data breaches with vector, ATT&CK technique, technology, actor, and impact extracted. [Source on GitHub](https://github.com/thesubtlety/breach-tracker).
   - items:
       - name: go-decrypt-jenkins
         repo: thesubtlety/go-decrypt-jenkins

@@ -1,8 +1,8 @@
 {{- $t := . -}}
 {{- $stats := dict "stars" 0 "pushed" "" -}}
-{{- if $t.repo }}{{ $stats = partial "github-stats.html" $t.repo }}{{ end -}}
+{{- if and $t.repo (not $t.pushed) }}{{ $stats = partial "github-stats.html" $t.repo }}{{ end -}}
 {{- $stars := or $stats.stars $t.stars 0 -}}
-{{- $pushed := $stats.pushed -}}
+{{- $pushed := or $t.pushed $stats.pushed -}}
 <li class="tool">
   <div class="tool-head">
     <a class="tool-name" href="{{ $t.url }}">{{ $t.name }}</a>
