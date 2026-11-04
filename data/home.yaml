@@ -1,10 +1,6 @@
 noticing: |
-  Most of the serious compromises I have been a part of didn't need a zero-day. Something already in the environment, a token, a service account, a browser extension, a forgotten permission, had more access than anyone remembered giving it. We noticed before the attackers or defenders.
+  Most of the serious compromises I’ve been part of didn’t need a zero-day. Something already in the environment, a token, a service account, a browser extension, a forgotten permission, had more access than anyone remembered granting it. Much of the work is finding the gap between what a system is supposed to reach and what it can actually reach, and then closing it, especially across teams and at scale, where talking and influencing change is the hard part.
 
-  So much of the work is finding the gap between what a system is supposed to be able to reach and do and what it can actually reach, and then closing it.
+  Agents make this harder. The software holding the credential now also reads untrusted text and decides what to do with it. It’s the new browser, except we’re skipping thirty years of hardening and shipping with prompt injection unresolved. An agent needs broad latitude to be useful and still must not be talked into a different task: a read-only assistant that injected text can convince to ship what it found to somewhere it shouldn’t.
 
-  Agents are making this more interesting. The software holding the credential now also reads untrusted text and decides what to do with it. The desktop agent is the new browser, except we're skipping thirty years of hardening and shipping it with prompt injection unresolved. Agents need broad latitude, but must be task-constrained.
-
-  Questions I'm thinking about now: whether constraining an agent's output to a fixed grammar makes it safe to act on, how to grant access based on what a user asked for, and what happens once attackers and defenders both run fleets of agents.
-
-  The other problem is measurement. Security has little reliable evidence about which controls work. Papers that convinced me of that are on the [resources page](/resources/).
+  The other problem is measurement. Security has little reliable evidence about which controls actually work. In red teaming I’ve watched mature programs, full of controls and checklists, still fall, and most security metrics average bandaids with heart surgery. The papers that convinced me are on the [resources page](/resources/).

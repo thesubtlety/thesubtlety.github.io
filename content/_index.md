@@ -1,10 +1,8 @@
 ---
 title: The Subtlety
-description: "Noah Potti. A dozen years in offensive security, red teaming, and adversarial engineering; now systemic improvements across identity, system boundaries, and the security of AI systems and agents."
+description: "Noah Potti. A dozen years in offensive security, red teaming, and adversarial engineering, now working on identity, system boundaries, and the security of AI agents."
 ---
 
-I’m Noah Potti. I’ve spent the last dozen years in offensive security, red teaming, and adversarial engineering. These days I work mostly on how to test and bring systemic improvements at scale across identity, system boundaries, and the security of AI systems and agents.
+I’m Noah Potti. I mostly work to answer: if a credential, identity, endpoint, infrastructure, or agent is compromised, how far can it reach, and how do you get the teams who own it to close the gap?
 
-I’m a co-founder of [Adversis](https://www.adversis.io) and [Puck](https://puck.security). A lot of my work is simply around this: if this credential, identity, or endpoint is compromised, what can it actually reach and do?
-
-I also build [security tools](/tools/) and co-wrote [*The Effective Red Team*](https://nostarch.com/effective-red-team), forthcoming from No Starch Press.
+Co-founder of [Adversis](https://www.adversis.io) and [Puck](https://puck.security).

@@ -16,7 +16,13 @@
 <section class="home-section" id="tools">
   <h2>Tools</h2>
   <ul class="tools">
-    {{- range $tools }}{{ partial "tool.html" . }}{{ end }}
+    {{- $dated := slice -}}
+    {{- range $tools -}}
+      {{- $pushed := .pushed -}}
+      {{- if and .repo (not $pushed) }}{{ $pushed = (partial "github-stats.html" .repo).pushed }}{{ end -}}
+      {{- $dated = $dated | append (dict "tool" . "pushed" (or $pushed "")) -}}
+    {{- end -}}
+    {{- range sort $dated "pushed" "desc" }}{{ partial "tool.html" .tool }}{{ end }}
   </ul>
   <p class="more"><a href="{{ "/tools/" | relURL }}">All the tools →</a></p>
 </section>

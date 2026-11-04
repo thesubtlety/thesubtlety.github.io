@@ -22,13 +22,12 @@ featured:
     stars: 72
     description: Scans repositories, packages, and install scripts for signs of malicious code before you run them.
     origin: Built at Adversis.
-  - name: puck-scout
-    repo: puck-security/puck-scout
-    url: https://github.com/puck-security/puck-scout
-    lang: Go, Rust
-    stars: 23
-    description: Investigates endpoints using read-only MCP agents, with policy checks and audit logging for every command. Accepts questions in plain English.
-    origin: Built with Puck Security.
+  - name: webauthn-bridge
+    repo: thesubtlety/webauthn-bridge
+    url: https://github.com/thesubtlety/webauthn-bridge
+    lang: JavaScript
+    stars: 1
+    description: Forwards a site's WebAuthn request to the YubiKey of the victim. Sign in with a remote key, or test your sign-in and conditional access policies.
   - name: llmunculus
     repo: thesubtlety/llmunculus
     url: https://github.com/thesubtlety/llmunculus
