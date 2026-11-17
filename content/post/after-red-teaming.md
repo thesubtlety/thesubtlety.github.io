@@ -1,422 +1,177 @@
 ---
-title: "After Red Teaming: What an Adversarial Assurance Function Actually Buys You"
+title: "Owning the Attack Path"
+slug: owning-the-attack-path
+aliases: ["/post/after-red-teaming/"]
 date: 2026-10-02
 draft: false
-summary: "Red teams are good at proving security assumptions wrong. The next step is building the evidence that tells you which important assumptions are holding, and why."
-description: "What happens after an organization gets good at proving itself wrong: following attack paths across teams, proving fixes mattered, and keeping the important questions current."
-tags: ["red team", "assurance", "security engineering"]
+summary: "Every finding is closed, and the attack still works. Closing tickets fixes the pieces of an attack path, but someone has to own the path itself."
+description: "Why closed findings don't prove an attack is harder, and what it takes to build evidence that your most important security assumptions are still true."
+tags: ["red team", "adversarial engineering", "security engineering"]
 featured: true
-blurb: "Red teams prove assumptions wrong. Adversarial assurance is the harder work after: what had to be true for the path to work, prove the fix mattered, and reopen the question when the company changes."
+blurb: "Five findings, five tickets, all closed. Can a compromised employee still reach customer data? The tickets can't say. Adversarial engineering is the work of finding out, and keeping the answer current."
 ---
 
 *This essay picks up a thread from* [The Effective Red Team](https://nostarch.com/effective-red-team)*, forthcoming in January 2027, and from* [Beyond the Security Organization](/post/beyond-the-security-organization/)*. The first is largely about building a red-team function that turns successful attacks into better security. The second asks how security organizations turn what their specialists learn into lasting change. This is a narrower question: what happens after we get good at proving ourselves wrong?*
 
-Red teams have spent decades proving security organizations wrong. That's the job, after all.
+The red team didn't _hack_ the super user admin portal. It didn't need to.
 
-Give a capable team an important objective and enough freedom and it will work around endpoint controls, abuse identity, cross cloud and network boundaries, build custom capabilities when ordinary tooling stops working, and find combinations of legitimate systems nobody expected to connect.
+## One attack path
 
-Good red teams have become very good at proving that something the organization believed was safe was, in fact, not.
+Imagine a SaaS company that has spent years making sure one customer cannot access another customer's data. Its authentication and authorization boundaries have been tested repeatedly. The engineering is sound.
 
-It is time to get equally serious about proving the things we depend on are *right*.
+Then a red team obtains access to customer data across tenants without exploiting any of those protections.
 
-Not "proving that the company is secure". A failed attack cannot establish that.
+That attack probably begins with an employee account. The team manipulates an account recovery process, establishes access to the employee's environment, and works its way to a support platform.
 
-But building enough current evidence that the organization can reasonably rely on its most important security assumptions, understand why it relies on them, and notice when that evidence stops being good enough.
+That platform has legitimate reasons to access customer data. Support engineers investigate problems, inspect customer environments, and sometimes need privileges ordinary users don't have. But those privileges reach much further than any single support case requires. With the right internal identity, the attacker can retrieve data across customers.
 
-That's what I mean by adversarial assurance.
+The product's carefully engineered security boundaries aren't relevant since the attacker walks around them using a system the company built to help customers.
 
-## Start with the bad day
+## What the tickets say
 
-Security people naturally start with systems. But leadership usually experiences security through consequences.
+The red team achieves its goals, and the report produces a familiar set of findings: weak account recovery, excessive internal access, overly broad support permissions, insufficient monitoring.
 
-Customer data leaving the company means explaining what happened to customers, answering uncomfortable questions from regulators and analysts, watching sales teams manage trust problems, dealing with public scrutiny, and sitting through meetings nobody wants to attend.
+Now each finding goes to the appropriate team: Account recovery is hardened. Network paths are restricted. Permissions are narrowed. Detection improves. Eventually, every ticket is closed.
 
-A destructive cloud compromise means the business may stop operating, at least temporarily.
+{{< figure src="/img/adversarial-engineering/findings-to-tickets.svg" alt="One attack path from an employee account to every customer's data, split into four findings, each fixed and closed separately. The question of whether one compromised employee can still reach every customer's data is left open." caption="The usual flow. One attack path becomes four findings and four closed tickets. No one is assigned to check whether the outcome is still possible." >}}
 
-At a hardware product company, compromise of some digital system may have life-safety impacts, trucks and equipment may not move, or operators lose confidence in the systems used to manage a physical fleet.
+The company knows the specific weaknesses were addressed, and that the original attack probably no longer works. But can a compromised employee still get broad customer-data access through the company's internal admin systems? That's a different question, and the closed tickets don't answer it.
 
-A malicious software release means customers may run code the company did not intend to ship.
+The individual fixes may all be correct. The company can still lose the same data through another internal path, such as the next support tool, another privileged identity, or a different route to the same authority.
 
-Those are things that really matter.
+## The findings share one attack path
 
-Experienced red teams usually already have a rough map of them, and that comes from years of scoping conversations with leaders, engineers, product teams, incident responders, and business owners. We call them crown jewels and of course the name matters less than knowing which outcomes would cause real pain.
+When we turn an attack into findings, we stop looking at the path as a whole. The attacker followed one path through several systems to one consequence. The organization splits that path into problems for different owners. That's necessary for engineering work, but each team then owns a part and no one owns the path.
 
-You might call those outcomes "security claims."
+Consider what had to be true for the attack to work. An employee identity was compromised. It gave useful access to the internal environment. From there, the attacker reached a support capability, got enough authority to use it, and used it across customers with no legitimate support need.
 
-A SaaS company might ask:
+At no point did the attacker need to abuse some appsec vulnerability. Each system did what it was built to do. Account recovery restored access. Internal connectivity let employees reach internal tools. The support platform gave customer data to authorized support staff. The problem was how those functions combined.
 
-> **Can compromise of a standard workforce identity turn into broad access to customer data through our internal support or administrative systems?**
+### Start from a security requirement
 
-A software company might ask:
+One response is to fix the account recovery weakness, restrict the network route, and remove the excess permission. Those are sensible changes, and they may eliminate the demonstrated path.
 
-> **Can compromise of a normal developer workstation turn into an unauthorized production release?**
+The other response starts by writing down a security requirement that must stay true even when some defenses fail:
 
-A company with a large physical operation might ask:
+**Compromising an ordinary employee should not be sufficient to obtain broad customer-data access.**
 
-> **Can compromise of an ordinary employee, contractor, or vendor path turn into broad authority over the systems required to operate the fleet safely?**
+That leads to different engineering questions. Should workforce access automatically reach privileged support tools? Should support access be scoped to one customer and one case, with explicit elevation for exceptions? Should bulk exports need a separate authority that the same compromised identity can't obtain?
 
-A company worried about destructive attacks might ask:
+And if some support authority will eventually be compromised, how much can one session do, how much data can it collect, and how quickly can suspicious use be detected and stopped?
 
-> **Can one compromised administrative path destroy both production and our ability to recover it?**
+Some of these controls stop the attacker from reaching a capability. Some limit what the capability can do. Some create a chance to intervene before the damage. No single step has to become impossible. The company needs enough independent boundaries that a plausible compromise can't easily escalate into an unacceptable outcome.
 
-These questions come from the business, the product, the threat, and what the company has already learned.
+{{< figure src="/img/adversarial-engineering/path-to-boundaries.svg" alt="The same attack path, now leading to one security requirement, three independent boundaries that support it (prevent, contain, detect), and continuous tests that check it." caption="Starting from the outcome. The path leads to one security requirement, several independent boundaries that support it, and continuous tests that check it." >}}
 
-## The attack paths get longer
+This changes how remediation is judged. Instead of asking whether the excessive-permissions ticket is closed, ask whether someone with a compromised support identity can still retrieve data unrelated to a legitimate support case. That can be tested.
 
-While red teams are so often successful at achieving their goals, mature security programs do actually improve things.
+## The red team can succeed while security improves
 
-Years of offensive testing, incidents, vulnerability research, secure development work, and architecture changes remove the easy paths.
+Keeping the whole attack path matters for another reason: a red team can keep succeeding while security measurably improves.
 
-- Developers lose direct production access
-- Phishing-resistant authentication closes common identity routes
-- Endpoint controls burn commodity tradecraft quickly
-- Cloud permissions get narrower
-- Network paths disappear
+Suppose that a year later the red team gets the same objective. This time, phishing-resistant authentication blunts common identity attacks, endpoint controls catch public tooling, segmentation removes the convenient routes, and support access reaches far fewer customers. The operators adapt with custom tooling, a less obvious identity path, and a particular administrative workflow, and eventually get in. The report still says the objective was achieved.
 
-But attackers still have their objectives, so the routes change and the interesting paths begin to contain more nodes across identity, endpoint, internal access, cloud, developer infrastructure, support tooling, administrative capabilities, and eventually the impact the attacker actually wanted.
+It's tempting to read that as failure. But the second operation needed a much more capable attacker, took longer, depended on more fragile assumptions, and gave defenders several chances to contain it. An attacker who could easily repeat the first operation may be unable to repeat the second.
 
-That is absolutely progress, even when the operation still succeeds.
+The more useful question is what the defenses required the attacker to do differently. Longer paths aren't automatically safer. An extra step that takes seconds adds little, and a detection that fires after the export doesn't prevent the loss. What matters is whether a control changed the capability, access, time, or chances to intervene that the attack required. If the report only records the outcome, both operations look the same, even though the second company is much harder to attack.
 
-Consider customer data. The red team social engineers an account recovery process and takes over an employee identity. That identity gets them onto a usable endpoint. From there they reach internal systems and eventually a support platform.
+## A fix doesn't mean you're now safe
 
-Nothing is wrong with the product's tenant isolation architecture or code, exactly. Instead, the support platform legitimately has powerful customer access because it was designed to help support engineers solve customer problems quickly.
+Return to the support platform. Engineering has changed the authorization model. Support staff now get narrower privileges, and access to customer data is tied to an approved support case. The work is deployed. The ticket is closed.
 
-And the attacker discovers that the access is much broader than a single customer or case. So a compromised employee provides broad customer-data access without ever breaking the security boundary everyone spent years hardening in the product.
+We have good reason to believe the implementation changed. We don't yet know whether the security requirement is actually met.
 
-Individual systems are behaving exactly as designed. But the overall path is still unacceptable and leadership will be experiencing security through those consequences.
+### Test the boundary directly
 
-This is increasingly what mature security work looks like.
+Now we start with a support identity. Can it retrieve data for a customer with no associated support case? Can it extend its access beyond the approved task? Switch customers without new authorization? Turn access to individual records into bulk collection? What happens if a legitimate support engineer's session is controlled by an attacker?
 
-## Don't stop at the finding
+These tests don't need weeks of phishing, endpoint compromise, and internal movement. Those stages were already explored. The open question is the support platform's authorization boundary, so test it there.
 
-The obvious response is to turn the path into findings.
+Perhaps the direct access attempt fails. That's good to know!
 
-- "Weak account recovery"
-- "Too much internal reach"
-- "Overly broad support permissions"
-- "A credential problem"
-- "Lack of monitoring"
+But suppose another internal application uses the same privileged service account. Or an export workflow runs through a separate API that doesn't enforce the new restrictions. The original route is gone, but the ability to reach the same data still exists.
 
-Sure, each of those may deserve a ticket. But once the path is broken into tickets, it becomes easy to lose what the attacker or red team just taught you.
+### Look for the same condition elsewhere
 
-I think there's a simpler way to reason about it.
+Checking whether a particular exploit still works is only part of remediation. We also need to examine the conditions that made the exploit consequential. Here, the dangerous condition wasn't one overly broad permission. It was internal capabilities that could exercise cross-customer authority without constraining the reason, scope, and duration of that access. The same condition might exist in impersonation tooling, debugging services, administrative consoles, internal reporting systems, or emergency-access mechanisms.
 
-> **What had to be true for this attack to work, and which of those things should we change?**
+Finding those variants tells the company whether it fixed the boundary or only one route through it.
 
-For the customer-data path, the attacker had to obtain a workforce identity, that identity had to be useful internally, the attacker had to reach the support environment, they had to obtain meaningful support authority, that authority had to provide access outside a legitimate support need.
+### Keep the tests
 
-And nothing along the path made the attack hard enough, narrow enough, or short-lived enough to prevent the bad outcome.
+If the support authorization boundary matters, some tests should survive the engagement: access without a valid case, attempts to exceed a case's scope, broad exports from privileged sessions. Some questions will still need human judgment or more elaborate adversarial testing. But the organization shouldn't need another full red-team engagement to rediscover a condition it already understands.
 
-Now, not every step needs to become impossible; support teams still need to support the customer with powerful access.
+A passing test doesn't prove that no attack path exists. It shows that one defined property held under defined conditions.
 
-But the company may deliberately assume that workforce identities will eventually be compromised. And so the useful question is which parts of the path should be different.
+## The same pattern in CI
 
-Maybe ordinary workforce compromise should not be sufficient to obtain privileged support authority. Maybe customer access should be tied much more tightly to the customer and task being worked. Maybe unusually broad access should require stronger approval or search should be restricted. Maybe a single support session should not be able to turn troubleshooting into broader collection.
+The same reasoning applies well beyond support tooling.
 
-Those are much more useful engineering goals than "fix excessive support permissions."
+A developer can submit queries to a CI system. A query-processing feature embeds developer-controlled input into a script without handling it safely, so crafted input can change what the script executes. That's a straightforward injection vulnerability. But the worker running the script can also read a long-lived, broadly authorized credential used by the build infrastructure. An input-handling bug has become a path from ordinary developer access to control of the build environment, and possibly to a software release.
 
-## Ask what the control did to the attack
+The team fixes the script, adds a regression test, and closes the finding. This is good work. It eliminates a real vulnerability. But if another flaw gives an attacker control of the worker, the credential is still there. The injection is fixed, but an untrusted workload still has access to privileged build authority.
 
-Security programs often reduce controls to pass or fail.
+Following the attack past the initial bug raises different engineering questions. Why could the worker read unrelated sensitive files? Why did the build environment need a broadly privileged credential? Could it be replaced by short-lived authority scoped to the job? Why was one secret enough to affect release integrity?
 
-- EDR blocked the red team or it did not
-- Segmentation stopped lateral movement or it did not
-- MFA prevented takeover or it did not
+Each answer supports a different test at a different boundary. Repeating the original injection after the fix establishes something narrow and useful. Starting from a compromised worker and mapping what it can reach establishes something else. Following its authority all the way to release integrity establishes whether the original business consequence is still plausible. Then ask where else the condition exists: other workers with similar credentials, adjacent build services with comparable authority, release systems that accept credentials not bound to a particular job or approval.
 
-But real attacks are more useful than that. Suppose a year ago a red team could operate on employee endpoints using ordinary public tools and frameworks. After a year of detection and response engineering, those approaches are now blocked or quickly produce indicators that lead defenders to contain the host.
+A red-team operation can find a surprising path through several systems. Most of its value comes from learning which connections between those systems made the path possible.
 
-So the red team responds by building a custom capability that avoids those known signals and that custom capability works, allowing them to maliciously operate on endpoints to achieve their goals.
+## Someone needs to own the attack path
 
-It's easy to look only at the final result and say the endpoint controls failed again. But the path now requires a more capable attacker, more engineering, better tooling, and more effort. An actor without that capability is more likely to expose known indicators and get contained before reaching the next stage. The cost has increased. That is valuable evidence.
+The support-platform attack crosses identity, endpoint, internal infrastructure, product engineering, and detection. The CI attack crosses application security, developer infrastructure, identity, secrets management, and release engineering. Each team owns a legitimate piece of the problem.
 
-And the same is true elsewhere. Segmentation may not make the target completely unreachable. It may add two pivots and force the attacker into a credential path defenders understand well.
+An identity team can correctly report that account recovery has been hardened. A product team can correctly report that support permissions work as designed. An infrastructure team can correctly report that internal connectivity follows approved policy. All three statements may be true while a compromised identity still provides a practical route to broad customer-data access.
 
-Support access may not disappear. It may become narrow enough that one account cannot turn targeted support work into bulk customer-data access.
+Someone needs to remain responsible for the larger question. Not for implementing every fix, which would weaken the existing engineering ownership model, but for understanding the path across teams, identifying the conditions worth changing, coordinating the evidence needed after changes, and revisiting the conclusion when circumstances change.
 
-A recovery mechanism may not stop production destruction. It may keep the recovery environment independent enough that the attacker cannot destroy both.
+**This is the work of adversarial engineering.**
 
-So don't just ask:
+A red team explores whether a consequential outcome is achievable. An adversarial engineering function takes what that exploration reveals and asks what the organization can now reasonably depend on. Sometimes that means another red-team operation. Sometimes it's a focused test that starts halfway through a known attack path, a repeatable authorization test, a review of privileged identities, or an exercise that checks whether defenders can interrupt a known sequence. And sometimes the most valuable work is with engineering, changing an architecture so an entire class of paths no longer depends on a fragile configuration or an easily misused credential.
 
-> Did the control work?
+That takes enough offensive depth to separate the exploit from the conditions that made it important, challenge a claimed fix, and recognize equivalent paths. The function keeps track of important questions after individual engagements, incidents, and remediation projects end. For the customer-data example, the question is whether compromise of an ordinary workforce identity can lead to unauthorized access across customers. For the CI example, it's whether compromise of a developer workload can result in an unauthorized production release.
 
-Ask:
+Those questions stay stable while products, architectures, and vulnerabilities change. They also expose uncertainty that individual findings conceal. Engineering may have fixed several weaknesses while the honest answer is still that no one has demonstrated the larger outcome is materially harder. That's a useful thing to report, and it shouldn't embarrass anyone.
 
-> **What did the control actually do to the attack?**
+## Changes can make old test results out of date
 
-- Did it stop the path?
-- Force another route?
-- Require a stronger attacker?
-- Add meaningful time or effort?
-- Reduce the blast radius?
-- Make common approaches easier to spot?
-- Give defenders a realistic chance to contain the attack before the next important step?
-- Or make almost no difference?
+Suppose the company finally establishes that its support access is sufficiently constrained. Ordinary employee credentials can't obtain broad customer-data access. Support sessions enforce customer and case boundaries. Bulk exports require separate authorization. The company has earned some confidence.
 
-This is especially useful when the same objective is tested over time.
+Then the support organization adopts a new platform with a powerful search capability across systems, backed by an internal service identity. The platform passes security review. Its authentication works. Nothing resembles the original findings. But the service identity can retrieve data across customers, and an administrative feature makes that authority available to more people than the original design allowed.
 
-If the operator once moved from an employee account to customer data in a few simple steps, and several years later the same objective requires custom capabilities, multiple pivots, stronger access, and a much narrower set of viable paths, the company learned something even if both operations ultimately succeeded.
+The company has recreated a consequential part of the old attack path without reintroducing any of the original vulnerabilities. Security knowledge can go out of date even when nothing has been broken. The earlier testing wasn't worthless. It was good evidence for the system that existed at the time.
 
-Security improvements rarely make outcomes impossible, but they often make the bad outcome materially harder.
+So this function needs to know what each conclusion depends on, and re-test when those things change. That doesn't mean a full red-team operation for every change. A precise requirement tells you where to look.
 
-## Follow the path far enough
-
-Consider another example. Say a developer is allowed to submit query jobs through a CI system. The tool takes part of the developer's query and inserts it into a script without safely handling quotes.
-
-That lets the developer break out of the intended command and read sensitive files from the worker. One of those files contains a highly privileged build credential. A relatively small bug in a query feature has now become a path to much greater authority.
-
-It is easy to write:
-
-> Script injection in CI query job.
-
-Or:
-
-> Privileged build token exposed on worker.
-
-Sure, both of those things are true. But neither gets you very far. Instead, ask what had to be true for the whole path to work.
-
-1. Developer-controlled input reached script execution
-2. The worker could read files unrelated to the job
-3. Sensitive credentials were present there
-4. One credential had extraordinary authority
-5. Simple possession of the credential was sufficient to exercise that authority
-
-Now ask:
-
-> **Which of those things should not have been possible?**
-
-The unsafe quoting obviously needs to be fixed. But perhaps the job should never have been able to read unrelated secrets. Perhaps a super-admin credential should never have existed on that worker. Maybe the worker should have received short-lived authority for one task instead of a reusable token. Perhaps one CI worker should never have been able to cross from running a developer job into administration of the build system.
-
-There doesn't have to be one perfect answer: complex systems rarely fail for one clean reason, and the point is not to produce a flawless theory of the incident.
-
-The point is to understand the path well enough to choose changes that remove more than the exact trick the operator happened to use.
-
-## Then prove the changes mattered
-
-This is where a surprising amount of security work stops too early. Say the script interpolation bug is fixed, the ticket is closed.
-
-Now you test again. Can developer-controlled input still escape the intended query? If another execution path exists, can the job still read sensitive files? If it can read files, is there still a powerful reusable credential to steal? If the worker itself is compromised, what authority does its identity have? Can that authority alter a release?
-
-Maybe the exact injection is gone. Excellent.
-
-Maybe another execution trick remains, but worker isolation makes the useful secrets unreachable. That's meaningful.
-
-Maybe sensitive files are still reachable, but the reusable super-admin token has been removed and the worker now has narrowly scoped, short-lived authority. The important path has changed.
-
-So a useful closure question is:
-
-> **Did we make the important outcome materially harder or make this path disappear, and can we demonstrate that?**
-
-Without the demonstration, "fixed" usually means someone changed something, but with it, you have evidence.
-
-## Assurance begins when you widen the view
-
-Showing that the original path changed is not the end of the work. It is where (adversarial) assurance begins. For example:
-
-- If one CI worker contained a powerful reusable token, where else do build workers hold credentials like it?
-- Where else can developer-controlled input reach privileged execution?
-- Which shared build components can affect artifacts after the point where everyone thinks code review is complete?
-- How did credentials with that much authority become normal in this environment?
-- What would keep the next CI platform from recreating the same situation?
-- And which of these things can the organization keep checking so a red team does not need to rediscover the same condition two years from now?
-
-The same applies to the support example.
-
-- If one support platform allowed broad customer access, where else do employees have similar capabilities?
-- Which emergency, debugging, impersonation, export, or administrative tools have equivalent reach?
-- How are those capabilities granted?
-- How is their use bounded?
-- What happens when a new support platform is introduced?
-
-This is where a number of security practices that are difficult to sustain in isolation suddenly have a reason to exist. Variant analysis. Security architecture work. Attack-path analysis. Focused adversarial testing. Security engineering. Regression tests. Detection tests when detection is relevant. Retesting. Continuous checks.
-
-A specific attack teaches the organization something important. But trying to understand where else the same condition exists, why it exists, how to change it, and how to know whether it comes back gives you adversarial assurance that you can rely on your security assumptions.
-
-## Adversarial work and assurance work are different
-
-A quick note on definitions. They overlap technically, but they are trying to answer different questions.
-
-Adversarial work asks:
-
-> **Can I achieve the outcome?**
-
-Its value is exploration. A red team models attackers, develops capabilities, works around controls, combines systems in unexpected ways, and discovers paths the organization did not know existed. That may require weeks of work and deep tradecraft.
-
-Assurance work asks:
-
-> **Given what we have learned, what do we have good reason to believe now?**
-
-And when the answer is not good enough, it goes and gets better evidence. That might mean asking the red team for another operation. It might mean performing a short focused test inside the assurance function. It might mean having product security test an authorization boundary. It might mean replaying one piece of an attack with the system owner. It might mean examining a permission graph or proving that a privileged identity can no longer reach a target. It might mean generating the actions necessary to see what telemetry exists. It might mean asking architecture whether a whole class of paths is still possible.
-
-A useful way to divide the technical work is:
-
-- **Exploration:** Find a path we do not know about.
-- **Focused testing:** We know exactly what we are uncertain about. Let's go find out.
-- **Repeatable testing:** We understand how this failed. Let's make it cheap to know if it happens again.
-
-A nascent assurance function may depend heavily on the red team for the first two. Over time, it can build enough technical capability to handle much of the focused and repeatable work itself.
-
-## Test the question you actually have
-
-And not every assurance test should recreate the entire attack. If the helpdesk path has already been proven and the unanswered question is whether support access is properly scoped, start with a support identity.
-
-If the question is whether a build worker can cross into release authority, there is very little reason to spend a week phishing a developer first.
-
-If the question is authorization, stealth may not matter. If the question is containment, it may matter a lot. Detection and response are important when they are part of the path you are trying to understand. They are not mandatory boxes every test has to check.
-
-The test should answer the uncertainty relevant to the question. Yes, that sounds obvious. But in large security programs, it is surprisingly easy to forget as we collectively lose the forest for the trees.
-
-## Someone has to keep the whole path in view
-
-Attack paths routinely cross organizational boundaries: identity owns one piece, endpoint owns another, cloud owns another, product engineering owns the support platform, developer infrastructure owns CI, detection may own some of the telemetry. No individual team has the whole picture.
-
-And every team can be locally correct while the overall outcome remains unacceptable, since identity may accurately say that its system behaved as designed. Support may accurately say the operator had a legitimate permission. The product team may accurately say authentication and authorization controls worked perfectly. Together, those facts can still describe broad customer-data loss as proved out by an adversarial operation.
-
-Someone has to keep the larger question alive and that is not passive knowledge management. It means talking with the teams involved, understanding what the systems really do, and following the important parts of incidents and red team operations beyond the report. It means breaking long attack paths into questions that can actually be tested, doing some of that testing, finding the right specialists for the parts that require deeper work, working with engineers to decide what would count as convincing proof after a fix.
-
-And sometimes saying:
-
-> We changed several things, but we still have not shown that the outcome is meaningfully harder.
-
-The person or function responsible for that question should not be rewarded for keeping everything green. Its job is to keep the picture honest.
-
-## Big changes should reopen old questions
-
-Security knowledge goes stale when the company changes. Things are going stale constantly in a complex environment:
-
-- An acquisition joins
-- A major vendor receives privileged access
-- A new product launches
-- Support moves to a different platform
-- The company changes identity providers
-- A cloud environment is reorganized
-- A vehicle or logistics platform gets a new remote-management capability
-- An AI agent receives authority that used to belong only to a person
-
-Any of these can make old evidence less useful without introducing a traditional vulnerability. Suppose a company has spent years making it difficult for a compromised developer to affect a release. Then it acquires a business whose engineers use a separate CI system, keep long-lived signing credentials, and deploy through a different process.
-
-The useful question is not:
-
-> Did we complete the acquisition security assessment?
-
-It's:
-
-> **Does what we believe about release integrity still stand now that this company is inside the release system?**
-
-Or suppose a logistics company brings in a vendor that can remotely administer a large part of its fleet. The vendor may have passed every required security review.
-
-But the important question is:
-
-> **Did we just create a new path from one vendor identity to an operational outcome we previously believed required several independent compromises?**
-
-A new product, vendor, acquisition, or architecture should be able to change the answer from:
-
-> We have good reason to believe this holds.
-
-to:
-
-> We do not know anymore.
-
-That's not *failure*. It is what an honest adversarial assurance function is supposed to notice, test, and support.
-
-## Keep the important questions small in number
-
-This should not become another enterprise catalog with hundreds of statements and thousands of controls underneath them. Simply start with a handful of outcomes that really matter. Usually the red team already knows what many of them are.
-
-For each one, the organization should be able to answer roughly:
-
-- What bad outcome are we trying to prevent?
-- What attackers or starting positions actually matter?
-- What paths have we already seen?
-- What made those paths work?
-- What did our controls actually do to them?
-- What changed afterward?
-- Can we show that the change mattered?
-- Where else might the same problem exist?
-- What are we still unsure about?
-- What has changed since we last looked?
-- And what should cause us to look again?
-
-That's more than enough structure. The purpose is not to build the perfect model of the company. The purpose is to make better decisions about *where uncertainty matters*.
-
-## What the function actually does
-
-Week to week, the work is more active than maintaining that register.
-
-Say a product team is building a new support capability. Someone sits with them and works out what authority it creates and what existing assumptions it might weaken.
-
-An incident exposes an unexpected identity path. Someone traces how far that starting position could have gone and whether an important question should be reopened.
-
-A red team proves a route to some crown jewel. Someone follows the route across teams, helps identify what made it possible, and works out which parts deserve broader engineering.
-
-A fix is deployed. Someone proves that the relevant part of the attack changed.
-
-A new acquisition is considered. Someone asks which existing security assumptions should now be treated as unknown or challenged.
-
-Threat intelligence shows that a realistic attacker has acquired a capability that used to require far more skill. Someone asks whether an old conclusion still means what it used to mean.
-
-The function is constantly taking in business priorities, product and architecture changes, threat information, incidents, red-team operations, vulnerability research, new vendors and acquisitions, and the evidence already produced by engineering and defensive teams.
-
-Its outputs are not primarily reports. They are better questions, targeted tests, engineering work, proof after remediation, broader searches for the same condition, reusable checks, and an honest view of what the organization still does not know.
-
-## Be careful what you reward
-
-This kind of function is easy to ruin with incentives.
-
-If system owners are rewarded for keeping their area green, they will naturally argue that findings are narrow exceptions. They should instead have reason to make their part of important attack paths demonstrably stronger.
-
-If the people keeping the larger questions are rewarded for the percentage that look "good," the questions will slowly become easier and less useful. They should be rewarded for keeping them current, appropriately scoped, and honest about uncertainty.
-
-If risk owners can make uncomfortable problems disappear by accepting them, acceptance will become the garbage chute. Accepting risk should mean somebody understands the consequence and consciously owns the decision, regularly.
-
-If red teams are rewarded for the number of findings or successful compromises, they will optimize for finding and compromise counts. Their value is in reducing important uncertainty and creating changes that matter.
-
-The goal is an accurate picture that leads to useful action, not a green dashboard.
+A conclusion should be able to move from *we have good reason to believe this boundary works* to *the conditions have changed, and we don't know yet* without an incident forcing it. Until more testing is done, "unknown" is often the most accurate answer.
 
 ## What better looks like
 
-At first, this can be very small. A red team runs an important operation. Somebody follows the consequential parts beyond ticket closure and the teams involved ask what made the path possible. Related cases get investigated, the important fixes get tested, and the same objective gets revisited later.
+It's tempting to formalize all of this. Every system gets assertions, every assertion gets controls, and every control gets an owner, a status, and a dashboard. That gives the organization a detailed way to express confidence without better evidence. A more useful start is a few outcomes the business can't afford to misunderstand. For a SaaS company, these might be broad unauthorized access to customer data, unauthorized production releases, and destruction of production along with the systems needed to recover. For each, write down the security requirement, what it depends on, the current evidence, which changes should trigger a re-test, and whether it's verified today. For the two examples in this post:
 
-The first sign of progress is:
+<div style="overflow-x:auto">
 
-> **The learning survives beyond the engagement.**
+| Security requirement | Depends on | Current evidence | Re-test when | Status |
+|---|---|---|---|---|
+| A compromised employee can't reach broad customer data | How support access is granted; service identities that can read across customers | Case-scoped access tests pass; bulk export needs a separate grant | New support tool, new service identity, vendor gets admin access | **Unknown.** New search platform uses a cross-customer service identity |
+| A compromised build worker can't change a production release | Job-scoped credentials; release authority kept separate from build | Worker-reach test; release needs an approval-bound credential | New CI platform, new features, material changes | Verified |
 
-A more developed function starts turning important uncertainty into targeted work.
+</div>
 
-- A support platform changes, so somebody tests the customer-access boundary
-- A build migration changes the release path, so somebody challenges it
-- An acquisition introduces a new identity system, so somebody traces what that identity can reach
-- A known attack path becomes harder, so the organization can explain what capabilities an attacker now needs and which actors are likely to fail earlier
+AI agents make this table much cheaper to keep current. An agent can watch the changes a requirement depends on, such as new service identities, IAM and identity provider changes, OAuth grants, and vendor access. When one lands, it can set the row to unknown, attach the change, and rerun the targeted test: start from a support identity and try to read another customer's data. The change that flips a row is also increasingly an agent. A department builds its own assistant on an older model, gives it a service account that can search customer data, and never sends it through review. No red-team finding will mention it, but it changes the answer for the first row.
 
-The next sign of progress is:
+Incentives need to reward honest answers. Teams rewarded for closing findings optimize for closure. An adversarial engineering function rewarded for the percentage of claims marked satisfactory drifts toward easy claims and weak evidence. Red teams rewarded for vulnerability counts have little reason to investigate the causes of a few serious failures. Risk acceptance used to hide hard questions produces a record of decisions without a picture of what the company can withstand.
 
-> **The organization goes looking for answers before the next full red-team operation happens to find them.**
+A mature adversarial program may still compromise the company. That's part of the reason to have a red team. The question is what the organization can say afterward.
 
-At the more advanced end, offensive discoveries routinely become lasting engineering: the exact bug is fixed, related instances are found, the system that allowed the class is improved where practical. That fix is demonstrated, useful tests remain behind, and major changes cause old conclusions to be revisited.
+After the customer-data operation, can it explain which access paths were removed, which boundaries were strengthened, and how much authority a compromised support identity can now exercise? Has it examined adjacent support and administrative tools for the same condition? Does it know which system changes would invalidate that evidence? After the CI operation, can it explain why a compromised worker no longer provides a route to release authority? And if the red team returns to those objectives next year, will it have to discover a genuinely different route, or just another instance of the same underlying problem?
 
-And red-team time shifts toward the questions the organization genuinely does not know how to answer.
+Answering these questions is harder than assigning findings and closing tickets. It takes cooperation across teams, specialized testing, and engineering effort, and some questions will stay open for months. That's still more useful than treating completed remediation as established security.
 
-The sign of this progress is:
+The alternative is familiar. A red team demonstrates a dangerous path. The organization fixes the visible weaknesses. A year or two later, another red team, researcher, or incident responder finds a different route through the same underlying conditions. Everyone did their assigned work. The organization learned the same lesson twice.
 
-> **Confidence changes when reality changes.**
+Adversarial engineering won't produce certainty. It can give the organization specific reasons to believe the failures it cares about have become harder to cause, with evidence that can be challenged and updated.
 
-## What it buys you
-
-This takes more time than simply writing findings.
-
-Following one attack path across six teams takes more effort than handing each team a ticket. Looking for related cases takes time. Proving the fix takes technical time and work. Repeatable tests need maintenance. Some problems cannot be eliminated and will instead become explicit tradeoffs.
-
-Sometimes months of engineering end with the uncomfortable conclusion that the company still cannot confidently answer an important question.
-
-But the alternative is familiar: a red team finds a path, the organization fixes the visible pieces, the report is filed. And two years later another red team, researcher, or incident responder discovers the same underlying condition through a different system.
-
-Adversarial assurance is an attempt to break that cycle.
-
-Use the red team's ability to prove the organization wrong. Then do the harder work. Understand what made the path possible. Make the important outcome materially harder or remove the path. Demonstrate that the changes actually mattered. Look for the same condition elsewhere. Understand how it became common. Change the broader system where that is practical. Keep checking the pieces that are cheap enough to check. And revisit the larger question when the company, the product, or the threat changes.
-
-Red teams have spent decades getting better at proving that security assumptions are wrong.
-
-Yes, they should keep doing it.
-
-But the next step is to get equally serious about building the evidence that tells us which important assumptions are holding now, what it took to make them hold, and why we still have reason to believe them.
+The point isn't to make the red team stop winning. It's to make sure the company stops losing for the same reasons.
 
 <aside class="author-note"><span class="note-label">Author’s note on AI assistance</span><p>An LLM helped structure, pressure-test, and revise this. The opinions, and any errors, are mine.</p></aside>

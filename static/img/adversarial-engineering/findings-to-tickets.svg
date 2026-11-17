@@ -1,0 +1,46 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 312" role="img" aria-labelledby="title desc">
+<title id="title">One attack path becomes four closed tickets</title>
+<desc id="desc">An attack path from an employee account to every customer's data is split into four findings. Each is fixed and closed. Whether one compromised employee can still reach every customer's data is left open.</desc>
+<style>
+.box{fill:#fff;stroke:#c3ccd6}
+.hl{fill:#eef3f9;stroke:#2b5a8f}
+.t{font:600 13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#16202a}
+.s{font:13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#55606c}
+.lbl{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;fill:#8792a0}
+.ln{stroke:#8792a0;stroke-width:1.5;fill:none}
+.ok,.q{fill:#2b5a8f}
+.q{font:italic 14px system-ui,-apple-system,"Segoe UI",sans-serif}
+@media (prefers-color-scheme:dark){
+.box{fill:#1b2027;stroke:#47505b}
+.hl{fill:#1d2a3a;stroke:#9dbbe0}
+.t{fill:#e2e6eb}.s{fill:#a5adb8}.lbl{fill:#6f7883}.ln{stroke:#6f7883}
+.ok,.q{fill:#9dbbe0}
+}
+</style>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path class="ln" d="M0 0L6 3L0 6"/></marker></defs>
+
+<text class="lbl" x="12" y="22">ATTACK PATH</text>
+<rect class="box" x="12" y="32" width="168" height="48" rx="8"/><text class="t" x="96" y="61" text-anchor="middle">Employee account</text>
+<rect class="box" x="198" y="32" width="168" height="48" rx="8"/><text class="t" x="282" y="61" text-anchor="middle">Internal access</text>
+<rect class="box" x="384" y="32" width="168" height="48" rx="8"/><text class="t" x="468" y="61" text-anchor="middle">Support platform</text>
+<rect class="hl" x="570" y="32" width="168" height="48" rx="8"/><text class="t" x="654" y="61" text-anchor="middle">Every customer's data</text>
+<path class="ln" d="M181 56H193" marker-end="url(#a)"/>
+<path class="ln" d="M367 56H379" marker-end="url(#a)"/>
+<path class="ln" d="M553 56H565" marker-end="url(#a)"/>
+
+<path class="ln" d="M96 80V102M282 80V102M468 80V102M654 80V102" stroke-dasharray="3 3"/>
+<text class="lbl" x="12" y="118">FINDINGS</text>
+<rect class="box" x="12" y="128" width="168" height="48" rx="8"/><text class="s" x="96" y="157" text-anchor="middle">Weak account recovery</text>
+<rect class="box" x="198" y="128" width="168" height="48" rx="8"/><text class="s" x="282" y="157" text-anchor="middle">Broad internal access</text>
+<rect class="box" x="384" y="128" width="168" height="48" rx="8"/><text class="s" x="468" y="157" text-anchor="middle">Broad support access</text>
+<rect class="box" x="570" y="128" width="168" height="48" rx="8"/><text class="s" x="654" y="157" text-anchor="middle">Weak monitoring</text>
+
+<path class="ln" d="M96 176V198M282 176V198M468 176V198M654 176V198"/>
+<text class="lbl" x="12" y="214">TICKETS</text>
+<rect class="box" x="12" y="224" width="168" height="44" rx="8"/><text class="s" x="96" y="251" text-anchor="middle"><tspan class="ok">✓</tspan> Recovery hardened</text>
+<rect class="box" x="198" y="224" width="168" height="44" rx="8"/><text class="s" x="282" y="251" text-anchor="middle"><tspan class="ok">✓</tspan> Routes restricted</text>
+<rect class="box" x="384" y="224" width="168" height="44" rx="8"/><text class="s" x="468" y="251" text-anchor="middle"><tspan class="ok">✓</tspan> Permissions narrowed</text>
+<rect class="box" x="570" y="224" width="168" height="44" rx="8"/><text class="s" x="654" y="251" text-anchor="middle"><tspan class="ok">✓</tspan> Alerts added</text>
+
+<text class="q" x="12" y="298">Still open: can one compromised employee reach every customer's data?</text>
+</svg>

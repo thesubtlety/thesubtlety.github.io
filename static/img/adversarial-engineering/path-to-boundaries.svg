@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 750 430" role="img" aria-labelledby="title desc">
+<title id="title">One attack path becomes a requirement, boundaries, and tests</title>
+<desc id="desc">The same attack path sets one security requirement. Three independent boundaries support it: prevent, contain, and detect. Continuous tests check the requirement and re-run when the system changes.</desc>
+<style>
+.box{fill:#fff;stroke:#c3ccd6}
+.hl{fill:#eef3f9;stroke:#2b5a8f}
+.t{font:600 13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#16202a}
+.s{font:13px system-ui,-apple-system,"Segoe UI",sans-serif;fill:#55606c}
+.lbl{font:11px ui-monospace,SFMono-Regular,Menlo,monospace;letter-spacing:.08em;fill:#8792a0}
+.ln{stroke:#8792a0;stroke-width:1.5;fill:none}
+@media (prefers-color-scheme:dark){
+.box{fill:#1b2027;stroke:#47505b}
+.hl{fill:#1d2a3a;stroke:#9dbbe0}
+.t{fill:#e2e6eb}.s{fill:#a5adb8}.lbl{fill:#6f7883}.ln{stroke:#6f7883}
+}
+</style>
+<defs><marker id="a" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto"><path class="ln" d="M0 0L6 3L0 6"/></marker></defs>
+
+<text class="lbl" x="12" y="22">ATTACK PATH</text>
+<rect class="box" x="12" y="32" width="168" height="48" rx="8"/><text class="t" x="96" y="61" text-anchor="middle">Employee account</text>
+<rect class="box" x="198" y="32" width="168" height="48" rx="8"/><text class="t" x="282" y="61" text-anchor="middle">Internal access</text>
+<rect class="box" x="384" y="32" width="168" height="48" rx="8"/><text class="t" x="468" y="61" text-anchor="middle">Support platform</text>
+<rect class="box" x="570" y="32" width="168" height="48" rx="8"/><text class="t" x="654" y="61" text-anchor="middle">Every customer's data</text>
+<path class="ln" d="M181 56H193" marker-end="url(#a)"/>
+<path class="ln" d="M367 56H379" marker-end="url(#a)"/>
+<path class="ln" d="M553 56H565" marker-end="url(#a)"/>
+
+<path class="ln" d="M12 88V94H738V88"/>
+<path class="ln" d="M375 94V108" marker-end="url(#a)"/>
+<text class="lbl" x="12" y="128">SECURITY REQUIREMENT</text>
+<rect class="hl" x="12" y="136" width="726" height="48" rx="8"/>
+<text class="t" x="375" y="165" text-anchor="middle">Compromising an ordinary employee is not enough to reach broad customer data.</text>
+
+<path class="ln" d="M127 184V198M375 184V198M623 184V198" marker-end="url(#a)"/>
+<text class="lbl" x="12" y="222">INDEPENDENT BOUNDARIES</text>
+<rect class="box" x="12" y="230" width="230" height="76" rx="8"/>
+<text class="t" x="127" y="254" text-anchor="middle">Prevent</text>
+<text class="s" x="127" y="274" text-anchor="middle">Support tools need a</text>
+<text class="s" x="127" y="292" text-anchor="middle">separate, scoped grant</text>
+<rect class="box" x="260" y="230" width="230" height="76" rx="8"/>
+<text class="t" x="375" y="254" text-anchor="middle">Contain</text>
+<text class="s" x="375" y="274" text-anchor="middle">One session reaches one</text>
+<text class="s" x="375" y="292" text-anchor="middle">customer and one case</text>
+<rect class="box" x="508" y="230" width="230" height="76" rx="8"/>
+<text class="t" x="623" y="254" text-anchor="middle">Detect</text>
+<text class="s" x="623" y="274" text-anchor="middle">Bulk and cross-customer</text>
+<text class="s" x="623" y="292" text-anchor="middle">reads alert quickly</text>
+
+<path class="ln" d="M12 314V320H738V314"/>
+<path class="ln" d="M375 320V334" marker-end="url(#a)"/>
+<text class="lbl" x="12" y="354">CONTINUOUS TESTS</text>
+<rect class="box" x="12" y="362" width="726" height="58" rx="8"/>
+<text class="s" x="375" y="386" text-anchor="middle">From a support identity, try another customer, a bulk export, another tool.</text>
+<text class="s" x="375" y="406" text-anchor="middle">Re-run when support tools, service identities, or vendors change.</text>
+</svg>
