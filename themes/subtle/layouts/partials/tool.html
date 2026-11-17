@@ -5,7 +5,7 @@
 {{- $pushed := or $t.pushed $stats.pushed -}}
 <li class="tool">
   <div class="tool-head">
-    <a class="tool-name" href="{{ $t.url }}">{{ $t.name }}</a>
+    <a class="tool-name" href="{{ $t.url }}"{{ if partial "is-external.html" $t.url }} target="_blank" rel="noopener"{{ end }}>{{ $t.name }}</a>
     <span class="tool-meta">
       {{- with $t.lang }}<span>{{ . }}</span>{{ end -}}
       {{- with $pushed }}<span title="last commit">{{ time.Format "Jan 2006" . }}</span>{{ end -}}

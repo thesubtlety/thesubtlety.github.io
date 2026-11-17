@@ -18,8 +18,8 @@
 </article>
 {{- if ne .Type "page" }}
 <nav class="post-nav">
-  {{ with .NextInSection }}<a href="{{ .Params.external_url | default .RelPermalink }}">← {{ .Title }}</a>{{ end }}
-  {{ with .PrevInSection }}<a href="{{ .Params.external_url | default .RelPermalink }}">{{ .Title }} →</a>{{ end }}
+  {{ with .NextInSection }}<a href="{{ .Params.external_url | default .RelPermalink }}"{{ with .Params.external_url }}{{ if partial "is-external.html" . }} target="_blank" rel="noopener"{{ end }}{{ end }}>← {{ .Title }}</a>{{ end }}
+  {{ with .PrevInSection }}<a href="{{ .Params.external_url | default .RelPermalink }}"{{ with .Params.external_url }}{{ if partial "is-external.html" . }} target="_blank" rel="noopener"{{ end }}{{ end }}>{{ .Title }} →</a>{{ end }}
 </nav>
 {{- end }}
 {{ end }}

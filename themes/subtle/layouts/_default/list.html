@@ -13,7 +13,7 @@
     <li class="post-item">
       <span class="post-date">{{ .Date.Format "Jan 2" }}</span>
       <span class="post-title">
-        {{- $p := . }}{{ with .Params.external_url }}<a href="{{ . }}">{{ $p.Title }}</a>{{ else }}<a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>{{ end -}}
+        {{- $p := . }}{{ with .Params.external_url }}<a href="{{ . }}"{{ if partial "is-external.html" . }} target="_blank" rel="noopener"{{ end }}>{{ $p.Title }}</a>{{ else }}<a href="{{ $p.RelPermalink }}">{{ $p.Title }}</a>{{ end -}}
         {{- with .Params.venue }} <span class="venue">at {{ . }}</span>{{ end -}}
       </span>
     </li>

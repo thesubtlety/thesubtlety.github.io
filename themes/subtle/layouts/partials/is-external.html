@@ -1,0 +1,4 @@
+{{- /* True for http(s) links to another site. Links to this site, with or without www, are not external. */ -}}
+{{- $u := urls.Parse . -}}
+{{- $own := strings.TrimPrefix "www." (urls.Parse site.BaseURL).Host -}}
+{{- return and (in (slice "http" "https") $u.Scheme) (ne (strings.TrimPrefix "www." $u.Host) $own) -}}
