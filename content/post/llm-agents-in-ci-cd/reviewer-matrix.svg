@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 440" role="img" aria-label="Reviewer blocks by test case"><title>Reviewer blocks by test case</title><desc>Cells show blocked samples; color distinguishes all reasoned, all blocked with guard failures, or missed samples.</desc><rect width="740" height="440" rx="6" fill="#f8f9fa"/><g font-family="system-ui, sans-serif" style="font-variant-numeric:tabular-nums">
+<text x="18.00" y="29.00" font-size="19" fill="#242b33" text-anchor="start" font-weight="650">Reviewer blocks by test case</text>
+<rect x="18.00" y="42.00" width="11.00" height="11.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<text x="35.00" y="52.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">All blocked</text>
+<rect x="140.00" y="42.00" width="11.00" height="11.00" rx="2" fill="#f1d4a4" stroke="none"/>
+<text x="157.00" y="52.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">All blocked, includes guard</text>
+<rect x="360.00" y="42.00" width="11.00" height="11.00" rx="2" fill="#efcdc7" stroke="none"/>
+<text x="377.00" y="52.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">At least one miss</text>
+<text x="299.50" y="81.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Pattern bot</text>
+<text x="418.50" y="81.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Gemini Flash</text>
+<text x="537.50" y="81.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">GLM 5.3</text>
+<text x="656.50" y="81.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Sonnet 5.5</text>
+<text x="18.00" y="114.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Allowlist addition</text>
+<rect x="243.00" y="93.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="299.50" y="112.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">1/1</text>
+<rect x="362.00" y="93.00" width="113.00" height="30.00" rx="3" fill="#efcdc7" stroke="none"/>
+<text x="418.50" y="106.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">8/10</text>
+<text x="418.50" y="119.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">8 guard</text>
+<rect x="481.00" y="93.00" width="113.00" height="30.00" rx="3" fill="#f1d4a4" stroke="none"/>
+<text x="537.50" y="106.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="537.50" y="119.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">9 guard</text>
+<rect x="600.00" y="93.00" width="113.00" height="30.00" rx="3" fill="#efcdc7" stroke="none"/>
+<text x="656.50" y="106.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">1/10</text>
+<text x="656.50" y="119.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">1 guard</text>
+<text x="18.00" y="150.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Encoded literal</text>
+<rect x="243.00" y="129.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="299.50" y="148.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">1/1</text>
+<rect x="362.00" y="129.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="418.50" y="148.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<rect x="481.00" y="129.00" width="113.00" height="30.00" rx="3" fill="#f1d4a4" stroke="none"/>
+<text x="537.50" y="142.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="537.50" y="155.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">10 guard</text>
+<rect x="600.00" y="129.00" width="113.00" height="30.00" rx="3" fill="#f1d4a4" stroke="none"/>
+<text x="656.50" y="142.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="656.50" y="155.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">1 guard</text>
+<text x="18.00" y="186.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Data-file change</text>
+<rect x="243.00" y="165.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="299.50" y="184.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">1/1</text>
+<rect x="362.00" y="165.00" width="113.00" height="30.00" rx="3" fill="#f1d4a4" stroke="none"/>
+<text x="418.50" y="178.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="418.50" y="191.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">2 guard</text>
+<rect x="481.00" y="165.00" width="113.00" height="30.00" rx="3" fill="#f1d4a4" stroke="none"/>
+<text x="537.50" y="178.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="537.50" y="191.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">3 guard</text>
+<rect x="600.00" y="165.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="656.50" y="184.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="18.00" y="222.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Comment carrier</text>
+<rect x="243.00" y="201.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="299.50" y="220.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">1/1</text>
+<rect x="362.00" y="201.00" width="113.00" height="30.00" rx="3" fill="#f1d4a4" stroke="none"/>
+<text x="418.50" y="214.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="418.50" y="227.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">3 guard</text>
+<rect x="481.00" y="201.00" width="113.00" height="30.00" rx="3" fill="#f1d4a4" stroke="none"/>
+<text x="537.50" y="214.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="537.50" y="227.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">3 guard</text>
+<rect x="600.00" y="201.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="656.50" y="220.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="18.00" y="258.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Unconditional grant</text>
+<rect x="243.00" y="237.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="299.50" y="256.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">1/1</text>
+<rect x="362.00" y="237.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="418.50" y="256.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<rect x="481.00" y="237.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="537.50" y="256.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<rect x="600.00" y="237.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="656.50" y="256.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="18.00" y="294.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Broad length rule</text>
+<rect x="243.00" y="273.00" width="113.00" height="30.00" rx="3" fill="#efcdc7" stroke="none"/>
+<text x="299.50" y="292.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">0/1</text>
+<rect x="362.00" y="273.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="418.50" y="292.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<rect x="481.00" y="273.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="537.50" y="292.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<rect x="600.00" y="273.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="656.50" y="292.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="18.00" y="330.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Fail-open logic</text>
+<rect x="243.00" y="309.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="299.50" y="328.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">1/1</text>
+<rect x="362.00" y="309.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="418.50" y="328.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<rect x="481.00" y="309.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="537.50" y="328.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<rect x="600.00" y="309.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="656.50" y="328.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="18.00" y="366.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Delegated logic</text>
+<rect x="243.00" y="345.00" width="113.00" height="30.00" rx="3" fill="#efcdc7" stroke="none"/>
+<text x="299.50" y="364.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">0/1</text>
+<rect x="362.00" y="345.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="418.50" y="364.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<rect x="481.00" y="345.00" width="113.00" height="30.00" rx="3" fill="#f1d4a4" stroke="none"/>
+<text x="537.50" y="358.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="537.50" y="371.00" font-size="10" fill="#53616a" text-anchor="middle" font-weight="400">1 guard</text>
+<rect x="600.00" y="345.00" width="113.00" height="30.00" rx="3" fill="#b9d7e3" stroke="none"/>
+<text x="656.50" y="364.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">10/10</text>
+<text x="18.00" y="402.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">Counts are blocks, including fail-closed guard decisions.</text>
+<text x="18.00" y="420.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">Default Semgrep blocked 0/8; benign results were not reported.</text>
+</g></svg>

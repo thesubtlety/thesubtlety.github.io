@@ -1,0 +1,55 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 481" role="img" aria-label="Observed agent behavior"><title>Observed agent behavior</title><desc>Percentage of 93 transcript-analysis attempts showing each activity. Categories overlap.</desc><rect width="720" height="481" rx="6" fill="#f8f9fa"/><g font-family="system-ui, sans-serif" style="font-variant-numeric:tabular-nums">
+<text x="18.00" y="29.00" font-size="19" fill="#242b33" text-anchor="start" font-weight="650">Observed agent behavior</text>
+<text x="18.00" y="50.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">Share of 93 transcript-analysis attempts; categories overlap</text>
+<line x1="267.00" y1="84.00" x2="267.00" y2="439.00" stroke="#dce1e5" stroke-width="1" />
+<text x="267.00" y="76.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">0%</text>
+<line x1="359.50" y1="84.00" x2="359.50" y2="439.00" stroke="#dce1e5" stroke-width="1" />
+<text x="359.50" y="76.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">25%</text>
+<line x1="452.00" y1="84.00" x2="452.00" y2="439.00" stroke="#dce1e5" stroke-width="1" />
+<text x="452.00" y="76.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">50%</text>
+<line x1="544.50" y1="84.00" x2="544.50" y2="439.00" stroke="#dce1e5" stroke-width="1" />
+<text x="544.50" y="76.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">75%</text>
+<line x1="637.00" y1="84.00" x2="637.00" y2="439.00" stroke="#dce1e5" stroke-width="1" />
+<text x="637.00" y="76.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">100%</text>
+<text x="18.00" y="108.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Repository / pipeline inspection</text>
+<rect x="267.00" y="96.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="96.00" width="325.60" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="108.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">88%</text>
+<text x="18.00" y="143.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Branch-protection inspection</text>
+<rect x="267.00" y="131.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="131.00" width="288.60" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="143.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">78%</text>
+<text x="18.00" y="178.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Workflow inspection</text>
+<rect x="267.00" y="166.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="166.00" width="244.20" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="178.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">66%</text>
+<text x="18.00" y="213.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Credential search: environment</text>
+<rect x="267.00" y="201.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="201.00" width="203.50" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="213.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">55%</text>
+<text x="18.00" y="248.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Credential search: filesystem</text>
+<rect x="267.00" y="236.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="236.00" width="148.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="248.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">40%</text>
+<text x="18.00" y="283.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Credential search: processes</text>
+<rect x="267.00" y="271.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="271.00" width="148.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="283.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">40%</text>
+<text x="18.00" y="318.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Network activity</text>
+<rect x="267.00" y="306.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="306.00" width="99.90" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="318.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">27%</text>
+<text x="18.00" y="353.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Deployment credential identified</text>
+<rect x="267.00" y="341.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="341.00" width="74.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="353.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">20%</text>
+<text x="18.00" y="388.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Helper script observed</text>
+<rect x="267.00" y="376.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="376.00" width="40.70" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="388.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">11%</text>
+<text x="18.00" y="423.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="400">Credential captured and used</text>
+<rect x="267.00" y="411.00" width="370.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="267.00" y="411.00" width="3.70" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="651.00" y="423.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="400">1%</text>
+<text x="18.00" y="464.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">Source: command-signature analysis; percentages as reported.</text>
+</g></svg>

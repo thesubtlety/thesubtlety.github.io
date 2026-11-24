@@ -1,0 +1,98 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 569" role="img" aria-label="Progress by model and prompt"><title>Progress by model and prompt</title><desc>R1 = repository change; S2 = review bypass. Model table: 95 attempts.</desc><rect width="740" height="569" rx="6" fill="#f8f9fa"/><g font-family="system-ui, sans-serif" style="font-variant-numeric:tabular-nums">
+<text x="18.00" y="29.00" font-size="19" fill="#242b33" text-anchor="start" font-weight="650">Progress by model and prompt</text>
+<rect x="18.00" y="43.00" width="11.00" height="11.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<text x="35.00" y="53.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">R1: repository change</text>
+<rect x="222.00" y="43.00" width="11.00" height="11.00" rx="2" fill="#236582" stroke="none"/>
+<text x="239.00" y="53.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">S2: review bypass</text>
+<text x="607.00" y="53.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">Progress / n</text>
+<text x="696.00" y="53.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">Success / n</text>
+<line x1="190.00" y1="86.00" x2="190.00" y2="530.00" stroke="#dce1e5" stroke-width="1" />
+<text x="190.00" y="78.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">0%</text>
+<line x1="277.50" y1="86.00" x2="277.50" y2="530.00" stroke="#dce1e5" stroke-width="1" />
+<text x="277.50" y="78.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">25%</text>
+<line x1="365.00" y1="86.00" x2="365.00" y2="530.00" stroke="#dce1e5" stroke-width="1" />
+<text x="365.00" y="78.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">50%</text>
+<line x1="452.50" y1="86.00" x2="452.50" y2="530.00" stroke="#dce1e5" stroke-width="1" />
+<text x="452.50" y="78.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">75%</text>
+<line x1="540.00" y1="86.00" x2="540.00" y2="530.00" stroke="#dce1e5" stroke-width="1" />
+<text x="540.00" y="78.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">100%</text>
+<text x="18.00" y="107.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Kimi K3.1 Pro</text>
+<text x="142.00" y="107.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">N</text>
+<rect x="190.00" y="94.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="94.00" width="350.00" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="94.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="107.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">13/13</text>
+<text x="696.00" y="107.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/13</text>
+<text x="142.00" y="134.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">A</text>
+<rect x="190.00" y="121.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="121.00" width="350.00" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="121.00" width="26.92" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="134.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">13/13</text>
+<text x="696.00" y="134.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">1/13</text>
+<text x="18.00" y="181.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Grok 4.7</text>
+<text x="142.00" y="181.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">N</text>
+<rect x="190.00" y="168.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="168.00" width="306.25" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="168.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="181.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">7/8</text>
+<text x="696.00" y="181.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/8</text>
+<text x="142.00" y="208.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">A</text>
+<rect x="190.00" y="195.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="195.00" width="87.50" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="195.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="208.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">2/8</text>
+<text x="696.00" y="208.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/8</text>
+<text x="18.00" y="255.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Mistral Large 4</text>
+<text x="142.00" y="255.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">N</text>
+<rect x="190.00" y="242.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="242.00" width="222.73" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="242.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="255.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">7/11</text>
+<text x="696.00" y="255.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/11</text>
+<text x="142.00" y="282.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">A</text>
+<rect x="190.00" y="269.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="269.00" width="218.75" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="269.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="282.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">5/8</text>
+<text x="696.00" y="282.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/8</text>
+<text x="18.00" y="329.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">DeepSeek V4</text>
+<text x="142.00" y="329.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">N</text>
+<rect x="190.00" y="316.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="316.00" width="350.00" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="316.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="329.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">8/8</text>
+<text x="696.00" y="329.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/8</text>
+<text x="142.00" y="356.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">A</text>
+<rect x="190.00" y="343.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="343.00" width="350.00" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="343.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="356.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">8/8</text>
+<text x="696.00" y="356.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/8</text>
+<text x="18.00" y="403.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">GPT-6.1</text>
+<text x="142.00" y="403.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">N</text>
+<rect x="190.00" y="390.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="390.00" width="350.00" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="390.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="403.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">3/3</text>
+<text x="696.00" y="403.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/3</text>
+<text x="142.00" y="430.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">A</text>
+<rect x="190.00" y="417.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="417.00" width="350.00" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="417.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="430.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">5/5</text>
+<text x="696.00" y="430.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/5</text>
+<text x="18.00" y="477.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">GLM 5.3</text>
+<text x="142.00" y="477.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">N</text>
+<rect x="190.00" y="464.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="464.00" width="140.00" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="464.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="477.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">2/5</text>
+<text x="696.00" y="477.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/5</text>
+<text x="142.00" y="504.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">A</text>
+<rect x="190.00" y="491.00" width="350.00" height="16.00" rx="2" fill="#e5e9ec" stroke="none"/>
+<rect x="190.00" y="491.00" width="210.00" height="16.00" rx="2" fill="#b9d7e3" stroke="none"/>
+<rect x="190.00" y="491.00" width="0.00" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="607.00" y="504.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">3/5</text>
+<text x="696.00" y="504.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="400">0/5</text>
+<text x="18.00" y="556.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">N = neutral; A = authorized. X-axis = share of repeated scored attempts.</text>
+</g></svg>

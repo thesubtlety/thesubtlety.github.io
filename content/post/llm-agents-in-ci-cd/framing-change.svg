@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 465" role="img" aria-label="Change with authorized framing"><title>Change with authorized framing</title><desc>Authorized release rate minus neutral release rate, in percentage points.</desc><rect width="720" height="465" rx="6" fill="#f8f9fa"/><g font-family="system-ui, sans-serif" style="font-variant-numeric:tabular-nums">
+<text x="18.00" y="29.00" font-size="19" fill="#242b33" text-anchor="start" font-weight="650">Change with authorized framing</text>
+<text x="18.00" y="50.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">Percentage-point change in R4 completion</text>
+<line x1="190.00" y1="82.00" x2="190.00" y2="402.00" stroke="#dce1e5" stroke-width="1" />
+<text x="190.00" y="74.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">-50</text>
+<line x1="297.50" y1="82.00" x2="297.50" y2="402.00" stroke="#dce1e5" stroke-width="1" />
+<text x="297.50" y="74.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">-25</text>
+<line x1="405.00" y1="82.00" x2="405.00" y2="402.00" stroke="#53616a" stroke-width="1.2" />
+<text x="405.00" y="74.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">0</text>
+<line x1="512.50" y1="82.00" x2="512.50" y2="402.00" stroke="#dce1e5" stroke-width="1" />
+<text x="512.50" y="74.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">+25</text>
+<line x1="620.00" y1="82.00" x2="620.00" y2="402.00" stroke="#dce1e5" stroke-width="1" />
+<text x="620.00" y="74.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">+50</text>
+<text x="18.00" y="104.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Mistral Large 4</text>
+<rect x="405.00" y="91.00" width="200.67" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="614.67" y="103.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="600">+47</text>
+<text x="18.00" y="139.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Kimi K3</text>
+<rect x="405.00" y="126.00" width="156.64" height="16.00" rx="2" fill="#236582" stroke="none"/>
+<text x="570.64" y="138.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="600">+36</text>
+<text x="18.00" y="174.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">GLM 5.3</text>
+<circle cx="405.00" cy="169.00" r="3" fill="#82909a" stroke="none" stroke-width="1"/>
+<text x="414.00" y="173.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="600">0</text>
+<text x="18.00" y="209.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Sonnet 5.5</text>
+<circle cx="405.00" cy="204.00" r="3" fill="#82909a" stroke="none" stroke-width="1"/>
+<text x="414.00" y="208.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="600">0</text>
+<text x="18.00" y="244.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Gemini Flash</text>
+<circle cx="405.00" cy="239.00" r="3" fill="#82909a" stroke="none" stroke-width="1"/>
+<text x="414.00" y="243.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="600">0</text>
+<text x="18.00" y="279.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">GPT-OSS 120B</text>
+<circle cx="405.00" cy="274.00" r="3" fill="#82909a" stroke="none" stroke-width="1"/>
+<text x="414.00" y="278.00" font-size="12" fill="#242b33" text-anchor="start" font-weight="600">0</text>
+<text x="18.00" y="314.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">GPT-6.1</text>
+<rect x="389.64" y="301.00" width="15.36" height="16.00" rx="2" fill="#ad5545" stroke="none"/>
+<text x="380.64" y="313.00" font-size="12" fill="#242b33" text-anchor="end" font-weight="600">-4</text>
+<text x="18.00" y="349.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">DeepSeek V4</text>
+<rect x="272.10" y="336.00" width="132.90" height="16.00" rx="2" fill="#ad5545" stroke="none"/>
+<text x="263.10" y="348.00" font-size="12" fill="#242b33" text-anchor="end" font-weight="600">-31</text>
+<text x="18.00" y="384.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Grok 4.7</text>
+<rect x="261.67" y="371.00" width="143.33" height="16.00" rx="2" fill="#ad5545" stroke="none"/>
+<text x="252.67" y="383.00" font-size="12" fill="#242b33" text-anchor="end" font-weight="600">-33</text>
+<text x="18.00" y="444.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">Opus and Qwen omitted: no paired scored result.</text>
+</g></svg>

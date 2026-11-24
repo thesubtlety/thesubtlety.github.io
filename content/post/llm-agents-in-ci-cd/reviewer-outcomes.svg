@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 282" role="img" aria-labelledby="title desc">
+<title id="title">LLM reviewer outcomes</title><desc id="desc">Gemini blocked 65 by reasoned rejection and 13 by guard; GLM 54 reasoned and 26 guard; Sonnet 69 reasoned and 2 guard. Each had 80 backdoor samples.</desc>
+<rect width="100%" height="100%" rx="8" fill="#f8f9fa"/>
+<g font-family="system-ui, -apple-system, sans-serif" fill="#242b33">
+<text x="20" y="28" font-size="19" font-weight="650" fill="#242b33" text-anchor="start">Backdoor review outcomes</text>
+<rect x="20" y="43" width="12.00" height="12" rx="2" fill="#236582"/>
+<text x="38" y="54" font-size="12" font-weight="400" fill="#242b33" text-anchor="start">Reasoned rejection</text>
+<rect x="185" y="43" width="12.00" height="12" rx="2" fill="#d49b42"/>
+<text x="203" y="54" font-size="12" font-weight="400" fill="#242b33" text-anchor="start">Fail-closed guard</text>
+<rect x="345" y="43" width="12.00" height="12" rx="2" fill="#dce1e5"/>
+<text x="363" y="54" font-size="12" font-weight="400" fill="#242b33" text-anchor="start">Missed</text>
+<line x1="155.0" y1="88" x2="155.0" y2="219" stroke="#dce1e5"/>
+<text x="155.0" y="81" font-size="11" font-weight="400" fill="#52616a" text-anchor="middle">0</text>
+<line x1="242.5" y1="88" x2="242.5" y2="219" stroke="#dce1e5"/>
+<text x="242.5" y="81" font-size="11" font-weight="400" fill="#52616a" text-anchor="middle">20</text>
+<line x1="330.0" y1="88" x2="330.0" y2="219" stroke="#dce1e5"/>
+<text x="330.0" y="81" font-size="11" font-weight="400" fill="#52616a" text-anchor="middle">40</text>
+<line x1="417.5" y1="88" x2="417.5" y2="219" stroke="#dce1e5"/>
+<text x="417.5" y="81" font-size="11" font-weight="400" fill="#52616a" text-anchor="middle">60</text>
+<line x1="505.0" y1="88" x2="505.0" y2="219" stroke="#dce1e5"/>
+<text x="505.0" y="81" font-size="11" font-weight="400" fill="#52616a" text-anchor="middle">80</text>
+<text x="20" y="109" font-size="13" font-weight="550" fill="#242b33" text-anchor="start">Gemini-Flash</text>
+<rect x="155" y="94" width="350.00" height="21" rx="2" fill="#dce1e5"/>
+<rect x="155" y="94" width="284.38" height="21" rx="2" fill="#236582"/>
+<rect x="439.375" y="94" width="56.88" height="21" rx="2" fill="#d49b42"/>
+<text x="520" y="109" font-size="12" font-weight="500" fill="#242b33" text-anchor="start">78/80 blocked</text>
+<text x="20" y="154" font-size="13" font-weight="550" fill="#242b33" text-anchor="start">GLM-5.3</text>
+<rect x="155" y="139" width="350.00" height="21" rx="2" fill="#dce1e5"/>
+<rect x="155" y="139" width="236.25" height="21" rx="2" fill="#236582"/>
+<rect x="391.25" y="139" width="113.75" height="21" rx="2" fill="#d49b42"/>
+<text x="520" y="154" font-size="12" font-weight="500" fill="#242b33" text-anchor="start">80/80 blocked</text>
+<text x="20" y="199" font-size="13" font-weight="550" fill="#242b33" text-anchor="start">Sonnet-5.5</text>
+<rect x="155" y="184" width="350.00" height="21" rx="2" fill="#dce1e5"/>
+<rect x="155" y="184" width="301.88" height="21" rx="2" fill="#236582"/>
+<rect x="456.875" y="184" width="8.75" height="21" rx="2" fill="#d49b42"/>
+<text x="520" y="199" font-size="12" font-weight="500" fill="#242b33" text-anchor="start">71/80 blocked</text>
+<text x="20" y="258" font-size="12" font-weight="400" fill="#52616a" text-anchor="start">Eight fixed backdoor PRs, ten samples per PR per LLM.</text>
+</g></svg>

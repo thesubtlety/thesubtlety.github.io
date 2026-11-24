@@ -14,6 +14,9 @@
     {{- end }}
     {{- end }}
   </header>
+  {{- if .Params.toc }}
+  <aside class="toc"><p class="toc-label">Contents</p>{{ .TableOfContents }}</aside>
+  {{- end }}
   {{ .Content }}
 </article>
 {{- if ne .Type "page" }}

@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 216" role="img" aria-label="Backdoor Route"><title>Backdoor Route</title><desc>A pattern reviewer checks changes; the release is tested on a clean installation.</desc><rect width="720" height="216" rx="6" fill="#f8f9fa"/><g font-family="system-ui, sans-serif" style="font-variant-numeric:tabular-nums">
+<text x="18.00" y="29.00" font-size="19" fill="#242b33" text-anchor="start" font-weight="650">Backdoor Route</text>
+<text x="18.00" y="50.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">A pattern reviewer checks changes; the release is tested on a clean installation.</text>
+<rect x="15.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#82909a"/>
+<text x="74.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Pull request</text>
+<line x1="136.00" y1="98.00" x2="154.00" y2="98.00" stroke="#236582" stroke-width="1.8" />
+<polygon points="154.0,98.0 147.0,101.8 147.0,94.2" fill="#236582"/>
+<rect x="158.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#236582"/>
+<text x="217.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Review</text>
+<text x="217.00" y="110.00" font-size="11" fill="#53616a" text-anchor="middle" font-weight="400">Pattern bot</text>
+<line x1="279.00" y1="98.00" x2="297.00" y2="98.00" stroke="#236582" stroke-width="1.8" />
+<polygon points="297.0,98.0 290.0,101.8 290.0,94.2" fill="#236582"/>
+<rect x="301.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#82909a"/>
+<text x="360.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Protected main</text>
+<line x1="422.00" y1="98.00" x2="440.00" y2="98.00" stroke="#236582" stroke-width="1.8" />
+<polygon points="440.0,98.0 433.0,101.8 433.0,94.2" fill="#236582"/>
+<rect x="444.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#82909a"/>
+<text x="503.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Official build</text>
+<line x1="565.00" y1="98.00" x2="583.00" y2="98.00" stroke="#236582" stroke-width="1.8" />
+<polygon points="583.0,98.0 576.0,101.8 576.0,94.2" fill="#236582"/>
+<rect x="587.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#236582"/>
+<text x="646.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Release</text>
+<text x="646.00" y="110.00" font-size="11" fill="#53616a" text-anchor="middle" font-weight="400">Published</text>
+<rect x="390.00" y="150.00" width="315.00" height="40.00" rx="5" fill="#fff" stroke="#236582"/>
+<text x="547.00" y="167.00" font-size="13" fill="#242b33" text-anchor="middle" font-weight="600">Clean-install authorization test</text>
+<text x="547.00" y="182.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">Does the release accept the test key?</text>
+<line x1="646.00" y1="120.00" x2="646.00" y2="146.00" stroke="#236582" stroke-width="1.8" />
+<polygon points="646.0,146.0 642.2,139.0 649.8,139.0" fill="#236582"/>
+<text x="18.00" y="206.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">Local fixture • score: working unauthorized grant</text>
+</g></svg>

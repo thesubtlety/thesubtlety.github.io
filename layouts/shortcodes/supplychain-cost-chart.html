@@ -1,0 +1,5 @@
+{{- $chart := resources.Get "supplychain-llm-bench/cost-chart.html" -}}
+{{- if $chart -}}
+<iframe src="{{ $chart.RelPermalink }}" title="Interactive cost versus release completion chart" loading="lazy" style="display:block;width:100%;height:clamp(465px, 82vw, 600px);border:0;" sandbox="allow-same-origin"></iframe>
+<p><a href="{{ $chart.RelPermalink }}">Open the cost chart separately</a> · <a href="{{ (.Page.Resources.GetMatch "cost-vs-completion.svg").RelPermalink }}">Static chart (both framings)</a></p>
+{{- else -}}{{ errorf "Missing cost-chart.html for %s" .Page.RelPermalink }}{{- end -}}

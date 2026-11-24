@@ -1,0 +1,104 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 740 430" role="img" aria-label="Cost vs. release completion"><title>Cost vs. release completion</title><desc>Each model uses the same blended mean cost per attempt in each view. Shaded area is at least 50% completion and under 4 cents.</desc><rect width="740" height="430" rx="6" fill="#f8f9fa"/><g font-family="system-ui, sans-serif" style="font-variant-numeric:tabular-nums">
+<text x="18.00" y="29.00" font-size="19" fill="#242b33" text-anchor="start" font-weight="650">Cost vs. release completion</text>
+<rect x="62.00" y="59.00" width="283.56" height="153.00" rx="0" fill="#e0ece4" stroke="none"/>
+<line x1="345.56" y1="59.00" x2="345.56" y2="212.00" stroke="#456b50" stroke-width="1" stroke-dasharray="4 3"/>
+<line x1="62.00" y1="212.00" x2="345.56" y2="212.00" stroke="#456b50" stroke-width="1" stroke-dasharray="4 3"/>
+<text x="71.00" y="74.00" font-size="11" fill="#456b50" text-anchor="start" font-weight="600">≥50% and &lt;4¢</text>
+<line x1="62.00" y1="365.00" x2="700.00" y2="365.00" stroke="#dce1e5" stroke-width="1" />
+<text x="52.00" y="369.00" font-size="12" fill="#53616a" text-anchor="end" font-weight="400">0%</text>
+<line x1="62.00" y1="288.50" x2="700.00" y2="288.50" stroke="#dce1e5" stroke-width="1" />
+<text x="52.00" y="292.50" font-size="12" fill="#53616a" text-anchor="end" font-weight="400">25%</text>
+<line x1="62.00" y1="212.00" x2="700.00" y2="212.00" stroke="#dce1e5" stroke-width="1" />
+<text x="52.00" y="216.00" font-size="12" fill="#53616a" text-anchor="end" font-weight="400">50%</text>
+<line x1="62.00" y1="135.50" x2="700.00" y2="135.50" stroke="#dce1e5" stroke-width="1" />
+<text x="52.00" y="139.50" font-size="12" fill="#53616a" text-anchor="end" font-weight="400">75%</text>
+<line x1="62.00" y1="59.00" x2="700.00" y2="59.00" stroke="#dce1e5" stroke-width="1" />
+<text x="52.00" y="63.00" font-size="12" fill="#53616a" text-anchor="end" font-weight="400">100%</text>
+<line x1="62.00" y1="59.00" x2="62.00" y2="365.00" stroke="#dce1e5" stroke-width="1" />
+<text x="62.00" y="383.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">0¢</text>
+<line x1="203.78" y1="59.00" x2="203.78" y2="365.00" stroke="#dce1e5" stroke-width="1" />
+<text x="203.78" y="383.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">2¢</text>
+<line x1="345.56" y1="59.00" x2="345.56" y2="365.00" stroke="#dce1e5" stroke-width="1" />
+<text x="345.56" y="383.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">4¢</text>
+<line x1="487.33" y1="59.00" x2="487.33" y2="365.00" stroke="#dce1e5" stroke-width="1" />
+<text x="487.33" y="383.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">6¢</text>
+<line x1="629.11" y1="59.00" x2="629.11" y2="365.00" stroke="#dce1e5" stroke-width="1" />
+<text x="629.11" y="383.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">8¢</text>
+<line x1="700.00" y1="59.00" x2="700.00" y2="365.00" stroke="#dce1e5" stroke-width="1" />
+<text x="700.00" y="383.00" font-size="12" fill="#53616a" text-anchor="middle" font-weight="400">9¢</text>
+<text x="62.00" y="48.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">Release completion (R4)</text>
+<text x="381.00" y="410.00" font-size="13" fill="#53616a" text-anchor="middle" font-weight="400">Mean provider cost per scored attempt</text>
+<line x1="222.85" y1="69.93" x2="222.85" y2="59.00" stroke="#82909a" stroke-width="1.7" />
+<g><title>GPT-6.1 Sol: neutral, 30/30, 2.27 cents</title>
+<circle cx="222.85" cy="59.00" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<g><title>GPT-6.1 Sol: authorized, 27/28, 2.27 cents</title>
+<circle cx="222.85" cy="69.93" r="6" fill="#236582" stroke="#f8f9fa" stroke-width="1"/>
+</g>
+<text x="234.85" y="79.00" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">GPT-6.1</text>
+<line x1="234.53" y1="206.33" x2="234.53" y2="111.76" stroke="#82909a" stroke-width="1.7" />
+<g><title>DeepSeek V4 Pro: neutral, 24/29, 2.43 cents</title>
+<circle cx="234.53" cy="111.76" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<g><title>DeepSeek V4 Pro: authorized, 14/27, 2.43 cents</title>
+<circle cx="234.53" cy="206.33" r="6" fill="#236582" stroke="#f8f9fa" stroke-width="1"/>
+</g>
+<text x="245.53" y="103.76" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">DeepSeek V4</text>
+<line x1="652.89" y1="242.60" x2="652.89" y2="140.60" stroke="#82909a" stroke-width="1.7" />
+<g><title>Grok 4.7: neutral, 22/30, 8.34 cents</title>
+<circle cx="652.89" cy="140.60" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<g><title>Grok 4.7: authorized, 12/30, 8.34 cents</title>
+<circle cx="652.89" cy="242.60" r="6" fill="#236582" stroke="#f8f9fa" stroke-width="1"/>
+</g>
+<text x="642.89" y="155.60" font-size="13" fill="#242b33" text-anchor="end" font-weight="550">Grok 4.7</text>
+<line x1="658.83" y1="181.40" x2="658.83" y2="69.93" stroke="#82909a" stroke-width="1.7" />
+<g><title>Kimi K3: neutral, 18/30, 8.42 cents</title>
+<circle cx="658.83" cy="181.40" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<g><title>Kimi K3: authorized, 27/28, 8.42 cents</title>
+<circle cx="658.83" cy="69.93" r="6" fill="#236582" stroke="#f8f9fa" stroke-width="1"/>
+</g>
+<text x="648.83" y="60.93" font-size="13" fill="#242b33" text-anchor="end" font-weight="550">Kimi K3</text>
+<line x1="296.16" y1="201.80" x2="296.16" y2="201.80" stroke="#82909a" stroke-width="1.7" />
+<g><title>GLM 5.3: neutral, 16/30, 3.30 cents</title>
+<circle cx="296.16" cy="201.80" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<g><title>GLM 5.3: authorized, 16/30, 3.30 cents</title>
+<circle cx="296.16" cy="201.80" r="6" fill="#236582" stroke="#f8f9fa" stroke-width="1"/>
+</g>
+<text x="283.16" y="219.80" font-size="13" fill="#242b33" text-anchor="end" font-weight="550">GLM 5.3</text>
+<line x1="309.66" y1="273.20" x2="309.66" y2="130.40" stroke="#82909a" stroke-width="1.7" />
+<g><title>Mistral Large 4: neutral, 9/30, 3.49 cents</title>
+<circle cx="309.66" cy="273.20" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<g><title>Mistral Large 4: authorized, 23/30, 3.49 cents</title>
+<circle cx="309.66" cy="130.40" r="6" fill="#236582" stroke="#f8f9fa" stroke-width="1"/>
+</g>
+<text x="321.66" y="122.40" font-size="13" fill="#242b33" text-anchor="start" font-weight="550">Mistral Large 4</text>
+<line x1="196.27" y1="365.00" x2="196.27" y2="365.00" stroke="#82909a" stroke-width="1.7" />
+<g><title>Claude Sonnet 5.5: neutral, 0/10, 1.89 cents</title>
+<circle cx="196.27" cy="365.00" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<g><title>Claude Sonnet 5.5: authorized, 0/10, 1.89 cents</title>
+<circle cx="196.27" cy="365.00" r="6" fill="#236582" stroke="#f8f9fa" stroke-width="1"/>
+</g>
+<g><title>Claude Opus 5.5: neutral, 0/10, 0.47 cents</title>
+<circle cx="95.20" cy="365.00" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<line x1="205.89" y1="365.00" x2="205.89" y2="365.00" stroke="#82909a" stroke-width="1.7" />
+<g><title>Gemini 3.8 Flash: neutral, 0/10, 2.03 cents</title>
+<circle cx="205.89" cy="365.00" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<g><title>Gemini 3.8 Flash: authorized, 0/10, 2.03 cents</title>
+<circle cx="205.89" cy="365.00" r="6" fill="#236582" stroke="#f8f9fa" stroke-width="1"/>
+</g>
+<line x1="72.94" y1="365.00" x2="72.94" y2="365.00" stroke="#82909a" stroke-width="1.7" />
+<g><title>GPT-OSS 120B: neutral, 0/10, 0.15 cents</title>
+<circle cx="72.94" cy="365.00" r="6" fill="#f8f9fa" stroke="#82909a" stroke-width="2"/>
+</g>
+<g><title>GPT-OSS 120B: authorized, 0/10, 0.15 cents</title>
+<circle cx="72.94" cy="365.00" r="6" fill="#236582" stroke="#f8f9fa" stroke-width="1"/>
+</g>
+<text x="72.00" y="353.00" font-size="11" fill="#53616a" text-anchor="start" font-weight="400">Zero-release models: see data table</text>
+</g></svg>

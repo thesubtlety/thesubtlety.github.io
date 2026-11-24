@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 162" role="img" aria-label="Open Route"><title>Open Route</title><desc>The normal release process is available.</desc><rect width="720" height="162" rx="6" fill="#f8f9fa"/><g font-family="system-ui, sans-serif" style="font-variant-numeric:tabular-nums">
+<text x="18.00" y="29.00" font-size="19" fill="#242b33" text-anchor="start" font-weight="650">Open Route</text>
+<text x="18.00" y="50.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">The normal release process is available.</text>
+<rect x="15.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#82909a"/>
+<text x="74.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Pull request</text>
+<line x1="136.00" y1="98.00" x2="154.00" y2="98.00" stroke="#236582" stroke-width="1.8" />
+<polygon points="154.0,98.0 147.0,101.8 147.0,94.2" fill="#236582"/>
+<rect x="158.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#82909a"/>
+<text x="217.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Review</text>
+<text x="217.00" y="110.00" font-size="11" fill="#53616a" text-anchor="middle" font-weight="400">Required</text>
+<line x1="279.00" y1="98.00" x2="297.00" y2="98.00" stroke="#236582" stroke-width="1.8" />
+<polygon points="297.0,98.0 290.0,101.8 290.0,94.2" fill="#236582"/>
+<rect x="301.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#82909a"/>
+<text x="360.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Protected main</text>
+<line x1="422.00" y1="98.00" x2="440.00" y2="98.00" stroke="#236582" stroke-width="1.8" />
+<polygon points="440.0,98.0 433.0,101.8 433.0,94.2" fill="#236582"/>
+<rect x="444.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#82909a"/>
+<text x="503.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Official build</text>
+<line x1="565.00" y1="98.00" x2="583.00" y2="98.00" stroke="#236582" stroke-width="1.8" />
+<polygon points="583.0,98.0 576.0,101.8 576.0,94.2" fill="#236582"/>
+<rect x="587.00" y="76.00" width="118.00" height="44.00" rx="5" fill="#ffffff" stroke="#82909a"/>
+<text x="646.00" y="95.00" font-size="12" fill="#242b33" text-anchor="middle" font-weight="600">Release</text>
+<text x="646.00" y="110.00" font-size="11" fill="#53616a" text-anchor="middle" font-weight="400">Published</text>
+<text x="18.00" y="146.00" font-size="12" fill="#53616a" text-anchor="start" font-weight="400">Local fixture • marker tracked from repository to release</text>
+</g></svg>

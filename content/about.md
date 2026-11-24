@@ -8,7 +8,9 @@ I’m Noah Potti, a security engineer and co-founder of [Adversis](https://www.a
 
 I’ve spent about twelve years in offensive security, red teaming, and adversarial engineering. Most recently, I worked at Okta on browser- and identity-based attacks, supported breach response, and assessed SaaS products built around AI models. Before that, I was part of the founding red team at Capital One, worked on larger engagements at Symantec, and led a red team at Gen Digital.
 
-Much of my current work involves identity, tenant isolation, credentials, and AI agents. I’m particularly interested in what an attacker can reach after an initial compromise, and how to limit that access. With agents, that means figuring out how to give them enough access to be useful without letting injected instructions redirect their work.
+I set technical direction for security problems that span products, infrastructure, and teams, and stay hands-on through building and testing the fix. Recently, I helped an AI-enabled SaaS company go from ad hoc security to release requirements its teams agreed on, then checked that what shipped met them. I also built an identity-security pilot end to end: the software, the infrastructure, and the AI evaluations.
+
+The problems I work on most involve identity, tenant isolation, credentials, and AI agents. I’m particularly interested in what an attacker can reach after an initial compromise, and how to limit that access. With agents, that means figuring out how to give them enough access to be useful without letting injected instructions redirect their work.
 
 I co-authored [_The Effective Red Team: Adversary Emulation Inside the Enterprise_](https://nostarch.com/effective-red-team), published by No Starch Press, with Trevin Edgeworth and Jordan Potti. I continue to think how security fixes can address the underlying problems, and whether those fixes stand the test of time.
 
