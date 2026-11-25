@@ -1,6 +1,0 @@
-noticing: |
-  Most of the serious compromises I’ve been part of didn’t need a zero-day. Something already in the environment, a token, a service account, a browser extension, a forgotten permission, had more access than anyone remembered granting it. Much of the work is finding the gap between what a system is supposed to reach and what it can actually reach, and then closing it, especially across teams and at scale, where talking and influencing change is the hard part.
-
-  Agents make this harder. The software holding the credential now also reads untrusted text and decides what to do with it. It’s the new browser, except we’re skipping thirty years of hardening and shipping with prompt injection unresolved. An agent needs broad latitude to be useful and still must not be talked into a different task: a read-only assistant that injected text can convince to ship what it found to somewhere it shouldn’t.
-
-  The other problem is measurement. Security has little reliable evidence about which controls actually work. In red teaming I’ve watched mature programs, full of controls and checklists, still fall, and most security metrics average bandaids with heart surgery. The papers that convinced me are on the [resources page](/resources/).

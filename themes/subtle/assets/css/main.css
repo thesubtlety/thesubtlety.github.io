@@ -137,6 +137,7 @@ th { font-family: var(--mono); font-size: 0.68rem; font-weight: 500; letter-spac
 .tool-name { font-family: var(--mono); font-size: 0.85rem; font-weight: 500; color: var(--ink); }
 .tool-name:hover { color: var(--accent); }
 .tool-meta { display: flex; gap: 0.9rem; font-family: var(--mono); font-size: 0.66rem; color: var(--ink-faint); white-space: nowrap; }
+.tool-meta .tool-tag { color: var(--ink-soft); }
 .tool-desc { margin: 0.35rem 0 0; }
 .tool-origin { margin: 0.2rem 0 0; font-size: 0.85rem; color: var(--ink-soft); }
 .tool-group { margin-top: 2.5rem; }

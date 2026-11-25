@@ -1,0 +1,11 @@
+{{- /* Newest last commit first. A pinned `pushed` overrides the GitHub API. */ -}}
+{{- $dated := slice -}}
+{{- range . -}}
+  {{- $pushed := .pushed -}}
+  {{- if and .repo (not $pushed) }}{{ $pushed = (partial "github-stats.html" .repo).pushed }}{{ end -}}
+  {{- $key := "" }}{{ with $pushed }}{{ $key = time.Format "2006-01-02" . }}{{ end -}}
+  {{- $dated = $dated | append (dict "tool" . "key" $key) -}}
+{{- end -}}
+{{- $out := slice -}}
+{{- range sort $dated "key" "desc" }}{{ $out = $out | append .tool }}{{ end -}}
+{{- return $out -}}

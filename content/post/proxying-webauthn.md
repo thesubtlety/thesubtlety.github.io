@@ -6,7 +6,7 @@ summary: "A browser-extension bridge forwards a site's WebAuthn request to a Yub
 description: "A proof-of-concept bridge forwards a login's WebAuthn ceremony to a remote browser and authenticator, as a way to test whether a sign-in policy requires a trusted device or only a successful key tap."
 tags: ["webauthn", "red team", "research"]
 featured: true
-blurb: "Two browser extensions forward a site's WebAuthn request to a YubiKey on another computer. No cookies copied. A way to test whether sign-in policy checks the device or just the key."
+blurb: "Two browser extensions forward WebAuthn requests to a YubiKey on another computer without copying cookies. Manage your browser extensions."
 ---
 
 All bets are off post-exploitation. I was curious how phishing-resistant authenticators could be abused from the browser, and since everything is JavaScript I had GPT build a bridge that lets you sign in to a browser using a remote YubiKey on another computer. Two extensions forward the site's WebAuthn request to the remote browser for tapping and return the signed assertion for authentication.

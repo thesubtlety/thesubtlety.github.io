@@ -8,7 +8,7 @@ summary: "Every finding is closed, and the attack still works. Closing tickets f
 description: "Why closed findings don't prove an attack is harder, and what it takes to build evidence that your most important security assumptions are still true."
 tags: ["red team", "adversarial engineering", "security engineering"]
 featured: true
-blurb: "Five findings, five tickets, all closed. Can a compromised employee still reach customer data? The tickets can't say. Adversarial engineering is the work of finding out, and keeping the answer current."
+blurb: "Closing security tickets doesn't tell you whether attacks are still possible. Adversarial engineering tests whether attack paths still exist and whether security controls work over time."
 ---
 
 *This essay picks up a thread from* [The Effective Red Team](https://nostarch.com/effective-red-team)*, forthcoming in January 2027, and from* [Beyond the Security Organization](/post/beyond-the-security-organization/)*. The first is largely about building a red-team function that turns successful attacks into better security. The second asks how security organizations turn what their specialists learn into lasting change. This is a narrower question: what happens after we get good at proving ourselves wrong?*

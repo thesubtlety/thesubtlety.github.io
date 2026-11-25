@@ -6,7 +6,7 @@ summary: "From specialist silos to a closed-loop security learning system."
 description: "A proposed operating model in which security evidence changes the right layer of the system and is then revalidated."
 tags: ["security", "operating model", "assurance"]
 featured: true
-blurb: "A closed-loop operating model where security evidence changes the right layer of the system and gets revalidated, instead of becoming a ticket. Also as a PDF."
+blurb: "A model for using security test results to change the systems that need improvement and test those changes again."
 ---
 
 {{< wp-style >}}

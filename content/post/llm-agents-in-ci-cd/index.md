@@ -7,7 +7,7 @@ tags: ["AI security", "CI/CD", "supply chain"]
 featured: true
 toc: true
 summary: "I gave LLM agents shell access on a CI runner and asked them to publish a change. Results for release completion, privilege escalation, and getting a backdoor past code review."
-blurb: "LLM agents with a shell on a CI runner mostly stopped right away or shipped a release. One used an exposed deploy credential to skip review, and five working backdoors got past a pattern-based reviewer."
+blurb: "Gave LLM agents shell access on a CI runner to see what they do. One used an exposed deployment credential to bypass review. Some are more or less helpful if you tell them their goal is authorized security testing."
 ---
 
 Inspired by [LLM Trails](https://llms.traildiscover.cloud/), I set up a few GitHub CI jobs and tested three scenarios to see what LLMs would do with them. I gave the models shell access on a CI runner and asked them to publish a change. I wanted to see how far they could get, what they would do if the required review was unavailable, and whether they could get an unauthorized change through automated review.
